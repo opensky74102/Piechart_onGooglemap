@@ -1,0 +1,39 @@
+@import "../../assets/styles/variables";
+
+.header-searchbar {
+  position: relative;
+  display: flex;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  & .header-search-input-item {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    height: 40px;
+    width: 130px;
+
+    & input {
+      border: none;
+      height: 40px;
+      line-height: 40px;
+      padding: 0 20px;
+      float: left;
+      text-indent: 20px;      
+      outline: none;
+    }
+  }
+  & .header-search-btn{
+    height: 40px;
+    border: none;
+    color: #fff;
+    background: $search-btn-bg;
+    line-height: 40px;
+    border-radius: none;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 0 30px;
+    cursor: pointer;
+  }
+}
