@@ -7,7 +7,9 @@ import './googlemap.scss';
 const GoogleMapComponent = React.memo(function Map() {
   const [value, setValue] = useState(0);
   const [openPopupModal, setOpenPopup] = useState(false);
-  const { ref, map, google } = useGoogleMaps("AIzaSyDZ8jmGzNoCQp5NooOYaSZH3yT31Jt4czg",
+  const api = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+  const { ref, map, google } = useGoogleMaps(
+    api ? api : "",
     {
       center: { lat: 0, lng: 0 },
       zoom: 3,
@@ -35,7 +37,7 @@ const GoogleMapComponent = React.memo(function Map() {
         <FontAwesomeIcon icon={faThumbsUp} className="fa_icon" color="white" size="xl" />
       </div>
       {
-        openPopupModal==true?null:null
+        openPopupModal == true ? null : null
       }
     </>
   );
