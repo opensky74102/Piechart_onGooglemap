@@ -44,7 +44,7 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move }: 
     setCreate(false);
     // setClicks([...clicks, e.latLng!]);
     setOpenPopup(true);
-  };
+  }
   const onIdle = (m: google.maps.Map) => {
     setZoom(m.getZoom()!);
     setCenter(m.getCenter()!.toJSON());
@@ -55,13 +55,23 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move }: 
     setClicks([]);
     setOpenPopup(false);
   }
-
+  const zoomInOut = (zoomInOut: number) => {
+    let temp = Math.max(zoom + zoomInOut, 1);
+    setZoom(temp);
+  }
   useEffect(() => {
     if (ref.current && !map) {
       setMap(new window.google.maps.Map(ref.current, {}));
     }
+    navigator?.geolocation.getCurrentPosition(({ coords: { latitude: lat, longitude: lng } }) => {
+      const pos = { lat, lng }
+      setCurrentGeo(pos);
+      setCenter(pos);
+      move(pos);
+    })
 
   }, [ref, map]);
+
   useEffect(() => {
     let con = structuredClone(center)
     con = {
@@ -87,6 +97,7 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move }: 
             zoom={zoom}
             scrollwheel={false}
             style={{ flexGrow: "1", height: "100%" }}
+            disableDefaultUI={true}
           >
             {
               clicks.map((latLng, i) => {
@@ -128,7 +139,7 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move }: 
       {/* {openPopup ? (
         <PopUp setCenter={setCenter} setZoom={setZoom} zoom={zoom} center={center} pos={currentPos} c_geo={currentGeo} />
       ) : null} */}
-      <Panel clear={onClear} />
+      <Panel clear={onClear} zoomInOut={zoomInOut} />
 
     </div>
   )

@@ -1,5 +1,8 @@
 import react, { useEffect, useState } from 'react';
 import './footer.scss';
+import { ANTENALIST, ANGLELIST } from '../../consts/Page_Const';
+
+
 
 export default function CFooter({ click, center }: any) {
   const [latVal, setLatValue] = useState(40.7);
@@ -9,9 +12,9 @@ export default function CFooter({ click, center }: any) {
 
   const [infoes, setInfoes] = useState([]);
   const [itemInfo, setItemInfo] = useState({
-    mood:"",
-    total:0,
-    color:'#000000'
+    mood: "",
+    total: 0,
+    color: '#000000'
   })
   const handleChangeValue = (e: any) => {
     let { value, min, max, name } = e.target;
@@ -41,29 +44,30 @@ export default function CFooter({ click, center }: any) {
     console.log("hello")
     click(latVal, lngVal, pieSize, true);
   }
-  const handleAddClick = ()=>{
+  const handleAddClick = () => {
 
   }
-  const handleChangeInfo = (e:any)=>{
-    const {name, value, min} = e.target;
+  const handleChangeInfo = (e: any) => {
+    const { name, value, min } = e.target;
     let temp = structuredClone(itemInfo);
+    console.log(name, value)
     switch (name) {
       case "":
-        
+
         break;
-    
+
       default:
         break;
     }
   }
   return (
     <footer className='footer'>
-      <h5>Map Tools</h5>
+      <h5>Create New Pie Chart</h5>
       <div className='footer__content'>
         <div className='infoes_form'>
           <div className='info_form'>
             <div className='info_title'>
-              <label htmlFor="latitude">Latitude</label>
+              <label htmlFor="latitude">Latitude:</label>
             </div>
             <input
               type="number"
@@ -72,13 +76,13 @@ export default function CFooter({ click, center }: any) {
               id='latitude'
               max={90} min={-90}
               placeholder='Latitude'
-              value={latVal}
+              value={latVal==0?'':latVal}
               onInput={handleChangeValue}
             />
           </div>
           <div className='info_form'>
             <div className='info_title'>
-              <label htmlFor='longitude'>Longitude</label>
+              <label htmlFor='longitude'>Longitude:</label>
             </div>
             <input
               type="number"
@@ -87,7 +91,20 @@ export default function CFooter({ click, center }: any) {
               id='longitude'
               max={180} min={-180}
               placeholder='Longitude'
-              value={lngVal}
+              value={lngVal==0?'':lngVal}
+              onInput={handleChangeValue}
+            />
+          </div>
+          <div className='info_form'>
+            <div className='info_title'>
+              <label htmlFor='name'>Name:</label>
+            </div>
+            <input
+              type="text"
+              className='info_input'
+              name="name"
+              id='name'
+              placeholder='Name'
               onInput={handleChangeValue}
             />
           </div>
@@ -115,21 +132,44 @@ export default function CFooter({ click, center }: any) {
           <div className='item_infoes'>
             <div className='info'>
               <div className='label'>
-                <label>Mood:</label>
+                <label>Sector:</label>
               </div>
-              <input type="text" className='info_input' name='mood' onInput={handleChangeInfo} />
+              <input type="text" className='info_input' placeholder='Sector' name='sector' onInput={handleChangeInfo} />
             </div>
             <div className='info'>
               <div className='label'>
-                <label>Total:</label>
+                <label>Angle:</label>
               </div>
-              <input type="number" min={0} className='info_input' name='total' onInput={handleChangeInfo} />
+              {/* <input type="number" min={0} className='info_input' name='angle' onInput={handleChangeInfo} /> */}
+              <select className='info_input' name="angle" id="angle" onInput={handleChangeInfo}>
+                {
+                  ANGLELIST.map((val, ind) => {
+                    return (
+                      <option key={ind} value={val}>{val}</option>
+                    )
+                  })
+                }
+              </select>
+
             </div>
             <div className='info'>
               <div className='label'>
                 <label>Color:</label>
               </div>
               <input type="color" className='info_input' name='color' onInput={handleChangeInfo} />
+            </div>
+            <div className='info'>
+              <div className='label'>
+                <label>Antena Type:</label>
+              </div>
+              {/* <input type="select" className='info_input' name='antena' onInput={handleChangeInfo} /> */}
+              <select className='info_input' name="antena" id="antena" onInput={handleChangeInfo}>
+                {ANTENALIST.map((val, ind) => {
+                  return (
+                    <option key={ind} value={val}>{val}</option>
+                  )
+                })}
+              </select>
             </div>
             <div className='info'>
               <input type="button" className='info_input' name="buttom" value="add item" />
