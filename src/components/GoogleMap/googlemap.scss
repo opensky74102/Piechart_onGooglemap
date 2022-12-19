@@ -27,19 +27,25 @@
   }
 }
 
-.google_map_panel{
+.map_control_panel{
   position: absolute;
-  top: 35%;
   right: 30px;
-  border-radius: 50%;
-  padding: 10px;
-  border: 1px solid white;
-  background: $main-btn-color;
-  .fa_icon{
-  }
-  &:hover{
-    color: $main-btn-color;
-    opacity: 0.4;
-    cursor: pointer;
+  top: 30%;
+
+  .google_map_panel{
+    
+    border-radius: 50%;
+    padding: 10px;
+    border: 1px solid white;
+    background: $main-btn-color;
+    margin-top: 20px;
+    text-align: center;
+    .fa_icon{
+    }
+    &:hover{
+      color: $main-btn-color;
+      opacity: 0.4;
+      cursor: pointer;
+    }
   }
 }

@@ -14,13 +14,13 @@
     display: flex;
     & .infoes_form {
       & .info_form {
-        width: 30%;
+        // width: 70%;
         margin-top: 10px;
         margin-bottom: 10px;
         display: flex;
   
         .info_title {
-          width: 90%;
+          width: 90px;
           padding: auto;
           margin: auto;
         }
@@ -30,7 +30,7 @@
         }
   
         .info_input {
-          width: 400px;
+          width: 250px;
           height: 40px;
           font-size: 20px;
           text-indent: 30px;
@@ -61,29 +61,29 @@
       }
     }
     & .items_form{
-      width: 70%;
+      width: 80%;
       & .item_infoes{
-        width: 90%;
-        display: flex;
-        margin-top: 20px;
         padding:auto;
         & .info{
           display: flex;
-          margin-left: 15px;
+          margin-left: 25px;
+          margin-top: 10px;
+          margin-bottom: 15px;
           .label{
-            align-items: center;
+            width: 150px;
             margin-top: auto;
             margin-bottom: auto;
             label{
               margin-right: 15px;
-              width: 40px;
             }
           }
           .info_input{
-            width: 100px;
+            width:180px;
             height: 30px;
             font-size: 22px;
-            // border: none;
+            margin-top: auto;
+            margin-bottom: auto;
+            border: none;
             // border-bottom: 2px solid $main-btn-color;
             outline: none;
             & button{
