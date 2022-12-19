@@ -1,17 +1,38 @@
 @import '../../assets/styles/variables';
 
 .footer {
-  width: 80%;
+  position: fixed;
+  width: 90%;
   padding-top: 20px;
   padding-bottom: 100px;
-  margin: auto;
+  right: 5%;
+  background: white;
 
-  & h5 {
-    font-size: 18px;
+  &.hide{
+    top:90%;
   }
-
+  &.display{
+    bottom: 2%;
+  }
+  &_control{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+    .fa_icon{
+      color: $main-btn-color;
+    }
+    & h5 {
+      font-size: 18px;
+    }
+  
+  }
+ 
   &__content{
     display: flex;
+    padding: 30px;
     & .infoes_form {
       & .info_form {
         // width: 70%;

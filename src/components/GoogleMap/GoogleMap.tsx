@@ -12,7 +12,7 @@ const render = (status: Status) => {
   return <h1>{status}</h1>;
 };
 
-const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move }: any) => {
+const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move, openModal }: any) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
   const [clicks, setClicks] = useState<google.maps.LatLng[]>([]);
@@ -22,7 +22,6 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move }: 
     lng: -73.935242,
   });
   const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 });
-  const [openPopup, setOpenPopup] = useState(false);
   const [currentGeo, setCurrentGeo] = useState({ lat: 0, lng: 0 });
   const results = [
     { mood: "Angry", total: 1499, shade: "#0a9627" },
@@ -42,8 +41,6 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move }: 
       lng: e.latLng.lng(),
     });
     setCreate(false);
-    // setClicks([...clicks, e.latLng!]);
-    setOpenPopup(true);
   }
   const onIdle = (m: google.maps.Map) => {
     setZoom(m.getZoom()!);
@@ -53,7 +50,6 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move }: 
   }
   const onClear = () => {
     setClicks([]);
-    setOpenPopup(false);
   }
   const zoomInOut = (zoomInOut: number) => {
     let temp = Math.max(zoom + zoomInOut, 1);
@@ -87,7 +83,7 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move }: 
   }, [changeCenter, pieSize, create])
   return (
     <div className="google-box">
-      <div style={{ height: "650px" }}>
+      <div className="google-box-map">
         <Wrapper apiKey={"AIzaSyDZ8jmGzNoCQp5NooOYaSZH3yT31Jt4czg"} render={render}>
           <Map
             center={center}
@@ -136,10 +132,7 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move }: 
           </Map>
         </Wrapper>
       </div>
-      {/* {openPopup ? (
-        <PopUp setCenter={setCenter} setZoom={setZoom} zoom={zoom} center={center} pos={currentPos} c_geo={currentGeo} />
-      ) : null} */}
-      <Panel clear={onClear} zoomInOut={zoomInOut} />
+      <Panel clear={onClear} zoomInOut={zoomInOut}  />
 
     </div>
   )
