@@ -1,10 +1,12 @@
 import react, { useEffect, useState } from 'react';
 import './footer.scss';
 import { ANTENALIST, ANGLELIST } from '../../consts/Page_Const';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
 
 
 
-export default function CFooter({ click, center }: any) {
+export default function CFooter({ click, center, }: any) {
   const [latVal, setLatValue] = useState(40.7);
   const [lngVal, setLngValue] = useState(-74);
   const [tempPieSize, setTempPieSize] = useState(6);
@@ -16,6 +18,7 @@ export default function CFooter({ click, center }: any) {
     total: 0,
     color: '#000000'
   })
+  const [openPopup, setOpenPopup] = useState('hide');
   const handleChangeValue = (e: any) => {
     let { value, min, max, name } = e.target;
 
@@ -60,9 +63,19 @@ export default function CFooter({ click, center }: any) {
         break;
     }
   }
+  const onChangeOpenStatus = () => {
+  if (openPopup === 'hide') {
+    setOpenPopup('display');
+  }else{
+    setOpenPopup('hide')
+  }
+  }
   return (
-    <footer className='footer'>
-      <h5>Create New Pie Chart</h5>
+    <footer className={"footer "+ openPopup }>
+      <div className="footer_control">
+        <h5>Map Tools</h5>
+        <FontAwesomeIcon icon={openPopup==="display"?faToggleOff:faToggleOn} className="fa_icon" color="black" size="xl" onClick={() => onChangeOpenStatus()} />
+      </div>
       <div className='footer__content'>
         <div className='infoes_form'>
           <div className='info_form'>
@@ -76,7 +89,7 @@ export default function CFooter({ click, center }: any) {
               id='latitude'
               max={90} min={-90}
               placeholder='Latitude'
-              value={latVal==0?'':latVal}
+              value={latVal == 0 ? '' : latVal}
               onInput={handleChangeValue}
             />
           </div>
@@ -91,7 +104,7 @@ export default function CFooter({ click, center }: any) {
               id='longitude'
               max={180} min={-180}
               placeholder='Longitude'
-              value={lngVal==0?'':lngVal}
+              value={lngVal == 0 ? '' : lngVal}
               onInput={handleChangeValue}
             />
           </div>

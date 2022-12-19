@@ -1,13 +1,11 @@
 import {useState, useEffect} from 'react';
 import Navbar from "../../components/Navbar";
 import GoogleMapComponent from '../../components/GoogleMap/GoogleMap';
-// import GoogleMap2 from "../../components/GoogleMap/GoogleMap2";
 import CFooter from "../Layout";
 import "./Home.scss";
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 export default function Home() {
-  const [pieSize, setPieSize] = useState(12); // initial zoom
+  const [pieSize, setPieSize] = useState(12); 
   const [center, setCenter] = useState<google.maps.LatLngLiteral>({
     lat: 40.730610,
     lng: -73.935242,
@@ -29,7 +27,7 @@ export default function Home() {
     <>
       <Navbar />
       <GoogleMapComponent pieSize={pieSize} changeCenter={center} create={createPieChart} setCreate={setCreatePieChart} move={setCenter}/>
-      <CFooter center={center} click={handleClickCreate}/>
+      <CFooter center={center} click={handleClickCreate} />
     </>
   )
 }
