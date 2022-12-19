@@ -10,52 +10,88 @@
     font-size: 18px;
   }
 
-  & .infoes_form {
-    & .info_form {
-      width: 300px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      display: flex;
-
-      .info_title {
-        width: 200px;
-        padding: auto;
-        margin: auto;
+  &__content{
+    display: flex;
+    & .infoes_form {
+      & .info_form {
+        width: 30%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: flex;
+  
+        .info_title {
+          width: 90%;
+          padding: auto;
+          margin: auto;
+        }
+  
+        label {
+          width: 70px;
+        }
+  
+        .info_input {
+          width: 400px;
+          height: 40px;
+          font-size: 20px;
+          text-indent: 30px;
+          outline: none;
+          border: none;
+  
+        }
+  
+        .btn {
+          box-shadow: 0px 0px 0px 7px rgb(255 255 255 / 20%);
+          float: right;
+          padding: 13px 32px;
+          position: relative;
+          border-radius: 30px;
+          color: #fff;
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 11px;
+          text-decoration: none;
+          background: $main-btn-color;
+          border: 2px solid $main-btn-hover-color;
+  
+          &:hover {
+            box-shadow: 0px 0px 0px 7px rgb(255 255 255 / 10%);
+          }
+        }
+  
       }
+    }
+    & .items_form{
+      width: 70%;
+      & .item_infoes{
+        width: 90%;
+        display: flex;
+        margin-top: 20px;
+        padding:auto;
+        & .info{
+          display: flex;
+          margin-left: 15px;
+          .label{
+            align-items: center;
+            margin-top: auto;
+            margin-bottom: auto;
+            label{
+              margin-right: 15px;
+              width: 40px;
+            }
+          }
+          .info_input{
+            width: 100px;
+            height: 30px;
+            font-size: 22px;
+            // border: none;
+            // border-bottom: 2px solid $main-btn-color;
+            outline: none;
+            & button{
 
-      label {
-        width: 70px;
-      }
-
-      .info_input {
-        width: 400px;
-        height: 40px;
-        font-size: 20px;
-        text-indent: 30px;
-        outline: none;
-        border: none;
-
-      }
-
-      .btn {
-        box-shadow: 0px 0px 0px 7px rgb(255 255 255 / 20%);
-        float: right;
-        padding: 13px 32px;
-        position: relative;
-        border-radius: 30px;
-        color: #fff;
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: 11px;
-        text-decoration: none;
-        background: $main-btn-color;
-        border: 2px solid $main-btn-hover-color;
-
-        &:hover {
-          box-shadow: 0px 0px 0px 7px rgb(255 255 255 / 10%);
+            }           
+          }
         }
       }
-
     }
   }
 }
