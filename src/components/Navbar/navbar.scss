@@ -1,8 +1,5 @@
 @import '../../assets/styles/variables';
 
-$main-tab-color: #4DB7FE;
-$main-navbar-bg: black;
-
 @mixin breakpoint($point) {
   @if $point ==md {
 
@@ -14,9 +11,11 @@ $main-navbar-bg: black;
 }
 
 .header {
-  background: $main-navbar-bg;
+  position: fixed;
+  width: 100%;
   height: 80px;
-  padding: 0 3rem;
+  z-index: 10;
+  background: rgb(00,0,0, 0.52);
 
   @include breakpoint(md) {
     padding: 0 3rem;
@@ -30,7 +29,9 @@ $main-navbar-bg: black;
     margin: 0 auto;
     max-width: 1920px;
     height: 100%;
+    background: transparent;
     display: flex;
+    padding: 0 3rem;
     align-items: center;
     justify-content: space-between;
     position: relative;
