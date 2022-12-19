@@ -6,6 +6,8 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@googlemaps/react-wrapper": "^1.1.35",
+    "@googlemaps/typescript-guards": "^2.0.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -14,12 +16,13 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "dotenv": "^16.0.3",
+    "fast-equals": "^4.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-google-maps": "^0.0.3",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",
+    "reactjs-popup": "^2.0.5",
     "sass": "^1.57.0",
     "typescript": "^4.9.4",
     "web-vitals": "^2.1.4"
@@ -47,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/google.maps": "^3.51.0"
   }
 }
