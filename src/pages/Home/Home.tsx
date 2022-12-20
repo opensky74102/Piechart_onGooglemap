@@ -11,16 +11,13 @@ export default function Home() {
     lng: -73.935242,
   });
   const [createPieChart, setCreatePieChart] = useState(false);
-  const handleClickCreate = (latVal:number, lngVal:number, pieSize:number, create?:boolean|undefined)=>{
+  const handleClickCreate = (latVal:number, lngVal:number, create?:boolean|undefined)=>{
     let con = structuredClone(center)
     con = {
       lat: Number(latVal),
       lng: Number(lngVal),
     }
     setCenter(con)
-    setPieSize(pieSize);
-    console.log(create)
-    console.log(create?true:false)
     setCreatePieChart(create?true:false);
   }
   return (
