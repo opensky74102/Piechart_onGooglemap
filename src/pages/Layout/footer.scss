@@ -16,21 +16,22 @@
   // background: rgb(0,0,0, 0.3);
 
   &.hide {
-    bottom: -27%;
-
+    bottom: calc(15px - 35%);
   }
 
   &.display {
     bottom: 2%;
   }
-  &_top_toggle{
+
+  &_top_toggle {
     width: 100%;
     padding-top: 20px;
     border: none;
     height: 30px;
     text-align: center;
-    .fa_icon{
-      color: rgb(0,0,0, 0.5);
+
+    .fa_icon {
+      color: rgb(0, 0, 0, 0.5);
     }
   }
 
@@ -61,13 +62,13 @@
         display: flex;
 
         .info_title {
-          width: 70px;
+          width: 100px;
           padding: auto;
           margin: auto;
         }
 
         label {
-          width: 70px;
+          width: 100px;
           font-size: 14px;
           // color: white;
         }

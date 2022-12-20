@@ -110,14 +110,14 @@ export default function CFooter({ click, center, }: any) {
         <div className='infoes_form'>
         <div className='info_form'>
             <div className='info_title'>
-              <label htmlFor='name'>Name:</label>
+              <label htmlFor='towername'>Tower Name:</label>
             </div>
             <input
               type="text"
               className='info_input'
-              name="name"
-              id='name'
-              placeholder='Name'
+              name="towername"
+              id='towername'
+              placeholder='Tower Name'
               onInput={handleChangeValue}
             />
           </div>
