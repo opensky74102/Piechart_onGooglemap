@@ -91,7 +91,7 @@ export default function CFooter({ click, center, }: any) {
       setOpenPopup('hide')
     }
   }
-  const handleSliderChange = () => {
+  const handleRadiusSliderChange = () => {
 
   }
   const handleRotateSliderChange = () => {
@@ -150,7 +150,7 @@ export default function CFooter({ click, center, }: any) {
           </div>
           <div className='info_form'>
             <div className='info_title'>
-              <label htmlFor="pie_size">Rotate:</label>
+              <label htmlFor="rotate">Rotate:</label>
             </div>
             <Slider
               min={0}
@@ -174,21 +174,40 @@ export default function CFooter({ click, center, }: any) {
               onInput={handleChangeValue}
             /> */}
           </div>
+          <div className='info_form'>
+            <div className='info_title'>
+              <label htmlFor="radius">Radius:</label>
+            </div>
+            <Slider
+                min={1}
+                max={100}
+                defaultValue={10}
+                onChange={handleRadiusSliderChange}
+                startPoint={0}
+                className="info_input"
+              />
+          </div>
         </div>
         <div className='items_form'>
 
           <div className='item_infoes'>
-            <div className='info'>
+          <div className='info'>
               <div className='label'>
-                <label>Sector:</label>
+                <label>Antena Type:</label>
               </div>
-              <input type="text" className='info_input' placeholder='Sector' name='sector' onInput={handleChangeInfo} />
+              {/* <input type="select" className='info_input' name='antena' onInput={handleChangeInfo} /> */}
+              <select className='info_input' name="antena" id="antena" onInput={handleChangeInfo}>
+                {ANTENALIST.map((val, ind) => {
+                  return (
+                    <option key={ind} value={val}>{val}</option>
+                  )
+                })}
+              </select>
             </div>
             <div className='info'>
               <div className='label'>
-                <label>Angle:</label>
+                <label>Antena Angle:</label>
               </div>
-              {/* <input type="number" min={0} className='info_input' name='angle' onInput={handleChangeInfo} /> */}
               <select className='info_input' name="angle" id="angle" onInput={handleChangeInfo}>
                 {
                   ANGLELIST.map((val, ind) => {
@@ -205,32 +224,6 @@ export default function CFooter({ click, center, }: any) {
                 <label>Color:</label>
               </div>
               <input type="color" className='info_input' name='color' onInput={handleChangeInfo} />
-            </div>
-            <div className='info'>
-              <div className='label'>
-                <label>Antena Type:</label>
-              </div>
-              {/* <input type="select" className='info_input' name='antena' onInput={handleChangeInfo} /> */}
-              <select className='info_input' name="antena" id="antena" onInput={handleChangeInfo}>
-                {ANTENALIST.map((val, ind) => {
-                  return (
-                    <option key={ind} value={val}>{val}</option>
-                  )
-                })}
-              </select>
-            </div>
-            <div className='info'>
-              <div className='label'>
-                <label>Radius :</label>
-              </div>
-              <Slider
-                min={1}
-                max={100}
-                defaultValue={10}
-                onChange={handleSliderChange}
-                startPoint={0}
-                className="info_input"
-              />
             </div>
             <div className='info'>
               <input type="button" className='info_input' name="buttom" value="add item" />
