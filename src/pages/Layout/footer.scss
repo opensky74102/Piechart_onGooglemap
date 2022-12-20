@@ -12,7 +12,7 @@
   padding: 20px;
   transition: all 1s ease-in-out;
   // background: rgb(0,0,0, 0.3);
-  
+
   &.hide {
     bottom: -28%;
 
@@ -21,11 +21,12 @@
   &.display {
     bottom: 2%;
   }
+
   &_control {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+
     .fa_icon {
       color: $main-btn-color;
     }
@@ -39,6 +40,7 @@
 
   &__content {
     display: flex;
+
     & .infoes_form {
       & .info_form {
         // width: 70%;
@@ -125,12 +127,16 @@
             margin-bottom: auto;
             border: none;
             background: rgb(0, 0, 0, 0.52);
+            display: flex;
+            align-items: center;
             background-color: hsla(0, 0%, 100%, .9);
             // color: white;
             // border-bottom: 2px solid $main-btn-color;
             outline: none;
 
-            & button {}
+            .rc-slider-handle {
+              margin-top: 0 !important;
+            }
           }
         }
       }
