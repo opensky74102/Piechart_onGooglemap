@@ -3,9 +3,8 @@ import './footer.scss';
 import { ANTENALIST, ANGLELIST } from '../../consts/Page_Const';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
-
-
-
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 export default function CFooter({ click, center, }: any) {
   const [latVal, setLatValue] = useState(40.7);
   const [lngVal, setLngValue] = useState(-74);
@@ -64,17 +63,20 @@ export default function CFooter({ click, center, }: any) {
     }
   }
   const onChangeOpenStatus = () => {
-  if (openPopup === 'hide') {
-    setOpenPopup('display');
-  }else{
-    setOpenPopup('hide')
+    if (openPopup === 'hide') {
+      setOpenPopup('display');
+    } else {
+      setOpenPopup('hide')
+    }
   }
+  const handleSliderChange=()=>{
+
   }
   return (
-    <footer className={"footer "+ openPopup }>
+    <footer className={"footer " + openPopup}>
       <div className="footer_control">
         <h5>Map Tools</h5>
-        <FontAwesomeIcon icon={openPopup==="display"?faToggleOff:faToggleOn} className="fa_icon" color="black" size="xl" onClick={() => onChangeOpenStatus()} />
+        <FontAwesomeIcon icon={openPopup === "display" ? faToggleOff : faToggleOn} className="fa_icon" color="black" size="xl" onClick={() => onChangeOpenStatus()} />
       </div>
       <div className='footer__content'>
         <div className='infoes_form'>
@@ -183,6 +185,19 @@ export default function CFooter({ click, center, }: any) {
                   )
                 })}
               </select>
+            </div>
+            <div className='info'>
+              <div className='label'>
+                <label>Radius :</label>
+              </div>
+              <Slider
+                min={1}
+                max={100}
+                defaultValue={10}
+                onChange={handleSliderChange}     
+                startPoint={0}           
+                className="info_input"
+              />
             </div>
             <div className='info'>
               <input type="button" className='info_input' name="buttom" value="add item" />
