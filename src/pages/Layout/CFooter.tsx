@@ -105,6 +105,19 @@ export default function CFooter({ click, center, }: any) {
       </div>
       <div className='footer__content'>
         <div className='infoes_form'>
+        <div className='info_form'>
+            <div className='info_title'>
+              <label htmlFor='name'>Name:</label>
+            </div>
+            <input
+              type="text"
+              className='info_input'
+              name="name"
+              id='name'
+              placeholder='Name'
+              onInput={handleChangeValue}
+            />
+          </div>
           <div className='info_form'>
             <div className='info_title'>
               <label htmlFor="latitude">Latitude:</label>
@@ -135,19 +148,7 @@ export default function CFooter({ click, center, }: any) {
               onInput={handleChangeValue}
             />
           </div>
-          <div className='info_form'>
-            <div className='info_title'>
-              <label htmlFor='name'>Name:</label>
-            </div>
-            <input
-              type="text"
-              className='info_input'
-              name="name"
-              id='name'
-              placeholder='Name'
-              onInput={handleChangeValue}
-            />
-          </div>
+      
           <div className='info_form'>
             <div className='info_title'>
               <label htmlFor="rotate">Rotate:</label>
@@ -207,6 +208,7 @@ export default function CFooter({ click, center, }: any) {
               <div className='label'>
                 <label>Frequency:</label>
               </div>
+              <input type="number" className='info_input' name='frequency' />
             </div>
           <div className='info'>
               <div className='label'>
