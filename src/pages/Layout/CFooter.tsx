@@ -2,7 +2,7 @@ import react, { useEffect, useState } from 'react';
 import './footer.scss';
 import { ANTENALIST, ANGLELIST, COMPASS } from '../../consts/Page_Const';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faArrowUp, faArrowDown, faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -99,9 +99,12 @@ export default function CFooter({ click, center, }: any) {
   }
   return (
     <footer className={"footer " + openPopup}>
+      <div className='footer_top_toggle'  onClick={() => onChangeOpenStatus()} >
+        <FontAwesomeIcon icon={openPopup === "display" ? faArrowDown : faArrowUp} className="fa_icon" color="black" size="xl"/>
+      </div>
       <div className="footer_control">
         <h5>Map Tools</h5>
-        <FontAwesomeIcon icon={openPopup === "display" ? faToggleOff : faToggleOn} className="fa_icon" color="black" size="xl" onClick={() => onChangeOpenStatus()} />
+        {/* <FontAwesomeIcon icon={openPopup === "display" ? faToggleOff : faToggleOn} className="fa_icon" color="black" size="xl" onClick={() => onChangeOpenStatus()} /> */}
       </div>
       <div className='footer__content'>
         <div className='infoes_form'>
@@ -161,19 +164,6 @@ export default function CFooter({ click, center, }: any) {
               startPoint={0}
               className="info_input"
             />
-            {/* <div className='info_title'>
-              <label htmlFor="pie_size">Pie Radius</label>
-            </div>
-            <input
-              type="number"
-              className='info_input'
-              name="pie_size"
-              id='pie_size'
-              max={20} min={0}
-              placeholder='Pie Radius'
-              value={tempPieSize}
-              onInput={handleChangeValue}
-            /> */}
           </div>
           <div className='info_form'>
             <div className='info_title'>
@@ -208,7 +198,7 @@ export default function CFooter({ click, center, }: any) {
               <div className='label'>
                 <label>Frequency:</label>
               </div>
-              <input type="number" className='info_input' name='frequency' />
+              <input type="number" className='info_input' name='frequency' placeholder='0.0' />
             </div>
           <div className='info'>
               <div className='label'>
