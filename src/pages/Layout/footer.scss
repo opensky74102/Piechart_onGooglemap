@@ -4,22 +4,31 @@
   position: fixed;
   // color: white;
   width: calc(100% - 56px);
-  height: 30%;
+  height: 35%;
   left: 50%;
   translate: -50%;
   max-width: 1440px;
   background-color: hsla(0, 0%, 100%, .9);
   padding: 20px;
+  padding-top: 0px;
   transition: all 1s ease-in-out;
+  border-radius: 20px;
   // background: rgb(0,0,0, 0.3);
 
   &.hide {
-    bottom: -28%;
+    bottom: -27%;
 
   }
 
   &.display {
     bottom: 2%;
+  }
+  &_top_toggle{
+    width: 100%;
+    padding-top: 20px;
+    border: none;
+    height: 30px;
+    text-align: center;
   }
 
   &_control {
