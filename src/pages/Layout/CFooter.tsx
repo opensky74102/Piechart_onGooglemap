@@ -17,25 +17,26 @@ export default function CFooter({ click, center, }: any) {
     sector: "",
     angle: 0,
     color: '#000000',
-    antena:'antena',
+    antena: 'antena',
   })
   const [openPopup, setOpenPopup] = useState('hide');
   const detail = {
-    lat:0,
-    lng:0,
-    pieSize:1,
-    items:[
+    name: 'pie chart',
+    lat: 0,
+    lng: 0,
+    rotate: 30,
+    items: [
       {
-       sector:'sector1',
-       angle: 35,
-       color:'#aaaaaa',
-       antena:'antena1'
+        sector: 'sector1',
+        angle: 35,
+        color: '#aaaaaa',
+        antena: 'antena1'
       },
       {
-       sector:'sector1',
-       angle: 35,
-       color:'#aaaaaa',
-       antena:'antena1'
+        sector: 'sector1',
+        angle: 35,
+        color: '#aaaaaa',
+        antena: 'antena1'
       }
     ]
   }
@@ -90,7 +91,10 @@ export default function CFooter({ click, center, }: any) {
       setOpenPopup('hide')
     }
   }
-  const handleSliderChange=()=>{
+  const handleSliderChange = () => {
+
+  }
+  const handleRotateSliderChange = () => {
 
   }
   return (
@@ -146,6 +150,17 @@ export default function CFooter({ click, center, }: any) {
           </div>
           <div className='info_form'>
             <div className='info_title'>
+              <label htmlFor="pie_size">Rotate:</label>
+            </div>
+            <Slider
+              min={0}
+              max={360}
+              defaultValue={30}
+              onChange={handleRotateSliderChange}
+              startPoint={0}
+              className="info_input"
+            />
+            {/* <div className='info_title'>
               <label htmlFor="pie_size">Pie Radius</label>
             </div>
             <input
@@ -157,8 +172,8 @@ export default function CFooter({ click, center, }: any) {
               placeholder='Pie Radius'
               value={tempPieSize}
               onInput={handleChangeValue}
-            />
-          </div>          
+            /> */}
+          </div>
         </div>
         <div className='items_form'>
 
@@ -212,8 +227,8 @@ export default function CFooter({ click, center, }: any) {
                 min={1}
                 max={100}
                 defaultValue={10}
-                onChange={handleSliderChange}     
-                startPoint={0}           
+                onChange={handleSliderChange}
+                startPoint={0}
                 className="info_input"
               />
             </div>

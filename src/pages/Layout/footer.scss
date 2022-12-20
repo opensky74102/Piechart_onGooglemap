@@ -67,9 +67,15 @@
           text-indent: 30px;
           outline: none;
           border: none;
+          display: flex;
+          align-items: center;
           background-color: hsla(0, 0%, 100%, .9);
+
           // background: rgb(0,0,0, 0.52);
           // color: white;
+          .rc-slider-handle {
+            margin-top: 0 !important;
+          }
 
         }
 
