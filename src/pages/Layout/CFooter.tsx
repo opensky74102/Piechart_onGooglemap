@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+
 export default function CFooter({ click, center, }: any) {
   const [latVal, setLatValue] = useState(40.7);
   const [lngVal, setLngValue] = useState(-74);
@@ -13,11 +14,31 @@ export default function CFooter({ click, center, }: any) {
 
   const [infoes, setInfoes] = useState([]);
   const [itemInfo, setItemInfo] = useState({
-    mood: "",
-    total: 0,
-    color: '#000000'
+    sector: "",
+    angle: 0,
+    color: '#000000',
+    antena:'antena',
   })
   const [openPopup, setOpenPopup] = useState('hide');
+  const detail = {
+    lat:0,
+    lng:0,
+    pieSize:1,
+    items:[
+      {
+       sector:'sector1',
+       angle: 35,
+       color:'#aaaaaa',
+       antena:'antena1'
+      },
+      {
+       sector:'sector1',
+       angle: 35,
+       color:'#aaaaaa',
+       antena:'antena1'
+      }
+    ]
+  }
   const handleChangeValue = (e: any) => {
     let { value, min, max, name } = e.target;
 
@@ -137,10 +158,7 @@ export default function CFooter({ click, center, }: any) {
               value={tempPieSize}
               onInput={handleChangeValue}
             />
-          </div>
-          <div className='info_form'>
-            <button className="btn" onClick={handleClick}>Create</button>
-          </div>
+          </div>          
         </div>
         <div className='items_form'>
 
