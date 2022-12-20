@@ -16,7 +16,8 @@
   // background: rgb(0,0,0, 0.3);
 
   &.hide {
-    bottom: calc(15px - 35%);
+    // bottom: calc(15px - 35%);
+    bottom: 2%;
   }
 
   &.display {
@@ -56,7 +57,6 @@
 
     & .infoes_form {
       & .info_form {
-        // width: 70%;
         margin-top: 10px;
         margin-bottom: 10px;
         display: flex;
@@ -115,7 +115,7 @@
     }
 
     & .items_form {
-      width: 80%;
+      width: 300px;
 
       & .item_infoes {
         padding: auto;
@@ -125,6 +125,7 @@
           margin-left: 25px;
           margin-top: 10px;
           margin-bottom: 15px;
+          justify-content: end;
 
           .label {
             width: 120px;
@@ -134,7 +135,6 @@
             label {
               margin-right: 15px;
               font-size: 14px;
-              // color: white;
             }
           }
 
@@ -149,13 +149,67 @@
             display: flex;
             align-items: center;
             background-color: hsla(0, 0%, 100%, .9);
-            // color: white;
-            // border-bottom: 2px solid $main-btn-color;
             outline: none;
 
             .rc-slider-handle {
               margin-top: 0 !important;
             }
+
+            &.button {
+              border: 1px solid $main-btn-color;
+              border-radius: 10px;
+              justify-content: center;
+              text-align: center;
+
+            }
+          }
+        }
+      }
+    }
+
+    & .itemlist_form {
+      width: 300px;
+      padding: 10px;
+      padding: auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+
+      .itemlist {
+        overflow-y: scroll;
+        overflow-x: none;
+        width: 100%;
+        max-height: 200px;
+        .item{
+          display: flex;
+          padding: 8px 10px 8px 10px;
+          margin-bottom: 5px;
+          justify-content: space-between;
+          color: white;
+        }
+      }
+
+      .piecreate {
+        margin-top: auto;
+        align-self: end;
+        & button{
+          padding: 8px 20px;
+          position: relative;
+          color: #fff;
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 14px;
+          text-decoration: none;
+          background: $main-btn-color;
+          outline: none;
+          border: 1px solid white;
+          border-radius: 8px;
+
+          &:hover {
+            box-shadow: 0px 0px 0px 7px rgb(255 255 255 / 10%);
+          }
+          &.hidden{
+            display: none;
           }
         }
       }

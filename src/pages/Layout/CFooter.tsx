@@ -4,40 +4,52 @@ import { ANTENALIST, ANGLELIST, COMPASS } from '../../consts/Page_Const';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faArrowUp, faArrowDown, faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
 import Slider from 'rc-slider';
+import { IItem, IPieDetail } from '../../type';
 import 'rc-slider/assets/index.css';
 
 export default function CFooter({ click, center, }: any) {
   const [latVal, setLatValue] = useState(40.7);
   const [lngVal, setLngValue] = useState(-74);
-  const [tempPieSize, setTempPieSize] = useState(6);
-  const [pieSize, setPieSize] = useState(7);
+  const [towername, setTowername] = useState('');
 
   const [infoes, setInfoes] = useState([]);
-  const [itemInfo, setItemInfo] = useState({
-    sector: "",
-    angle: 0,
-    color: '#000000',
-    antena: 'antena',
+  const [itemInfo, setItemInfo] = useState<IItem>({
+    compass: "N",
+    frequency: 100,
+    antenatype: 'PTP',
+    angle: 30,
+    color: '#4DB7FE',
   })
   const [openPopup, setOpenPopup] = useState('hide');
-  const detail = {
-    name: 'pie chart',
-    lat: 0,
-    lng: 0,
+  const [pieDetail, setPieDetail] = useState<IPieDetail>({
+    towerName: '',
+    latitude: 0,
+    longitude: 0,
     rotate: 30,
+    radius: 10,
+    items: []
+  })
+  const detail = {
+    towerName: 'tower1',
+    latitude: 0,
+    longitude: 0,
+    rotate: 30,
+    radius: 10,
     items: [
       {
-        sector: 'sector1',
-        angle: 35,
-        color: '#aaaaaa',
-        antena: 'antena1'
+        compass: "NE",
+        frequency: 40,
+        antenatype: 'PTP',
+        angle: 30,
+        color: '#4DB7FE',
       },
       {
-        sector: 'sector1',
-        angle: 35,
-        color: '#aaaaaa',
-        antena: 'antena1'
-      }
+        compass: "NE",
+        frequency: 40,
+        antenatype: 'PTP',
+        angle: 30,
+        color: '#4DB7FE',
+      },
     ]
   }
   const handleChangeValue = (e: any) => {
@@ -45,39 +57,54 @@ export default function CFooter({ click, center, }: any) {
 
     if (name === "latitude" && Number(value) >= min && Number(value) <= max) {
       setLatValue(value);
-      click(value, lngVal, pieSize);
+      click(value, lngVal);
       return;
     } else if (name === "longitude" && Number(value) >= min && Number(value) <= max) {
-
       setLngValue(value);
-      click(latVal, value, pieSize);
+      click(latVal, value);
       return;
-    } else if (name === "pie_size" && Number(value) >= min && Number(value) <= max) {
-      setTempPieSize(value)
-      setPieSize(Number(value) + 1);
-      click(latVal, lngVal, Number(value) + 1);
+    } else if (name === "towername") {
+      setTowername(value)
       return;
     }
   }
-  useEffect(() => {
-    setLatValue(center.lat);
-    setLngValue(center.lng);
-    console.log(center)
-  }, [center])
+  const handleRotateSliderChange = (value: any) => {
+    setPieDetail({
+      ...pieDetail,
+      rotate: value,
+    })
+  }
+  const handleRadiusSliderChange = (value: any) => {
+    setPieDetail({
+      ...pieDetail,
+      radius: value,
+    })
+  }
+
   const handleClick = () => {
     console.log("hello")
-    click(latVal, lngVal, pieSize, true);
+    click(latVal, lngVal, true);
   }
   const handleAddClick = () => {
 
   }
   const handleChangeInfo = (e: any) => {
     const { name, value, min } = e.target;
-    let temp = structuredClone(itemInfo);
-    console.log(name, value)
     switch (name) {
-      case "":
-
+      case "compass":
+        setItemInfo({ ...itemInfo, compass: value, })
+        break;
+      case "frequency":
+        setItemInfo({ ...itemInfo, frequency: value, })
+        break;
+      case "antena":
+        setItemInfo({ ...itemInfo, antenatype: value, })
+        break;
+      case "angle":
+        setItemInfo({ ...itemInfo, angle: value, })
+        break;
+      case "color":
+        setItemInfo({ ...itemInfo, color: value, })
         break;
 
       default:
@@ -91,24 +118,39 @@ export default function CFooter({ click, center, }: any) {
       setOpenPopup('hide')
     }
   }
-  const handleRadiusSliderChange = () => {
+  const handleAddItem = () => {
+    let temp = pieDetail.items;
+    temp.push(itemInfo);
+    setPieDetail({ ...pieDetail, items: temp })
+    setItemInfo({
+      compass: "N",
+      frequency: 100,
+      antenatype: 'PTP',
+      angle: 30,
+      color: '#4DB7FE',
+    })
 
   }
-  const handleRotateSliderChange = () => {
-
-  }
+  useEffect(() => {
+    setLatValue(center.lat);
+    setLngValue(center.lng);
+    setPieDetail({
+      ...pieDetail,
+      latitude: center.lat,
+      longitude: center.lnt,
+    });
+  }, [center])
   return (
     <footer className={"footer " + openPopup}>
-      <div className='footer_top_toggle'  onClick={() => onChangeOpenStatus()} >
-        <FontAwesomeIcon icon={openPopup === "display" ? faArrowDown : faArrowUp} className="fa_icon" color="black" size="sm"/>
+      <div className='footer_top_toggle' onClick={() => onChangeOpenStatus()} >
+        <FontAwesomeIcon icon={openPopup === "display" ? faArrowDown : faArrowUp} className="fa_icon" color="black" size="sm" />
       </div>
       <div className="footer_control">
         <h5>Map Tools</h5>
-        {/* <FontAwesomeIcon icon={openPopup === "display" ? faToggleOff : faToggleOn} className="fa_icon" color="black" size="xl" onClick={() => onChangeOpenStatus()} /> */}
       </div>
       <div className='footer__content'>
         <div className='infoes_form'>
-        <div className='info_form'>
+          <div className='info_form'>
             <div className='info_title'>
               <label htmlFor='towername'>Tower Name:</label>
             </div>
@@ -151,7 +193,7 @@ export default function CFooter({ click, center, }: any) {
               onInput={handleChangeValue}
             />
           </div>
-      
+
           <div className='info_form'>
             <div className='info_title'>
               <label htmlFor="rotate">Rotate:</label>
@@ -170,23 +212,22 @@ export default function CFooter({ click, center, }: any) {
               <label htmlFor="radius">Radius:</label>
             </div>
             <Slider
-                min={1}
-                max={100}
-                defaultValue={10}
-                onChange={handleRadiusSliderChange}
-                startPoint={0}
-                className="info_input"
-              />
+              min={1}
+              max={100}
+              defaultValue={10}
+              onChange={handleRadiusSliderChange}
+              startPoint={0}
+              className="info_input"
+            />
           </div>
         </div>
         <div className='items_form'>
-
           <div className='item_infoes'>
-          <div className='info'>
+            <div className='info'>
               <div className='label'>
                 <label>Compass:</label>
               </div>
-              <select className='info_input' name="antena" id="antena" onInput={handleChangeInfo}>
+              <select className='info_input' name="compass" id="compass" value={itemInfo.compass} onInput={handleChangeInfo}>
                 {COMPASS.map((val, ind) => {
                   return (
                     <option key={ind} value={val}>{val}</option>
@@ -194,18 +235,17 @@ export default function CFooter({ click, center, }: any) {
                 })}
               </select>
             </div>
-          <div className='info'>
+            <div className='info'>
               <div className='label'>
                 <label>Frequency:</label>
               </div>
-              <input type="number" className='info_input' name='frequency' placeholder='0.0' />
+              <input type="number" min={1} className='info_input' name='frequency' value={itemInfo.frequency} placeholder='0.0' onInput={handleChangeInfo} />
             </div>
-          <div className='info'>
+            <div className='info'>
               <div className='label'>
                 <label>Antena Type:</label>
               </div>
-              {/* <input type="select" className='info_input' name='antena' onInput={handleChangeInfo} /> */}
-              <select className='info_input' name="antena" id="antena" onInput={handleChangeInfo}>
+              <select className='info_input' name="antena" id="antena" value={itemInfo.antenatype} onInput={handleChangeInfo}>
                 {ANTENALIST.map((val, ind) => {
                   return (
                     <option key={ind} value={val}>{val}</option>
@@ -217,7 +257,7 @@ export default function CFooter({ click, center, }: any) {
               <div className='label'>
                 <label>Antena Angle:</label>
               </div>
-              <select className='info_input' name="angle" id="angle" onInput={handleChangeInfo}>
+              <select className='info_input' name="angle" id="angle" value={itemInfo.angle} onInput={handleChangeInfo}>
                 {
                   ANGLELIST.map((val, ind) => {
                     return (
@@ -232,13 +272,36 @@ export default function CFooter({ click, center, }: any) {
               <div className='label'>
                 <label>Color:</label>
               </div>
-              <input type="color" className='info_input' name='color' onInput={handleChangeInfo} />
+              <input type="color" className='info_input' name='color' value={itemInfo.color} onInput={handleChangeInfo} />
             </div>
             <div className='info'>
-              <input type="button" className='info_input' name="buttom" value="add item" />
+              <button type="button" className='info_input button' name="addItem" onClick={handleAddItem}>add item</button>
             </div>
           </div>
 
+        </div>
+        <div className='itemlist_form'>
+          <div className='itemlist'>
+            {
+              pieDetail.items.map((item, ind) => {
+                return (
+                  <div key={ind} className='item' style={{ background: '' + item.color }}>
+                    <div className='item_com'><span>{item.compass}</span></div>
+                    <div className='item_freq'><span>{item.frequency}</span></div>
+                    <div className='item_ante'><span>{item.antenatype}</span></div>
+                    <div className='item_ang'><span>{item.angle}</span></div>
+                  </div>
+                )
+              })
+            }
+          </div>
+          <div className='piecreate'>
+            {pieDetail.items.length === 0 ? (
+              <button className='btn hidden'>Create Pie</button>
+            ) : (
+              <button className='btn'>Create Pie</button>
+            )}
+          </div>
         </div>
       </div>
     </footer>
