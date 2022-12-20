@@ -100,7 +100,7 @@ export default function CFooter({ click, center, }: any) {
   return (
     <footer className={"footer " + openPopup}>
       <div className='footer_top_toggle'  onClick={() => onChangeOpenStatus()} >
-        <FontAwesomeIcon icon={openPopup === "display" ? faArrowDown : faArrowUp} className="fa_icon" color="black" size="xl"/>
+        <FontAwesomeIcon icon={openPopup === "display" ? faArrowDown : faArrowUp} className="fa_icon" color="black" size="sm"/>
       </div>
       <div className="footer_control">
         <h5>Map Tools</h5>
@@ -110,14 +110,14 @@ export default function CFooter({ click, center, }: any) {
         <div className='infoes_form'>
         <div className='info_form'>
             <div className='info_title'>
-              <label htmlFor='name'>Name:</label>
+              <label htmlFor='towername'>Tower Name:</label>
             </div>
             <input
               type="text"
               className='info_input'
-              name="name"
-              id='name'
-              placeholder='Name'
+              name="towername"
+              id='towername'
+              placeholder='Tower Name'
               onInput={handleChangeValue}
             />
           </div>
