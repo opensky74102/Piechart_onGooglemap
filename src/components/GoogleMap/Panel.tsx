@@ -7,16 +7,16 @@ import "./googlemap.scss";
 export default function Panel({clear, zoomInOut}:any) {
   return (
    <div className="map_control_panel">
-     <div className="google_map_panel" onClick={()=>clear()}>
+     <div className="google_map_panel_btn" onClick={()=>clear()}>
       <FontAwesomeIcon icon={faEraser}  className="fa_icon" color="white" size="xl" />
     </div>
-    <div className="google_map_panel" onClick={()=>zoomInOut(1)}>
+    <div className="google_map_panel_btn" onClick={()=>zoomInOut(1)}>
       <FontAwesomeIcon icon={faPlus} className="fa_icon" color="white" size="xl" />
     </div>
-    <div className="google_map_panel" onClick={()=>zoomInOut(-1)}>
+    <div className="google_map_panel_btn" onClick={()=>zoomInOut(-1)}>
       <FontAwesomeIcon icon={faMinus} className="fa_icon" color="white" size="xl" />
     </div>
-    <div className="google_map_panel">
+    <div className="google_map_panel_btn">
       <FontAwesomeIcon icon={faToggleOn} className="fa_icon" color="white" size="xl" />
     </div>
    </div>

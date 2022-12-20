@@ -4,28 +4,30 @@
   position: fixed;
   // color: white;
   width: calc(100% - 56px);
+  height: 30%;
   left: 50%;
   translate: -50%;
   max-width: 1440px;
   background-color: hsla(0, 0%, 100%, .9);
   padding: 20px;
+  transition: all 1s ease-in-out;
   // background: rgb(0,0,0, 0.3);
-
+  
   &.hide {
-    top: 90%;
+    bottom: -28%;
+
   }
 
   &.display {
     bottom: 2%;
   }
-
   &_control {
     display: flex;
     align-items: center;
     justify-content: space-between;
     
     .fa_icon {
-      // color: $main-btn-color;
+      color: $main-btn-color;
     }
 
     & h5 {
