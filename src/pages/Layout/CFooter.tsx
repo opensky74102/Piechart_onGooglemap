@@ -1,6 +1,6 @@
 import react, { useEffect, useState } from 'react';
 import './footer.scss';
-import { ANTENALIST, ANGLELIST } from '../../consts/Page_Const';
+import { ANTENALIST, ANGLELIST, COMPASS } from '../../consts/Page_Const';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
 import Slider from 'rc-slider';
@@ -191,6 +191,23 @@ export default function CFooter({ click, center, }: any) {
         <div className='items_form'>
 
           <div className='item_infoes'>
+          <div className='info'>
+              <div className='label'>
+                <label>Compass:</label>
+              </div>
+              <select className='info_input' name="antena" id="antena" onInput={handleChangeInfo}>
+                {COMPASS.map((val, ind) => {
+                  return (
+                    <option key={ind} value={val}>{val}</option>
+                  )
+                })}
+              </select>
+            </div>
+          <div className='info'>
+              <div className='label'>
+                <label>Frequency:</label>
+              </div>
+            </div>
           <div className='info'>
               <div className='label'>
                 <label>Antena Type:</label>
