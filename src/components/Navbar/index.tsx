@@ -23,7 +23,7 @@ function Navbar() {
             <FontAwesomeIcon icon={faSignIn} className="fa_icon" color="white" size="sm" />
             Sign In
           </div>
-          <a href="#" className="header__content__right__btn">add new tower</a>
+          <a href="#" className="header__content__right__btn">Add Spectrum</a>
         </div>
       </div>
     </header>

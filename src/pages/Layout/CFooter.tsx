@@ -26,34 +26,12 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
     towerName: '',
     latitude: 0,
     longitude: 0,
-    rotate: 30,
-    radius: 50,
+    rotate: 0,
+    radius: 60,
     items: []
   })
   const canvasPreview = useRef<HTMLCanvasElement>(null);
-  const detail = {
-    towerName: 'tower1',
-    latitude: 0,
-    longitude: 0,
-    rotate: 30,
-    radius: 10,
-    items: [
-      {
-        compass: "NE",
-        frequency: 40,
-        antenatype: 'PTP',
-        angle: 30,
-        color: '#4DB7FE',
-      },
-      {
-        compass: "NE",
-        frequency: 40,
-        antenatype: 'PTP',
-        angle: 30,
-        color: '#4DB7FE',
-      },
-    ]
-  }
+ 
   var canvas = null;
   const handleChangeValue = (e: any) => {
     let { value, min, max, name } = e.target;
@@ -120,7 +98,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
       return;
     } else {
 
-      const wi = pieDetail.radius * 2.5;
+      const wi = pieDetail.radius * 1.5 + 100;
       canvas.width = wi;
       canvas.height = wi;
       let ctx = canvas.getContext("2d");
@@ -140,9 +118,11 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
           currentAngle += portionAngle;
           ctx.lineTo(wi / 2, wi / 2);
           ctx.fillStyle = item.color;
-          ctx.globalAlpha = 0.9;
+          ctx.globalAlpha = 0.8;
           ctx.fill();
+
         }
+        
       }
     }
 
@@ -185,9 +165,9 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
   }
   const handleAddItem = () => {
     let temp = pieDetail.items;
-    let sum =0;
+    let sum = 0;
     let totalAngle = temp.reduce((sum, { angle }) => sum + Number(angle), 0);
-    if (totalAngle>=360) {
+    if (totalAngle >= 360) {
       return;
     }
     temp.push(itemInfo);
@@ -200,12 +180,12 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
       color: '#4DB7FE',
     })
   }
-  const handleClickItem = (ind:number)=>{
+  const handleClickItem = (ind: number) => {
     let temp = pieDetail.items;
-    temp.splice(ind,1);
+    temp.splice(ind, 1);
     setPieDetail({
       ...pieDetail,
-      items:temp
+      items: temp
     })
   }
   useEffect(() => {
@@ -306,9 +286,8 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
             <Slider
               min={0}
               max={100}
-              defaultValue={30}
+              defaultValue={pieDetail.radius}
               onChange={handleRadiusSliderChange}
-              startPoint={0}
               className="info_input"
             />
           </div>
@@ -379,7 +358,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
             {
               pieDetail.items.map((item, ind) => {
                 return (
-                  <div key={ind} className='item' style={{ background: '' + item.color }} onClick={()=>handleClickItem(ind)}>
+                  <div key={ind} className='item' style={{ background: '' + item.color }} onClick={() => handleClickItem(ind)}>
                     <div className='item_com'><span>{item.compass}</span></div>
                     <div className='item_freq'><span>{item.frequency}</span></div>
                     <div className='item_ante'><span>{item.antenatype}</span></div>
