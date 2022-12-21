@@ -11,6 +11,7 @@ import { useHref } from 'react-router-dom';
 export default function CFooter({ pieCreate, center, setCenter }: any) {
   const [latVal, setLatValue] = useState(40.7);
   const [lngVal, setLngValue] = useState(-74);
+  const [coordinate, setCoordinate] = useState('40.7, -74');
   const [towername, setTowername] = useState('');
   const [itemInfo, setItemInfo] = useState<IItem>({
     compass: "N",
@@ -57,13 +58,38 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
   const handleChangeValue = (e: any) => {
     let { value, min, max, name } = e.target;
 
-    if (name === "latitude" && Number(value) >= min && Number(value) <= max) {
-      setLatValue(value);
-      setCenter(value, lngVal)
+    if (name === "coordinate") {
+      setCoordinate(value);
       return;
-    } else if (name === "longitude" && Number(value) >= min && Number(value) <= max) {
-      setLngValue(value);
-      setCenter(latVal, value)
+      let temp = (value.replace(" ", "")).split(",");
+      let pat = /^-?\d*\.{0,1}\d+$/;
+      if (temp.length > 2) {
+        return;
+      } else if (temp.length === 2) {
+        console.log(temp)
+        console.log(pat.test(temp[0]) && pat.test(temp[1]))
+        let temp1 = temp[0];
+        let temp2 = temp[1];
+        if (temp1 === "-" || temp1 === "") {
+          setCoordinate(value);
+          console.log(temp)
+          return;
+        } else if (temp2 === "-" || temp1 === "") {
+          setCoordinate(value);
+          console.log(temp)
+          return;
+        } else if (!(pat.test(temp[0]) && pat.test(temp[1]))) {
+          console.log(temp)
+          setCoordinate(value);
+          return;
+        }
+        setCoordinate(value);
+      } else if (temp.length === 1) {
+        if (!pat.test(temp[0])) {
+          return;
+        }
+        setCoordinate(value);
+      }
       return;
     } else if (name === "towername") {
       setTowername(value)
@@ -94,7 +120,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
       return;
     } else {
 
-      const wi = pieDetail.radius * 2;
+      const wi = pieDetail.radius * 2.5;
       canvas.width = wi;
       canvas.height = wi;
       let ctx = canvas.getContext("2d");
@@ -102,7 +128,8 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
       const items = pieDetail.items;
 
       let sum = 0;
-      let totalAngle = items.reduce((sum, { angle }) => sum + Number(angle), 0);
+      // let totalAngle = items.reduce((sum, { angle }) => sum + Number(angle), 0);
+      let totalAngle = 360;
       let currentAngle = 0;
 
       if (ctx) {
@@ -113,7 +140,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
           currentAngle += portionAngle;
           ctx.lineTo(wi / 2, wi / 2);
           ctx.fillStyle = item.color;
-          ctx.globalAlpha = 0.8;
+          ctx.globalAlpha = 0.9;
           ctx.fill();
         }
       }
@@ -158,6 +185,11 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
   }
   const handleAddItem = () => {
     let temp = pieDetail.items;
+    let sum =0;
+    let totalAngle = temp.reduce((sum, { angle }) => sum + Number(angle), 0);
+    if (totalAngle>=360) {
+      return;
+    }
     temp.push(itemInfo);
     setPieDetail({ ...pieDetail, items: temp })
     setItemInfo({
@@ -171,6 +203,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
   useEffect(() => {
     setLatValue(center.lat);
     setLngValue(center.lng);
+    setCoordinate('' + center.lat.toFixed(5) + ", " + center.lng.toFixed(5));
     setPieDetail({
       ...pieDetail,
       latitude: center.lat,
@@ -200,7 +233,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
               onInput={handleChangeValue}
             />
           </div>
-          <div className='info_form'>
+          {/* <div className='info_form'>
             <div className='info_title'>
               <label htmlFor="latitude">Latitude:</label>
             </div>
@@ -229,6 +262,20 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
               value={lngVal == 0 ? '' : lngVal}
               onInput={handleChangeValue}
             />
+          </div> */}
+          <div className='info_form'>
+            <div className='info_title'>
+              <label htmlFor="coordinate">Coordinate:</label>
+            </div>
+            <input
+              type="string"
+              className='info_input'
+              name="coordinate"
+              id='coordinate'
+              placeholder='Coordinate'
+              value={coordinate}
+              onInput={handleChangeValue}
+            />
           </div>
 
           <div className='info_form'>
@@ -251,13 +298,14 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
             <Slider
               min={0}
               max={100}
-              defaultValue={50}
+              defaultValue={30}
               onChange={handleRadiusSliderChange}
               startPoint={0}
               className="info_input"
             />
           </div>
         </div>
+        <div className='border-div'></div>
         <div className='items_form'>
           <div className='item_infoes'>
             <div className='info'>
@@ -317,6 +365,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
           </div>
 
         </div>
+        <div className='border-div'></div>
         <div className='itemlist_form'>
           <div className='itemlist'>
             {
@@ -338,13 +387,15 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
                 <button className='btn hidden'>Create Pie</button></>
             ) : (
               <>
-                <button className='btn' onClick={handleClearPie}>Clear Pie</button>
-                <button className='btn'>Create Pie</button>
+                <button className='btn' onClick={handleClearPie}>Clear Layout</button>
+                <button className='btn'>Add Spectrum</button>
               </>
             )}
           </div>
         </div>
+        <div className='border-div'></div>
         <div className='preview_form'>
+          <h5 className='preview_title'>Layout Preview</h5>
           <canvas ref={canvasPreview} id='preview_canvas'></canvas>
         </div>
       </div>
