@@ -28,7 +28,6 @@ export default function Home() {
       lat: lat,
       lng: lng
     })
-    console.log(lat, lng)
   }
   return (
     <>

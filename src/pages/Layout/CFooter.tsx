@@ -44,20 +44,15 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
       if (temp.length > 2) {
         return;
       } else if (temp.length === 2) {
-        console.log(temp)
-        console.log(pat.test(temp[0]) && pat.test(temp[1]))
         let temp1 = temp[0];
         let temp2 = temp[1];
         if (temp1 === "-" || temp1 === "") {
           setCoordinate(value);
-          console.log(temp)
           return;
         } else if (temp2 === "-" || temp1 === "") {
           setCoordinate(value);
-          console.log(temp)
           return;
         } else if (!(pat.test(temp[0]) && pat.test(temp[1]))) {
-          console.log(temp)
           setCoordinate(value);
           return;
         }
@@ -134,7 +129,6 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
     })
   }, [towername])
   const handleCreatePieOnMap = () => {
-    console.log(pieDetail)
     pieCreate(pieDetail);
   }
   const handleAddClick = () => {
@@ -171,14 +165,17 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
     }
   }
   const handleAddItem = () => {
-    let temp = pieDetail.items;
+    let tempPie = structuredClone(pieDetail);
     let sum = 0;
-    let totalAngle = temp.reduce((sum, { angle }) => sum + Number(angle), 0);
+    let totalAngle = tempPie.items.reduce((sum:any, { angle }:any) => sum + Number(angle), 0);
+    let tempItem = structuredClone(itemInfo);
     if (totalAngle >= 360) {
       return;
+    } else if (itemInfo.angle + totalAngle > 360) {
+      tempItem.angle  = 360- totalAngle;
     }
-    temp.push(itemInfo);
-    setPieDetail({ ...pieDetail, items: temp })
+    tempPie.items.push(tempItem);
+    setPieDetail(tempPie)
     setItemInfo({
       compass: "N",
       frequency: 100,
