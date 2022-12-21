@@ -200,6 +200,14 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
       color: '#4DB7FE',
     })
   }
+  const handleClickItem = (ind:number)=>{
+    let temp = pieDetail.items;
+    temp.splice(ind,1);
+    setPieDetail({
+      ...pieDetail,
+      items:temp
+    })
+  }
   useEffect(() => {
     setLatValue(center.lat);
     setLngValue(center.lng);
@@ -371,7 +379,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
             {
               pieDetail.items.map((item, ind) => {
                 return (
-                  <div key={ind} className='item' style={{ background: '' + item.color }}>
+                  <div key={ind} className='item' style={{ background: '' + item.color }} onClick={()=>handleClickItem(ind)}>
                     <div className='item_com'><span>{item.compass}</span></div>
                     <div className='item_freq'><span>{item.frequency}</span></div>
                     <div className='item_ante'><span>{item.antenatype}</span></div>
