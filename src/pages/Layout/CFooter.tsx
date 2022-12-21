@@ -31,7 +31,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
     items: []
   })
   const canvasPreview = useRef<HTMLCanvasElement>(null);
- 
+
   var canvas = null;
   const handleChangeValue = (e: any) => {
     let { value, min, max, name } = e.target;
@@ -119,16 +119,22 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
           ctx.lineTo(wi / 2, wi / 2);
           ctx.fillStyle = item.color;
           ctx.globalAlpha = 0.8;
-          ctx.fillText(towername, wi/2 - 20, wi/2 + 20)
+          ctx.fillText(towername, wi / 2 - 20, wi / 2 + 20)
           ctx.fill();
-
         }
-        
+
       }
     }
 
   }, [pieDetail])
+  useEffect(() => {
+    setPieDetail({
+      ...pieDetail,
+      towerName: towername
+    })
+  }, [towername])
   const handleCreatePieOnMap = () => {
+    console.log(pieDetail)
     pieCreate(pieDetail);
   }
   const handleAddClick = () => {
@@ -196,7 +202,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
     setPieDetail({
       ...pieDetail,
       latitude: center.lat,
-      longitude: center.lnt,
+      longitude: center.lng,
     });
   }, [center])
   return (
@@ -376,7 +382,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
             ) : (
               <>
                 <button className='btn' onClick={handleClearPie}>Clear Layout</button>
-                <button className='btn'>Add Spectrum</button>
+                <button className='btn' onClick={handleCreatePieOnMap}>Add Spectrum</button>
               </>
             )}
           </div>

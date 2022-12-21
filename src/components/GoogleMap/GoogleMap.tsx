@@ -5,6 +5,7 @@ import Map from "./Map";
 import Marker from "./Marker";
 import './googlemap.scss';
 import Panel from "./Panel";
+import { IPieDetail } from "../../type";
 
 const api_key = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -12,10 +13,11 @@ const render = (status: Status) => {
   return <h1>{status}</h1>;
 };
 
-const GoogleMapComponent = ({ changecCenter,move }: any) => {
+const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCreateFlag }: any) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
   const [clicks, setClicks] = useState<google.maps.LatLng[]>([]);
+  const [pies, setPies] = useState<IPieDetail[]>([]);
   const [zoom, setZoom] = useState(12); // initial zoom
   const [center, setCenter] = useState<google.maps.LatLngLiteral>({
     lat: 40.730610,
@@ -52,10 +54,10 @@ const GoogleMapComponent = ({ changecCenter,move }: any) => {
     let temp = Math.max(zoom + zoomInOut, 1);
     setZoom(temp);
   }
-  useEffect(()=>{
+  useEffect(() => {
     setCenter({
-      lat:Number(changecCenter.lat),
-      lng:Number(changecCenter.lng),
+      lat: Number(changecCenter.lat),
+      lng: Number(changecCenter.lng),
     })
   }, [changecCenter])
   useEffect(() => {
@@ -70,6 +72,14 @@ const GoogleMapComponent = ({ changecCenter,move }: any) => {
     })
 
   }, [ref, map]);
+  useEffect(() => {
+    if (createFlag === true) {
+      let temp = structuredClone(pies);
+      temp.push(pieDetail);
+      setPies(temp)
+      setCreateFlag(false);
+    }
+  }, [createFlag])
   return (
     <div className="google-box">
       <div className="google-box-map">
@@ -85,37 +95,35 @@ const GoogleMapComponent = ({ changecCenter,move }: any) => {
             disableDefaultUI={true}
           >
             {
-              clicks.map((latLng, i) => {
+              pies.map((pieDetail, i) => {
                 let canvas = document.createElement("canvas");
-                const size = 5;
-                canvas.width = size * zoom * 2;
-                canvas.height = size * zoom * 2;
+                const wi = pieDetail.radius * 1.5 + 100;
+                canvas.width = wi;
+                canvas.height = wi;
                 let ctx = canvas.getContext("2d");
-
-                const results = [
-                  { mood: "Angry", total: 1499, shade: "#0a9627" },
-                  { mood: "Happy", total: 478, shade: "#960A2C" },
-                  { mood: "Melancholic", total: 332, shade: "#332E2E" },
-                  { mood: "Gloomy", total: 195, shade: "#F73809" }
-                ];
-
+                const items = pieDetail.items;
                 let sum = 0;
-                let totalNumberOfPeople = results.reduce((sum, { total }) => sum + total, 0);
+                let totalAngle = 360;
                 let currentAngle = 0;
 
                 if (ctx) {
-                  for (let moodValue of results) {
-                    let portionAngle = (moodValue.total / totalNumberOfPeople) * 2 * Math.PI;
+                  for (let item of items) {
+                    let portionAngle = (Number(item.angle) / totalAngle) * 2 * Math.PI;
                     ctx.beginPath();
-                    ctx.arc(size * zoom, size * zoom, size * zoom, currentAngle, currentAngle + portionAngle);
+                    ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + pieDetail.rotate / 10, currentAngle + portionAngle + pieDetail.rotate / 10);
                     currentAngle += portionAngle;
-                    ctx.lineTo(size * zoom, size * zoom);
-                    ctx.fillStyle = moodValue.shade;
-                    ctx.globalAlpha = 0.4
+                    ctx.lineTo(wi / 2, wi / 2);
+                    ctx.fillStyle = item.color;
+                    ctx.globalAlpha = 0.5;
+                    ctx.fillText(pieDetail.towerName, wi / 2 - 20, wi / 2 + 20)
                     ctx.fill();
                   }
+
                 }
-                return <Marker key={i} position={latLng} icon={canvas.toDataURL()} />
+                return <Marker key={i} position={{
+                  lat:pieDetail.latitude,
+                  lng:pieDetail.longitude
+                }} icon={canvas.toDataURL()} />
               }
               )}
           </Map>

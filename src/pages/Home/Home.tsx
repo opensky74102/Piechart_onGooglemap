@@ -10,8 +10,18 @@ export default function Home() {
     lat: 40.730610,
     lng: -73.935242,
   });
+  const [pieDetail, setPieDetail] = useState<IPieDetail>({
+    towerName: '',
+    latitude: 0,
+    longitude: 0,
+    rotate: 0,
+    radius: 60,
+    items: []
+  });
+  const [createFlag, setCreateFlag] = useState(false);
   const handleCreatePie = (data: IPieDetail) => {
-
+    setPieDetail(data);
+    setCreateFlag(true);
   }
   const handleChangeCenter = (lat: number, lng: number) => {
     setCenter({
@@ -23,7 +33,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <GoogleMapComponent changecCenter={center} move={setCenter} />
+      <GoogleMapComponent changecCenter={center} move={setCenter} pieDetail={pieDetail} createFlag={createFlag} setCreateFlag={setCreateFlag} />
       <CFooter center={center} pieCreate={handleCreatePie} setCenter={handleChangeCenter} />
     </>
   )
