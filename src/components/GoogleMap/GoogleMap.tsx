@@ -12,7 +12,7 @@ const render = (status: Status) => {
   return <h1>{status}</h1>;
 };
 
-const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move, openModal }: any) => {
+const GoogleMapComponent = ({ changecCenter,move }: any) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
   const [clicks, setClicks] = useState<google.maps.LatLng[]>([]);
@@ -29,9 +29,7 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move, op
     { mood: "Melancholic", total: 332, shade: "#332E2E" },
     { mood: "Gloomy", total: 195, shade: "#F73809" }
   ];
-
   const onClick = (e: any) => {
-    console.log(e)
     if (e.pixel === undefined) {
       return;
     }
@@ -40,7 +38,6 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move, op
       lat: e.latLng.lat(),
       lng: e.latLng.lng(),
     });
-    setCreate(false);
   }
   const onIdle = (m: google.maps.Map) => {
     setZoom(m.getZoom()!);
@@ -55,6 +52,12 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move, op
     let temp = Math.max(zoom + zoomInOut, 1);
     setZoom(temp);
   }
+  useEffect(()=>{
+    setCenter({
+      lat:Number(changecCenter.lat),
+      lng:Number(changecCenter.lng),
+    })
+  }, [changecCenter])
   useEffect(() => {
     if (ref.current && !map) {
       setMap(new window.google.maps.Map(ref.current, {}));
@@ -67,20 +70,6 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move, op
     })
 
   }, [ref, map]);
-
-  useEffect(() => {
-    let con = structuredClone(center)
-    con = {
-      lat: Number(changeCenter.lat),
-      lng: Number(changeCenter.lng),
-    }
-    // setClicks([...clicks, con]);
-    setCenter(con)
-    if (create === true) {
-      console.log(true)
-      setClicks([...clicks, con]);
-    }
-  }, [changeCenter, pieSize, create])
   return (
     <div className="google-box">
       <div className="google-box-map">
@@ -132,7 +121,7 @@ const GoogleMapComponent = ({ pieSize, changeCenter, create, setCreate, move, op
           </Map>
         </Wrapper>
       </div>
-      <Panel clear={onClear} zoomInOut={zoomInOut}  />
+      <Panel clear={onClear} zoomInOut={zoomInOut} />
 
     </div>
   )
