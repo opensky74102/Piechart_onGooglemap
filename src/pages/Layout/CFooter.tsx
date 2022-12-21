@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from 'react';
+import react, { useEffect, useState, useRef } from 'react';
 import './footer.scss';
 import { ANTENALIST, ANGLELIST, COMPASS } from '../../consts/Page_Const';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +6,7 @@ import { faTimes, faArrowUp, faArrowDown, faToggleOff, faToggleOn } from "@forta
 import Slider from 'rc-slider';
 import { IItem, IPieDetail } from '../../type';
 import 'rc-slider/assets/index.css';
+import { useHref } from 'react-router-dom';
 
 export default function CFooter({ click, center, }: any) {
   const [latVal, setLatValue] = useState(40.7);
@@ -19,16 +20,18 @@ export default function CFooter({ click, center, }: any) {
     antenatype: 'PTP',
     angle: 30,
     color: '#4DB7FE',
-  })
+  });
+  const [preview, setPreview] = useState<HTMLElement>();
   const [openPopup, setOpenPopup] = useState('hide');
   const [pieDetail, setPieDetail] = useState<IPieDetail>({
     towerName: '',
     latitude: 0,
     longitude: 0,
     rotate: 30,
-    radius: 10,
+    radius: 50,
     items: []
   })
+  const canvasPreview = useRef<HTMLCanvasElement>(null);
   const detail = {
     towerName: 'tower1',
     latitude: 0,
@@ -52,6 +55,7 @@ export default function CFooter({ click, center, }: any) {
       },
     ]
   }
+  var canvas = null;
   const handleChangeValue = (e: any) => {
     let { value, min, max, name } = e.target;
 
@@ -67,6 +71,7 @@ export default function CFooter({ click, center, }: any) {
       setTowername(value)
       return;
     }
+    // handleMakePreview(pieDetail);
   }
   const handleRotateSliderChange = (value: any) => {
     setPieDetail({
@@ -80,9 +85,42 @@ export default function CFooter({ click, center, }: any) {
       radius: value,
     })
   }
+  useEffect(() => {
+    const canvas = canvasPreview.current;
+    if (canvas === null || canvas === undefined) {
+      return;
+    } else {
 
+      const wi = pieDetail.radius * 2;
+      canvas.width = wi;
+      canvas.height = wi;
+      let ctx = canvas.getContext("2d");
+
+      const items = pieDetail.items;
+
+      let sum = 0;
+      let totalAngle = items.reduce((sum, { angle }) => sum + Number(angle), 0);
+      let currentAngle = 0;
+
+      if (ctx) {
+        for (let item of items) {
+          console.log(item)
+          let portionAngle = (Number(item.angle) / totalAngle) * 2 * Math.PI;
+          ctx.beginPath();
+          ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + pieDetail.rotate/10, currentAngle + portionAngle + pieDetail.rotate/10);
+          currentAngle += portionAngle;
+          ctx.lineTo(wi / 2, wi / 2);
+          ctx.fillStyle = item.color;
+          ctx.globalAlpha = 0.8
+          ctx.fill();
+        }
+      }
+      // console.log(canvas);
+      // document.getElementById('preview_form')?.append(canvas)
+    }
+
+  }, [pieDetail])
   const handleClick = () => {
-    console.log("hello")
     click(latVal, lngVal, true);
   }
   const handleAddClick = () => {
@@ -101,7 +139,7 @@ export default function CFooter({ click, center, }: any) {
         setItemInfo({ ...itemInfo, antenatype: value, })
         break;
       case "angle":
-        setItemInfo({ ...itemInfo, angle: value, })
+        setItemInfo({ ...itemInfo, angle: Number(value), })
         break;
       case "color":
         setItemInfo({ ...itemInfo, color: value, })
@@ -110,6 +148,7 @@ export default function CFooter({ click, center, }: any) {
       default:
         break;
     }
+    // handleMakePreview(pieDetail);
   }
   const onChangeOpenStatus = () => {
     if (openPopup === 'hide') {
@@ -129,7 +168,6 @@ export default function CFooter({ click, center, }: any) {
       angle: 30,
       color: '#4DB7FE',
     })
-
   }
   useEffect(() => {
     setLatValue(center.lat);
@@ -139,6 +177,7 @@ export default function CFooter({ click, center, }: any) {
       latitude: center.lat,
       longitude: center.lnt,
     });
+    // handleMakePreview(pieDetail)
   }, [center])
   return (
     <footer className={"footer " + openPopup}>
@@ -212,9 +251,9 @@ export default function CFooter({ click, center, }: any) {
               <label htmlFor="radius">Radius:</label>
             </div>
             <Slider
-              min={1}
+              min={0}
               max={100}
-              defaultValue={10}
+              defaultValue={50}
               onChange={handleRadiusSliderChange}
               startPoint={0}
               className="info_input"
@@ -302,6 +341,9 @@ export default function CFooter({ click, center, }: any) {
               <button className='btn'>Create Pie</button>
             )}
           </div>
+        </div>
+        <div className='preview_form'>
+          <canvas ref={canvasPreview} id='preview_canvas'></canvas>
         </div>
       </div>
     </footer>
