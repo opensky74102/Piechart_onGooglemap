@@ -8,12 +8,10 @@ import { IItem, IPieDetail } from '../../type';
 import 'rc-slider/assets/index.css';
 import { useHref } from 'react-router-dom';
 
-export default function CFooter({ click, center, }: any) {
+export default function CFooter({ pieCreate, center, setCenter }: any) {
   const [latVal, setLatValue] = useState(40.7);
   const [lngVal, setLngValue] = useState(-74);
   const [towername, setTowername] = useState('');
-
-  const [infoes, setInfoes] = useState([]);
   const [itemInfo, setItemInfo] = useState<IItem>({
     compass: "N",
     frequency: 100,
@@ -61,17 +59,16 @@ export default function CFooter({ click, center, }: any) {
 
     if (name === "latitude" && Number(value) >= min && Number(value) <= max) {
       setLatValue(value);
-      click(value, lngVal);
+      setCenter(value, lngVal)
       return;
     } else if (name === "longitude" && Number(value) >= min && Number(value) <= max) {
       setLngValue(value);
-      click(latVal, value);
+      setCenter(latVal, value)
       return;
     } else if (name === "towername") {
       setTowername(value)
       return;
     }
-    // handleMakePreview(pieDetail);
   }
   const handleRotateSliderChange = (value: any) => {
     setPieDetail({
@@ -83,6 +80,12 @@ export default function CFooter({ click, center, }: any) {
     setPieDetail({
       ...pieDetail,
       radius: value,
+    })
+  }
+  const handleClearPie = () => {
+    setPieDetail({
+      ...pieDetail,
+      items: []
     })
   }
   useEffect(() => {
@@ -104,24 +107,21 @@ export default function CFooter({ click, center, }: any) {
 
       if (ctx) {
         for (let item of items) {
-          console.log(item)
           let portionAngle = (Number(item.angle) / totalAngle) * 2 * Math.PI;
           ctx.beginPath();
-          ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + pieDetail.rotate/10, currentAngle + portionAngle + pieDetail.rotate/10);
+          ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + pieDetail.rotate / 10, currentAngle + portionAngle + pieDetail.rotate / 10);
           currentAngle += portionAngle;
           ctx.lineTo(wi / 2, wi / 2);
           ctx.fillStyle = item.color;
-          ctx.globalAlpha = 0.8
+          ctx.globalAlpha = 0.8;
           ctx.fill();
         }
       }
-      // console.log(canvas);
-      // document.getElementById('preview_form')?.append(canvas)
     }
 
   }, [pieDetail])
-  const handleClick = () => {
-    click(latVal, lngVal, true);
+  const handleCreatePieOnMap = () => {
+    pieCreate(pieDetail);
   }
   const handleAddClick = () => {
 
@@ -148,7 +148,6 @@ export default function CFooter({ click, center, }: any) {
       default:
         break;
     }
-    // handleMakePreview(pieDetail);
   }
   const onChangeOpenStatus = () => {
     if (openPopup === 'hide') {
@@ -177,7 +176,6 @@ export default function CFooter({ click, center, }: any) {
       latitude: center.lat,
       longitude: center.lnt,
     });
-    // handleMakePreview(pieDetail)
   }, [center])
   return (
     <footer className={"footer " + openPopup}>
@@ -336,9 +334,13 @@ export default function CFooter({ click, center, }: any) {
           </div>
           <div className='piecreate'>
             {pieDetail.items.length === 0 ? (
-              <button className='btn hidden'>Create Pie</button>
+              <>
+                <button className='btn hidden'>Create Pie</button></>
             ) : (
-              <button className='btn'>Create Pie</button>
+              <>
+                <button className='btn' onClick={handleClearPie}>Clear Pie</button>
+                <button className='btn'>Create Pie</button>
+              </>
             )}
           </div>
         </div>
