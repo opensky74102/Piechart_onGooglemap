@@ -119,6 +119,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
           ctx.lineTo(wi / 2, wi / 2);
           ctx.fillStyle = item.color;
           ctx.globalAlpha = 0.8;
+          ctx.fillText(towername, wi/2 - 20, wi/2 + 20)
           ctx.fill();
 
         }
