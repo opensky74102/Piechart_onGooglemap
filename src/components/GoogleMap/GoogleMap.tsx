@@ -48,7 +48,7 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
   const onMouseMove = (e: any) => {
   }
   const onClear = () => {
-    setClicks([]);
+    setPies([]);
   }
   const zoomInOut = (zoomInOut: number) => {
     let temp = Math.max(zoom + zoomInOut, 1);
