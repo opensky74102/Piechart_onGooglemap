@@ -18,7 +18,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
     frequency: 100,
     antenatype: 'PTP',
     angle: 30,
-    color: '#4DB7FE',
+    color: '#d44539',
   });
   const [preview, setPreview] = useState<HTMLElement>();
   const [pieDetail, setPieDetail] = useState<IPieDetail>({
@@ -194,7 +194,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
       frequency: 100,
       antenatype: 'PTP',
       angle: 30,
-      color: '#4DB7FE',
+      color: COLORS[colorID[0]][colorID[1]],
     })
   }
   const handleClickItem = (ind: number) => {
@@ -408,8 +408,12 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
         <div className='border-div'></div>
         <div className='preview_form'>
           <h5 className='preview_title'>Layout Preview</h5>
-          <img src={back} alt="" className='image_preview' />
+          {/* <img src={back} alt="" className='image_preview' /> */}
           <canvas ref={canvasPreview} id='preview_canvas'></canvas>
+          <div className='dir tt'></div>
+          <div className='dir lc'></div>
+          <div className='dir bb'></div>
+          <div className='dir rc'></div>
         </div>
       </div>
     </footer>
