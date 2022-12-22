@@ -69,7 +69,7 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
   return (
     <div className="google-box">
       <div className="google-box-map">
-        <Wrapper apiKey={api_key ? api_key : ""} render={render}>
+        <Wrapper apiKey={"AIzaSyDZ8jmGzNoCQp5NooOYaSZH3yT31Jt4czg"} render={render}>
           <Map
             center={center}
             onIdle={onIdle}
@@ -118,7 +118,7 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
                     ctx.textAlign = "center";
                     ctx.fillText(item.frequency.toString(), wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) + wi / 20);
                   }
-                  ctx.font =  wi/10 + "px Arial";
+                  ctx.font = wi / 10 + "px Arial";
                   ctx.fillStyle = "white";
                   ctx.textAlign = "center";
                   ctx.textBaseline = "middle";
