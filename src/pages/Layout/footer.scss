@@ -39,6 +39,7 @@
   &_control {
     position: absolute;
     top: 15px;
+    margin-left: 20px;
 
     .fa_icon {
       color: $main-btn-color;
@@ -54,44 +55,39 @@
   &__content {
     display: flex;
     justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
 
     & .infoes_form {
+      width: 200px;
 
       // border: 1px solid black;
       & .info_form {
         margin-top: 10px;
-        margin-bottom: 10px;
-        display: flex;
+        margin-bottom: 20px;
 
         .info_title {
-          width: 100px;
-          padding: auto;
-          margin: auto;
-        }
-
-        label {
-          width: 100px;
+          font-style: italic;
+          opacity: 0.7;
           font-size: 14px;
-          // color: white;
+          margin-bottom: 4px;
         }
 
         .info_input {
-          width: 200px;
-          height: 40px;
-          font-size: 14px;
-          text-indent: 30px;
+          min-height: 25px;
+          font-size: 16px;
           outline: none;
           border: none;
-          display: flex;
-          align-items: center;
-          background-color: hsla(0, 0%, 100%, .9);
+          border-bottom: 2px solid #96dbfa;
+          // border-bottom: 2px solid transparent;
+          background-color: hsla(0, 0%, 100%, .8);
+          transition: all 0.5s ease-in-out;
 
-          // background: rgb(0,0,0, 0.52);
-          // color: white;
-          .rc-slider-handle {
-            margin-top: 0 !important;
+          &:hover,
+          :focus {
+            border-bottom: 2px solid #96dbfa;
+            transition: all 0.5s ease-in-out;
           }
-
         }
 
         .btn {
@@ -117,53 +113,103 @@
     }
 
     & .items_form {
-      width: 300px;
+      width: 350px;
+      display: flex;
+      position: relative;
       // border: 1px solid blue;
 
       & .item_infoes {
-        padding: auto;
+        width: 40%;
+        margin: 10px;
 
         & .info {
-          display: flex;
-          margin-left: 25px;
-          margin-top: 10px;
-          margin-bottom: 15px;
-          justify-content: end;
+          // margin-top: 10px;
+          margin-bottom: 10px;
 
           .label {
-            width: 120px;
-            margin-top: auto;
-            margin-bottom: auto;
-
-            label {
-              margin-right: 15px;
-              font-size: 14px;
-            }
+            font-style: italic;
+            opacity: 0.7;
+            font-size: 14px;
+            margin-bottom: 4px;
           }
 
           .info_input {
-            width: 140px;
-            height: 30px;
-            font-size: 14px;
-            margin-top: auto;
-            margin-bottom: auto;
-            border: none;
-            background: rgb(0, 0, 0, 0.52);
-            display: flex;
-            align-items: center;
-            background-color: hsla(0, 0%, 100%, .9);
+            width: 100%;
+            min-height: 25px;
+            font-size: 16px;
             outline: none;
+            border: none;
+            border-bottom: 2px solid #96dbfa;
+            // border-bottom: 2px solid transparent;
+            background-color: hsla(0, 0%, 100%, .8);
+            transition: all 0.5s ease-in-out;
 
-            .rc-slider-handle {
-              margin-top: 0 !important;
+            &:hover,
+            :focus {
+              border-bottom: 2px solid #96dbfa;
+              transition: all 0.5s ease-in-out;
             }
 
             &.button {
-              // border: 1px solid $main-btn-color;
-              // border-radius: 10px;
-              // justify-content: center;
-              // text-align: center;
               padding: 8px 20px;
+              position: relative;
+              color: #fff;
+              font-weight: 700;
+              // text-transform: uppercase;
+              margin: auto;
+              font-size: 14px;
+              text-decoration: none;
+              background: $main-btn-color;
+              outline: none;
+              border: 1px solid white;
+              border-radius: 4px;
+
+            }
+          }
+        }
+      }
+
+      & .colors_div {
+        width: 60%;
+        height: 270px;
+        margin: 10px;
+
+        .label {
+          font-style: italic;
+          opacity: 0.7;
+          font-size: 14px;
+          margin-bottom: 4px;
+        }
+
+        & .colors {
+          display: flex;
+          flex-direction: column;
+
+          .color_row {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 5px;
+
+            .color {
+              width: 36px;
+              height:36px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          }
+        }
+      }
+
+      & .btn_bar {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        translate: -50%;
+
+        button {
+          padding: 8px 20px;
           position: relative;
           color: #fff;
           font-weight: 700;
@@ -174,10 +220,7 @@
           background: $main-btn-color;
           outline: none;
           border: 1px solid white;
-          border-radius: 8px;
-
-            }
-          }
+          border-radius: 4px;
         }
       }
     }
@@ -190,7 +233,19 @@
       display: flex;
       flex-direction: column;
       // border: 1px solid green;
-
+      .item_header{
+        display: flex;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        justify-content: space-between;
+        color: black;
+        font-style: italic;
+        font-size: 14px;
+        border-bottom: 2px solid $main-btn-color;
+        div{
+          // border-bottom: 2px solid $main-btn-color;
+        }
+      }
       .itemlist {
         overflow-y: scroll;
         overflow-x: none;
@@ -203,28 +258,26 @@
           margin-bottom: 5px;
           justify-content: space-between;
           color: white;
-        }
+        }        
       }
 
       .piecreate {
         width: 100%;
         margin-top: auto;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
 
         & button {
           padding: 8px 20px;
           position: relative;
           color: #fff;
           font-weight: 700;
-          // text-transform: uppercase;
-          margin: auto;
           font-size: 14px;
           text-decoration: none;
           background: $main-btn-color;
           outline: none;
           border: 1px solid white;
-          border-radius: 8px;
+          border-radius: 4px;
 
           &:hover {
             box-shadow: 0px 0px 0px 7px rgb(255 255 255 / 10%);
@@ -264,11 +317,10 @@
         z-index: 10;
       }
     }
-
-    & .border-div {
-      width: 0px;
-      border: 1px solid $main-btn-color;
-      opacity: 0.7;
-    }
+  }
+  & .border-div {
+    width: 0px;
+    border: 1px solid $main-btn-color;
+    opacity: 0.7;
   }
 }

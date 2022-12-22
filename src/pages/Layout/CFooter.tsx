@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import './footer.scss';
-import { ANTENALIST, ANGLELIST, COMPASS } from '../../consts/Page_Const';
+import { ANTENALIST, ANGLELIST, COMPASS, COLORS } from '../../consts/Page_Const';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUp, faArrowDown, faCheck } from "@fortawesome/free-solid-svg-icons";
 import Slider from 'rc-slider';
 import { IItem, IPieDetail } from '../../type';
 import 'rc-slider/assets/index.css';
@@ -29,6 +29,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
     radius: 60,
     items: []
   })
+  const [colorID, setColorID] = useState([0, 0]);
   const canvasPreview = useRef<HTMLCanvasElement>(null);
 
   var canvas = null;
@@ -109,18 +110,18 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
           // ctx.fillText(pieDetail.towerName, wi / 2 - 20, wi / 2 + wi / 20)
           ctx.fill();
           ctx.stroke();
-          ctx.font = wi/10 + "px Arial";
+          ctx.font = wi / 10 + "px Arial";
           ctx.fillStyle = "black";
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
           var mid = currentAngle + pieDetail.rotate / 10 - portionAngle / 2;
           ctx.fillText(item.compass, wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) - wi / 20);
-          ctx.font =  wi/10 + "px Arial";
+          ctx.font = wi / 10 + "px Arial";
           ctx.fillStyle = "white";
           ctx.textAlign = "center";
           ctx.fillText(item.frequency.toString(), wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) + wi / 20);
         }
-        ctx.font =  wi/10 + "px Arial";
+        ctx.font = wi / 10 + "px Arial";
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -136,6 +137,10 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
       towerName: towername
     })
   }, [towername])
+  const handleClickColor = (color: string, ind: number, indC: number) => {
+    setItemInfo({ ...itemInfo, color: color, })
+    setColorID([ind, indC]);
+  }
   const handleCreatePieOnMap = () => {
     pieCreate(pieDetail);
   }
@@ -223,20 +228,20 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
         <div className='infoes_form'>
           <div className='info_form'>
             <div className='info_title'>
-              <label htmlFor='towername'>Tower Name:</label>
+              <label htmlFor='towername'>Tower Name</label>
             </div>
             <input
               type="text"
               className='info_input'
               name="towername"
               id='towername'
-              placeholder='Tower Name'
+              placeholder='Tower 1'
               onInput={handleChangeValue}
             />
           </div>
           <div className='info_form'>
             <div className='info_title'>
-              <label htmlFor="coordinate">Coordinate:</label>
+              <label htmlFor="coordinate">Coordinates</label>
             </div>
             <input
               type="string"
@@ -251,7 +256,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
 
           <div className='info_form'>
             <div className='info_title'>
-              <label htmlFor="rotate">Rotate:</label>
+              <label htmlFor="rotate">Rotate</label>
             </div>
             <Slider
               min={0}
@@ -259,28 +264,28 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
               defaultValue={30}
               onChange={handleRotateSliderChange}
               startPoint={0}
-              className="info_input"
+              className=""
             />
           </div>
           <div className='info_form'>
             <div className='info_title'>
-              <label htmlFor="radius">Radius:</label>
+              <label htmlFor="radius">Radius</label>
             </div>
             <Slider
               min={0}
               max={100}
               defaultValue={pieDetail.radius}
               onChange={handleRadiusSliderChange}
-              className="info_input"
+              className=""
             />
           </div>
         </div>
         <div className='border-div'></div>
-        <div className='items_form'>
+        <div className='items_form'>  
           <div className='item_infoes'>
             <div className='info'>
               <div className='label'>
-                <label>Compass:</label>
+                <label>Compass</label>
               </div>
               <select className='info_input' name="compass" id="compass" value={itemInfo.compass} onInput={handleChangeInfo}>
                 {COMPASS.map((val, ind) => {
@@ -323,21 +328,58 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
               </select>
 
             </div>
-            <div className='info'>
+            {/* <div className='info'>
               <div className='label'>
                 <label>Color:</label>
               </div>
               <input type="color" className='info_input' name='color' value={itemInfo.color} onInput={handleChangeInfo} />
+            </div> */}
+          </div>
+          <div className='colors_div'>
+            <div className='label'>
+              <label>Select a color</label>
             </div>
-            <div className='info'>
-              <button type="button" className='info_input button' name="addItem" onClick={handleAddItem}>Add Ratio</button>
+            <div className='colors'>
+              {
+                COLORS.map((color_row, ind, arr) => {
+                  return (
+                    <div key={ind} className='color_row'>
+                      {color_row.map((color, indC) => {
+                        return (
+                          <div key={"" + ind + indC} className='color' style={{ backgroundColor: color }} onClick={() => handleClickColor(color, ind, indC)}>
+                            {
+                              ((colorID[0] === ind) && (colorID[1] === indC)) ? (
+                                <FontAwesomeIcon icon={faCheck} className="fa_icon" color="white" size="lg" />
+                              ) : (null)
+                            }
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )
+                })
+              }
             </div>
           </div>
-
+          <div className='btn_bar'>
+            <button className='btn' onClick={handleAddItem}>
+              Add Ratio
+            </button>
+          </div>
         </div>
         <div className='border-div'></div>
         <div className='itemlist_form'>
+          <div className='item_header'>
+            <div className='item_com'><span>Compass</span></div>
+            <div className='border-div'></div>
+            <div className='item_freq'><span>Freq</span></div>
+            <div className='border-div'></div>
+            <div className='item_ante'><span>Antena</span></div>
+            <div className='border-div'></div>
+            <div className='item_ang'><span>Angle</span></div>
+          </div>
           <div className='itemlist'>
+
             {
               pieDetail.items.map((item, ind) => {
                 return (
