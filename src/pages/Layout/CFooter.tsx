@@ -104,9 +104,21 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
           currentAngle += portionAngle;
           ctx.lineTo(wi / 2, wi / 2);
           ctx.fillStyle = item.color;
+          ctx.strokeStyle = 'white';
           ctx.globalAlpha = 0.8;
-          ctx.fillText(towername, wi / 2 - 20, wi / 2 + 20)
+          // ctx.fillText(towername, wi / 2 - 20, wi / 2 + 20)
           ctx.fill();
+          ctx.stroke();
+          ctx.font = 12 + pieDetail.radius * 0.1 + "px Arial";
+          ctx.fillStyle = "black";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          var mid = currentAngle + pieDetail.rotate / 10 - portionAngle/2 ;
+          ctx.fillText(item.compass, wi/2 + Math.cos(mid) * (wi/4), wi/2 + Math.sin(mid) * (wi / 4)-10);
+          ctx.font = 8 + pieDetail.radius * 0.1 + "px Arial";
+          ctx.fillStyle = "white";
+          ctx.textAlign = "center";
+          ctx.fillText(item.frequency.toString(), wi/2 + Math.cos(mid) * (wi/4), wi/2 + Math.sin(mid) * (wi / 4) + 10 );
         }
 
       }
