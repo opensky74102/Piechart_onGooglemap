@@ -281,7 +281,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
           </div>
         </div>
         <div className='border-div'></div>
-        <div className='items_form'>  
+        <div className='items_form'>
           <div className='item_infoes'>
             <div className='info'>
               <div className='label'>
@@ -370,11 +370,11 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
         <div className='border-div'></div>
         <div className='itemlist_form'>
           <div className='item_header'>
-            <div className='item_com'><span>Compass</span></div>
+            <div className='item_com'><span>Direction</span></div>
             <div className='border-div'></div>
-            <div className='item_freq'><span>Freq</span></div>
+            <div className='item_freq'><span>Frequency</span></div>
             <div className='border-div'></div>
-            <div className='item_ante'><span>Antena</span></div>
+            <div className='item_ante'><span>Type</span></div>
             <div className='border-div'></div>
             <div className='item_ang'><span>Angle</span></div>
           </div>
