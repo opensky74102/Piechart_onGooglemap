@@ -38,12 +38,9 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
     setZoom(temp);
   }
   useEffect(() => {
-    let temp = KILOESPERPIXEL[12]
-    if (zoom < 19) {
-      temp = KILOESPERPIXEL[zoom];
-    } else {
-      temp = 156.54303392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom);
-    }
+    let temp = zoom<=19? KILOESPERPIXEL[zoom]: (156.54303392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom))
+    console.log(zoom, temp)
+    console.log(map?.getZoom());
     setKiloesPerPx(temp);
   }, [zoom])
   useEffect(() => {
@@ -89,6 +86,7 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
               pies.map((pieDetail, i) => {
                 let canvas = document.createElement("canvas");
                 const wi = (pieDetail.radius) / kiloesPerPx;
+                console.log(pieDetail.radius, kiloesPerPx)
                 // console.log(pieDetail.radius, kiloesPerPx)
                 canvas.width = wi;
                 canvas.height = wi;
@@ -112,10 +110,11 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
                   }
 
                 }
-                return <Marker key={i} position={{
+                return <Marker clickable={true} key={i} position={{
                   lat: pieDetail.latitude,
                   lng: pieDetail.longitude
                 }} icon={canvas.toDataURL()} />
+
               }
               )}
           </Map>
