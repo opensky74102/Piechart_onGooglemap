@@ -102,11 +102,11 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
                     ctx.fillStyle = item.color;
                     ctx.globalAlpha = 0.7;
                     ctx.fill();
-                    ctx.font = (pieDetail.radius * 0.5) * Math.pow(2, zoom) / 256 + "px Arial";
+                    ctx.font = wi / 10 + "px Arial";
                     ctx.fillStyle = "white";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
-                    ctx.fillText(pieDetail.towerName, wi / 2 - 20, wi / 2 + wi / 10,)
+                    // ctx.fillText(pieDetail.towerName, wi / 2 - 20, wi / 2 + wi / 10,)
                     ctx.font = wi / 10 + "px Arial";
                     ctx.fillStyle = "black";
                     ctx.textAlign = "center";
@@ -118,6 +118,11 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
                     ctx.textAlign = "center";
                     ctx.fillText(item.frequency.toString(), wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) + wi / 20);
                   }
+                  ctx.font =  wi/10 + "px Arial";
+                  ctx.fillStyle = "white";
+                  ctx.textAlign = "center";
+                  ctx.textBaseline = "middle";
+                  ctx.fillText(pieDetail.towerName.toString(), wi / 2, wi / 2);
 
                 }
                 return <Marker clickable={true} key={i} position={{
