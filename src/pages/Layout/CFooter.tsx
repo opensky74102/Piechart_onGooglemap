@@ -363,7 +363,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
           </div>
           <div className='btn_bar'>
             <button className='btn' onClick={handleAddItem}>
-              Add Ratio
+              Add Radio
             </button>
           </div>
         </div>
