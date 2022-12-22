@@ -159,10 +159,22 @@
             }
 
             &.button {
-              border: 1px solid $main-btn-color;
-              border-radius: 10px;
-              justify-content: center;
-              text-align: center;
+              // border: 1px solid $main-btn-color;
+              // border-radius: 10px;
+              // justify-content: center;
+              // text-align: center;
+              padding: 8px 20px;
+          position: relative;
+          color: #fff;
+          font-weight: 700;
+          // text-transform: uppercase;
+          margin: auto;
+          font-size: 14px;
+          text-decoration: none;
+          background: $main-btn-color;
+          outline: none;
+          border: 1px solid white;
+          border-radius: 8px;
 
             }
           }
@@ -256,7 +268,7 @@
     & .border-div {
       width: 0px;
       border: 1px solid $main-btn-color;
-      opacity: 0.3;
+      opacity: 0.7;
     }
   }
 }

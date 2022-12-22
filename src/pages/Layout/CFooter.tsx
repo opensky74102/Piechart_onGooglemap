@@ -106,20 +106,25 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
           ctx.fillStyle = item.color;
           ctx.strokeStyle = 'white';
           ctx.globalAlpha = 0.8;
-          // ctx.fillText(towername, wi / 2 - 20, wi / 2 + 20)
+          // ctx.fillText(pieDetail.towerName, wi / 2 - 20, wi / 2 + wi / 20)
           ctx.fill();
           ctx.stroke();
-          ctx.font = 12 + pieDetail.radius * 0.1 + "px Arial";
+          ctx.font = wi/10 + "px Arial";
           ctx.fillStyle = "black";
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
-          var mid = currentAngle + pieDetail.rotate / 10 - portionAngle/2 ;
-          ctx.fillText(item.compass, wi/2 + Math.cos(mid) * (wi/4), wi/2 + Math.sin(mid) * (wi / 4)-10);
-          ctx.font = 8 + pieDetail.radius * 0.1 + "px Arial";
+          var mid = currentAngle + pieDetail.rotate / 10 - portionAngle / 2;
+          ctx.fillText(item.compass, wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) - wi / 20);
+          ctx.font =  wi/10 + "px Arial";
           ctx.fillStyle = "white";
           ctx.textAlign = "center";
-          ctx.fillText(item.frequency.toString(), wi/2 + Math.cos(mid) * (wi/4), wi/2 + Math.sin(mid) * (wi / 4) + 10 );
+          ctx.fillText(item.frequency.toString(), wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) + wi / 20);
         }
+        ctx.font =  wi/10 + "px Arial";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(pieDetail.towerName.toString(), wi / 2, wi / 2);
 
       }
     }
@@ -325,7 +330,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
               <input type="color" className='info_input' name='color' value={itemInfo.color} onInput={handleChangeInfo} />
             </div>
             <div className='info'>
-              <button type="button" className='info_input button' name="addItem" onClick={handleAddItem}>add item</button>
+              <button type="button" className='info_input button' name="addItem" onClick={handleAddItem}>Add Ratio</button>
             </div>
           </div>
 
@@ -352,8 +357,8 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
                 <button className='btn hidden'>Create Pie</button></>
             ) : (
               <>
-                <button className='btn' onClick={handleClearPie}>Clear Layout</button>
-                <button className='btn' onClick={handleCreatePieOnMap}>Add Spectrum</button>
+                <button className='btn' onClick={handleClearPie}>Clear Setup</button>
+                <button className='btn' onClick={handleCreatePieOnMap}>Add to Map</button>
               </>
             )}
           </div>
