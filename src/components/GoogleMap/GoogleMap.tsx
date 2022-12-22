@@ -38,9 +38,7 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
     setZoom(temp);
   }
   useEffect(() => {
-    let temp = zoom<=19? KILOESPERPIXEL[zoom]: (156.54303392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom))
-    console.log(zoom, temp)
-    console.log(map?.getZoom());
+    let temp = zoom <= 19 ? KILOESPERPIXEL[zoom] : (156.54303392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom))
     setKiloesPerPx(temp);
   }, [zoom])
   useEffect(() => {
@@ -86,8 +84,6 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
               pies.map((pieDetail, i) => {
                 let canvas = document.createElement("canvas");
                 const wi = (pieDetail.radius) / kiloesPerPx;
-                console.log(pieDetail.radius, kiloesPerPx)
-                // console.log(pieDetail.radius, kiloesPerPx)
                 canvas.width = wi;
                 canvas.height = wi;
                 let ctx = canvas.getContext("2d");
@@ -104,9 +100,23 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
                     currentAngle += portionAngle;
                     ctx.lineTo(wi / 2, wi / 2);
                     ctx.fillStyle = item.color;
-                    ctx.globalAlpha = 0.5;
-                    ctx.fillText(pieDetail.towerName, wi / 2 - 20, wi / 2 + 20)
+                    ctx.globalAlpha = 0.7;
                     ctx.fill();
+                    ctx.font = (pieDetail.radius * 0.5) * Math.pow(2, zoom) / 256 + "px Arial";
+                    ctx.fillStyle = "white";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    ctx.fillText(pieDetail.towerName, wi / 2 - 20, wi / 2 + wi / 10,)
+                    ctx.font = wi / 10 + "px Arial";
+                    ctx.fillStyle = "black";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    var mid = currentAngle + pieDetail.rotate / 10 - portionAngle / 2;
+                    ctx.fillText(item.compass, wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) - wi / 20);
+                    ctx.font = wi / 10 + "px Arial";
+                    ctx.fillStyle = "white";
+                    ctx.textAlign = "center";
+                    ctx.fillText(item.frequency.toString(), wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) + wi / 20);
                   }
 
                 }
@@ -121,7 +131,6 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
         </Wrapper>
       </div>
       <Panel clear={onClear} zoomInOut={zoomInOut} openPopup={openPopup} setOpenPopup={setOpenPopup} />
-
     </div>
   )
 }
