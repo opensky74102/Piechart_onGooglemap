@@ -6,6 +6,7 @@ import Marker from "./Marker";
 import './googlemap.scss';
 import Panel from "./Panel";
 import { IPieDetail } from "../../type";
+import { KILOESPERPIXEL } from "../../consts/Page_Const";
 
 const api_key = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -13,34 +14,16 @@ const render = (status: Status) => {
   return <h1>{status}</h1>;
 };
 
-const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCreateFlag }: any) => {
+const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCreateFlag, openPopup, setOpenPopup }: any) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
-  const [clicks, setClicks] = useState<google.maps.LatLng[]>([]);
   const [pies, setPies] = useState<IPieDetail[]>([]);
   const [zoom, setZoom] = useState(12); // initial zoom
   const [center, setCenter] = useState<google.maps.LatLngLiteral>({
     lat: 40.730610,
     lng: -73.935242,
   });
-  const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 });
-  const [currentGeo, setCurrentGeo] = useState({ lat: 0, lng: 0 });
-  const results = [
-    { mood: "Angry", total: 1499, shade: "#0a9627" },
-    { mood: "Happy", total: 478, shade: "#960A2C" },
-    { mood: "Melancholic", total: 332, shade: "#332E2E" },
-    { mood: "Gloomy", total: 195, shade: "#F73809" }
-  ];
-  const onClick = (e: any) => {
-    if (e.pixel === undefined) {
-      return;
-    }
-    setCurrentPos({ x: e.pixel.x, y: e.pixel.y });
-    move({
-      lat: e.latLng.lat(),
-      lng: e.latLng.lng(),
-    });
-  }
+  const [kiloesPerPx, setKiloesPerPx] = useState(144447.644200);
   const onIdle = (m: google.maps.Map) => {
     setZoom(m.getZoom()!);
     setCenter(m.getCenter()!.toJSON());
@@ -55,6 +38,15 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
     setZoom(temp);
   }
   useEffect(() => {
+    let temp = KILOESPERPIXEL[12]
+    if (zoom < 19) {
+      temp = KILOESPERPIXEL[zoom];
+    } else {
+      temp = 156.54303392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom);
+    }
+    setKiloesPerPx(temp);
+  }, [zoom])
+  useEffect(() => {
     setCenter({
       lat: Number(changecCenter.lat),
       lng: Number(changecCenter.lng),
@@ -66,7 +58,6 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
     }
     navigator?.geolocation.getCurrentPosition(({ coords: { latitude: lat, longitude: lng } }) => {
       const pos = { lat, lng }
-      setCurrentGeo(pos);
       setCenter(pos);
       move(pos);
     })
@@ -83,21 +74,22 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
   return (
     <div className="google-box">
       <div className="google-box-map">
-        <Wrapper apiKey={"AIzaSyDZ8jmGzNoCQp5NooOYaSZH3yT31Jt4czg"} render={render}>
+        <Wrapper apiKey={api_key ? api_key : ""} render={render}>
           <Map
             center={center}
-            onClick={onClick}
             onIdle={onIdle}
             onMouseMove={onMouseMove}
             zoom={zoom}
             scrollwheel={false}
             style={{ flexGrow: "1", height: "100%" }}
+            mapTypeControl={true}
             disableDefaultUI={true}
           >
             {
               pies.map((pieDetail, i) => {
                 let canvas = document.createElement("canvas");
-                const wi = pieDetail.radius * 1.5 + 100;
+                const wi = (pieDetail.radius) / kiloesPerPx;
+                // console.log(pieDetail.radius, kiloesPerPx)
                 canvas.width = wi;
                 canvas.height = wi;
                 let ctx = canvas.getContext("2d");
@@ -121,15 +113,15 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
 
                 }
                 return <Marker key={i} position={{
-                  lat:pieDetail.latitude,
-                  lng:pieDetail.longitude
+                  lat: pieDetail.latitude,
+                  lng: pieDetail.longitude
                 }} icon={canvas.toDataURL()} />
               }
               )}
           </Map>
         </Wrapper>
       </div>
-      <Panel clear={onClear} zoomInOut={zoomInOut} />
+      <Panel clear={onClear} zoomInOut={zoomInOut} openPopup={openPopup} setOpenPopup={setOpenPopup} />
 
     </div>
   )

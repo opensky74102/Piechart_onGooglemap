@@ -1,17 +1,17 @@
-import react, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './footer.scss';
 import { ANTENALIST, ANGLELIST, COMPASS } from '../../consts/Page_Const';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faArrowUp, faArrowDown, faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import Slider from 'rc-slider';
 import { IItem, IPieDetail } from '../../type';
 import 'rc-slider/assets/index.css';
-import { useHref } from 'react-router-dom';
+import back from '../../assets/images/preview.png';
 
-export default function CFooter({ pieCreate, center, setCenter }: any) {
+export default function CFooter({ pieCreate, center, setCenter, openPopup, setOpenPopup }: any) {
   const [latVal, setLatValue] = useState(40.7);
   const [lngVal, setLngValue] = useState(-74);
-  const [coordinate, setCoordinate] = useState('40.7, -74');
+  const [coordinate, setCoordinate] = useState('40.730610, -73.935242');
   const [towername, setTowername] = useState('');
   const [itemInfo, setItemInfo] = useState<IItem>({
     compass: "N",
@@ -21,7 +21,6 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
     color: '#4DB7FE',
   });
   const [preview, setPreview] = useState<HTMLElement>();
-  const [openPopup, setOpenPopup] = useState('hide');
   const [pieDetail, setPieDetail] = useState<IPieDetail>({
     towerName: '',
     latitude: 0,
@@ -37,31 +36,23 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
     let { value, min, max, name } = e.target;
 
     if (name === "coordinate") {
-      setCoordinate(value);
-      return;
       let temp = (value.replace(" ", "")).split(",");
       let pat = /^-?\d*\.{0,1}\d+$/;
+      setCoordinate(value);
       if (temp.length > 2) {
         return;
       } else if (temp.length === 2) {
-        let temp1 = temp[0];
-        let temp2 = temp[1];
-        if (temp1 === "-" || temp1 === "") {
-          setCoordinate(value);
-          return;
-        } else if (temp2 === "-" || temp1 === "") {
-          setCoordinate(value);
-          return;
-        } else if (!(pat.test(temp[0]) && pat.test(temp[1]))) {
-          setCoordinate(value);
+        if (isNaN(parseFloat(temp[0])) || isNaN(parseFloat(temp[1]))) {
           return;
         }
-        setCoordinate(value);
-      } else if (temp.length === 1) {
-        if (!pat.test(temp[0])) {
+        setCenter(parseFloat(temp[0]), parseFloat(temp[1]))
+      } else {
+
+        if (isNaN(temp[0])) {
           return;
         }
-        setCoordinate(value);
+
+        setCenter(parseFloat(temp[0]), 74)
       }
       return;
     } else if (name === "towername") {
@@ -167,12 +158,12 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
   const handleAddItem = () => {
     let tempPie = structuredClone(pieDetail);
     let sum = 0;
-    let totalAngle = tempPie.items.reduce((sum:any, { angle }:any) => sum + Number(angle), 0);
+    let totalAngle = tempPie.items.reduce((sum: any, { angle }: any) => sum + Number(angle), 0);
     let tempItem = structuredClone(itemInfo);
     if (totalAngle >= 360) {
       return;
     } else if (itemInfo.angle + totalAngle > 360) {
-      tempItem.angle  = 360- totalAngle;
+      tempItem.angle = 360 - totalAngle;
     }
     tempPie.items.push(tempItem);
     setPieDetail(tempPie)
@@ -195,7 +186,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
   useEffect(() => {
     setLatValue(center.lat);
     setLngValue(center.lng);
-    setCoordinate('' + center.lat.toFixed(5) + ", " + center.lng.toFixed(5));
+    // setCoordinate('' + center.lat.toFixed(5) + ", " + center.lng.toFixed(5));
     setPieDetail({
       ...pieDetail,
       latitude: center.lat,
@@ -209,6 +200,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
       </div>
       <div className="footer_control">
         <h5>Map Tools</h5>
+
       </div>
       <div className='footer__content'>
         <div className='infoes_form'>
@@ -225,36 +217,6 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
               onInput={handleChangeValue}
             />
           </div>
-          {/* <div className='info_form'>
-            <div className='info_title'>
-              <label htmlFor="latitude">Latitude:</label>
-            </div>
-            <input
-              type="number"
-              className='info_input'
-              name="latitude"
-              id='latitude'
-              max={90} min={-90}
-              placeholder='Latitude'
-              value={latVal == 0 ? '' : latVal}
-              onInput={handleChangeValue}
-            />
-          </div>
-          <div className='info_form'>
-            <div className='info_title'>
-              <label htmlFor='longitude'>Longitude:</label>
-            </div>
-            <input
-              type="number"
-              className='info_input'
-              name="longitude"
-              id='longitude'
-              max={180} min={-180}
-              placeholder='Longitude'
-              value={lngVal == 0 ? '' : lngVal}
-              onInput={handleChangeValue}
-            />
-          </div> */}
           <div className='info_form'>
             <div className='info_title'>
               <label htmlFor="coordinate">Coordinate:</label>
@@ -387,6 +349,7 @@ export default function CFooter({ pieCreate, center, setCenter }: any) {
         <div className='border-div'></div>
         <div className='preview_form'>
           <h5 className='preview_title'>Layout Preview</h5>
+          <img src={back} alt="" className='image_preview' />
           <canvas ref={canvasPreview} id='preview_canvas'></canvas>
         </div>
       </div>

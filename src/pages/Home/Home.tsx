@@ -23,7 +23,11 @@ export default function Home() {
     setPieDetail(data);
     setCreateFlag(true);
   }
+  const [openPopup, setOpenPopup] = useState('hide');
   const handleChangeCenter = (lat: number, lng: number) => {
+    if (isNaN(lat)||isNaN(lng)) {
+      return;      
+    }
     setCenter({
       lat: lat,
       lng: lng
@@ -32,8 +36,8 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <GoogleMapComponent changecCenter={center} move={setCenter} pieDetail={pieDetail} createFlag={createFlag} setCreateFlag={setCreateFlag} />
-      <CFooter center={center} pieCreate={handleCreatePie} setCenter={handleChangeCenter} />
+      <GoogleMapComponent changecCenter={center} move={setCenter} pieDetail={pieDetail} createFlag={createFlag} setCreateFlag={setCreateFlag} openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      <CFooter center={center} pieCreate={handleCreatePie} setCenter={handleChangeCenter} openPopup={openPopup} setOpenPopup={setOpenPopup} />
     </>
   )
 }
