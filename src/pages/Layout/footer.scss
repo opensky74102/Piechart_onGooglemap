@@ -297,6 +297,7 @@
       justify-items: center;
       align-items: center;
       text-align: center;
+      position: relative;
 
       .image_preview {
         position: absolute;
@@ -306,16 +307,50 @@
 
       .preview_title {
         position: absolute;
-        top: -20px;
+        top: -70px;
+        left: -20px;
         color: $main-btn-color;
         font-size: 20px;
+        z-index: 10;
       }
 
       canvas {
         display: block;
         margin-left: 10px;
-        z-index: 10;
       }
+      .dir{
+        position: absolute;
+        width: 65px;
+        height: 65px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -10;     
+      }
+      .dir.tt{
+        top: -40px;
+        left: 50%;
+        background-image:url("../../assets/images/N_UP.png");      
+        translate: -50%;
+      }
+      .dir.lc{
+        top: 50%;
+        left: -10px;
+        background-image:url("../../assets/images/W_LEFT.png");     
+        transform: translateY(-50%);
+      }
+      .dir.rc{
+        top: 50%;
+        right: -20px;
+        background-image:url("../../assets/images/E_RIGHT.png");     
+        transform: translateY(-50%);
+      }
+      .dir.bb{
+        left: 50%;
+        bottom: -20px;
+        background-image:url("../../assets/images/S_DOWN.png");
+        translate: -50%;
+      }
+
     }
   }
   & .border-div {
