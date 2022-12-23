@@ -72,12 +72,14 @@
 
       .dd-wrapper {
         position: fixed;
+        cursor: pointer;
 
         .dd-header {
           color: white;
 
           &:hover {
             color: $main-btn-color;
+            cursor: pointer;
 
             .fa_icon {
               color: $main-btn-color;
