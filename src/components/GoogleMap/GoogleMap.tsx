@@ -66,6 +66,9 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
       setCreateFlag(false);
     }
   }, [createFlag])
+  useEffect(()=>{
+
+  }, [])
   return (
     <div className="google-box">
       <div className="google-box-map">
@@ -96,9 +99,9 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
                   for (let item of items) {
                     let portionAngle = (Number(item.angle) / totalAngle) * 2 * Math.PI;
                     ctx.beginPath();
-                    ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + pieDetail.rotate / 10, currentAngle + portionAngle + pieDetail.rotate / 10);
+                    ctx.arc(wi/2, wi/2, wi/2, currentAngle + pieDetail.rotate / 10, currentAngle + portionAngle + pieDetail.rotate / 10);
                     currentAngle += portionAngle;
-                    ctx.lineTo(wi / 2, wi / 2);
+                    ctx.lineTo(wi/2, wi/2);
                     ctx.fillStyle = item.color;
                     ctx.globalAlpha = 0.7;
                     ctx.fill();
@@ -123,15 +126,18 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
                   ctx.textAlign = "center";
                   ctx.textBaseline = "middle";
                   ctx.fillText(pieDetail.towerName.toString(), wi / 2, wi / 2);
-
                 }
+                console.log(map);
                 return <Marker clickable={true} key={i} position={{
                   lat: pieDetail.latitude,
                   lng: pieDetail.longitude
-                }} icon={canvas.toDataURL()} />
-
+                }} icon={canvas.toDataURL()} title={pieDetail.towerName} />
               }
               )}
+              <Marker clickable={true} position={{
+                  lat: center.lat,
+                  lng: center.lng
+                }}/>
           </Map>
         </Wrapper>
       </div>
