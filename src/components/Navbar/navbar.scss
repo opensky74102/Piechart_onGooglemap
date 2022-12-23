@@ -53,9 +53,10 @@
       font-weight: bold;
       text-decoration: none;
       color: #fff;
+      display: flex;
 
       &__img {
-        width: 120px;
+        width: 100px;
         height: auto;
       }
     }
@@ -63,7 +64,6 @@
     &__mainmenu {
       position: relative;
       margin-right: 120px;
-      align-items: center;
       top: -10px;
 
       .fa_icon {
@@ -73,6 +73,7 @@
       .dd-wrapper {
         position: fixed;
         cursor: pointer;
+        text-align: left;
 
         .dd-header {
           color: white;
@@ -90,9 +91,9 @@
         .dd-list {
           margin: 0;
           margin-top: 15px;
-          padding: 0;
+          padding: 4px;
           color: black;
-          text-align: center;
+          text-align: left;
           background: white;
           border-radius: 4px;
           transition: all 2s ease-in;
