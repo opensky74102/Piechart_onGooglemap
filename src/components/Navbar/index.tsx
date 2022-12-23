@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignIn, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faSignIn, faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 import SearchBtn from "../SearchBtn";
 import "./navbar.scss";
 import logo from "../../assets/images/logo.png";
 
 function Navbar() {
-
+  const [listOpen, setListOpen] = useState(false);
+  const [headerTitle, setHeaderTitle] = useState("");
+  const handleClickOutside = () => {
+    setListOpen(false);
+  }
+  const toggleList = () => {
+    setListOpen(!listOpen)
+  }
   return (
     <header className="header">
       <div className="header__content">
@@ -20,13 +27,18 @@ function Navbar() {
         </div>
         <div className="header__content__right">
           <div className="header__content__mainmenu">
-            <div className="dropdown">
-              <a href="#">Main Menu</a>
-            </div>
-            <div className="dropdown-list">
-              <li>Main</li>
-              <li>Main</li>
-              <li>Main</li>
+            <div className="dd-wrapper">
+              <div className="dd-header" onClick={() => setListOpen(!listOpen)}>
+                <div className="dd-header-title">Main Menu <FontAwesomeIcon icon={listOpen ? faCaretRight : faCaretDown} className="fa_icon" size="lg" />
+                </div>
+              </div>
+              {
+                listOpen === true ? (<ul className="dd-list">
+                  <li className="dd-list-item">New</li>
+                  <li className="dd-list-item">Open</li>
+                  <li className="dd-list-item">Save</li>
+                </ul>) : null
+              }
             </div>
           </div>
           <div className="header__content__signin_btn">
