@@ -26,7 +26,7 @@ export default function CFooter({
     compass: "N",
     frequency: 100,
     antenatype: 'PTP',
-    angle: 30,
+    angle: 90,
     color: '#d44539',
   });
   const [preview, setPreview] = useState<HTMLElement>();
@@ -34,8 +34,8 @@ export default function CFooter({
     towerName: '',
     latitude: 0,
     longitude: 0,
-    rotate: 0,
-    radius: 36,
+    rotate: 68,
+    radius: 48,
     items: []
   })
   const [colorID, setColorID] = useState([0, 0]);
@@ -202,7 +202,7 @@ export default function CFooter({
       compass: "N",
       frequency: 100,
       antenatype: 'PTP',
-      angle: 30,
+      angle: 90,
       color: COLORS[colorID[0]][colorID[1]],
     })
   }
@@ -417,10 +417,10 @@ export default function CFooter({
               pieDetail.items.map((item, ind) => {
                 return (
                   <div key={ind} className='item' style={{ background: '' + item.color }} onClick={() => handleClickItem(ind)}>
-                    <div className='item_com'><span>{item.compass}</span></div>
-                    <div className='item_freq'><span>{item.frequency}</span></div>
-                    <div className='item_ante'><span>{item.antenatype}</span></div>
-                    <div className='item_ang'><span>{item.angle}</span></div>
+                    <div className='item_com' style={{width:"25%"}}><span>{item.compass}</span></div>
+                    <div className='item_freq'  style={{width:"30%"}}><span>{item.frequency}</span></div>
+                    <div className='item_ante'  style={{width:"25%"}}><span>{item.antenatype}</span></div>
+                    <div className='item_ang'  style={{width:"20%"}}><span>{item.angle}</span></div>
                   </div>
                 )
               })
@@ -443,10 +443,10 @@ export default function CFooter({
           <h5 className='preview_title'>Layout Preview</h5>
           {/* <img src={back} alt="" className='image_preview' /> */}
           <canvas ref={canvasPreview} id='preview_canvas'></canvas>
-          <div className='dir tt'></div>
-          <div className='dir lc'></div>
-          <div className='dir bb'></div>
-          <div className='dir rc'></div>
+          <div className='dir tt'><span>N</span></div>
+          <div className='dir lc'><span>W</span></div>
+          <div className='dir bb'><span>S</span></div>
+          <div className='dir rc'><span>E</span></div>
         </div>
       </div>
     </footer>

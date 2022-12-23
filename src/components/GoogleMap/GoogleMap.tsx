@@ -200,9 +200,11 @@ const GoogleMapComponent = ({
             <Overlay position={{ lat: 33, lng: 44 }}>
               <SvgMarker
                 position={center}
-                svg={`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#e74c3c" d="M12 0a8 8 0 0 0-7 12l7 12 7-12a8 8 0 0 0-7-12zm0 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
-              <path fill="#c0392b" d="M12 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
+                width={40}
+                height={40}
+                svg={`<svg className="svg-marker" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#4DB7FE" className="path_out"  d="M12 0a8 8 0 0 0-7 12l7 12 7-12a8 8 0 0 0-7-12zm0 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
+              <path fill="#4DB7FE" d="M12 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
             </svg>`}
               />
             </Overlay>

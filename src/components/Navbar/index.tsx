@@ -23,7 +23,7 @@ function Navbar() {
           <Link to="/" className="header__content__logo">
             <img src={logo} className="header__content__logo__img" alt="" />
           </Link>
-          {/* <SearchBtn /> */}
+          <SearchBtn />
         </div>
         <div className="header__content__right">
           <div className="header__content__mainmenu">

@@ -13,6 +13,7 @@
   padding-top: 0px;
   transition: all 0.5s ease-in-out;
   border-radius: 20px;
+  border: 1px solid $main-btn-color;
   // background: rgb(0,0,0, 0.3);
 
   &.hide {
@@ -175,7 +176,6 @@
         width: 60%;
         height: 270px;
         margin: 10px;
-
         .label {
           font-style: italic;
           opacity: 0.7;
@@ -186,6 +186,9 @@
         & .colors {
           display: flex;
           flex-direction: column;
+          border: 1px solid $main-btn-color;
+          padding: 4px;
+          border-radius: 8px;
 
           .color_row {
             display: flex;
@@ -267,6 +270,7 @@
           margin-bottom: 5px;
           justify-content: space-between;
           color: white;
+          text-align: center;
         }
       }
 
@@ -300,7 +304,8 @@
     }
 
     & .preview_form {
-      width: 300px;
+      width: 280px;
+      height: 280px;
       display: grid;
       grid-template-rows: auto;
       justify-items: center;
@@ -325,9 +330,8 @@
 
       canvas {
         display: block;
-        margin-left: 10px;
+        // margin-left: 10px;
       }
-
       .dir {
         position: absolute;
         width: 65px;
@@ -336,32 +340,57 @@
         background-size: cover;
         z-index: -10;
       }
-
+      span{
+        font-size: 28px;
+        font-weight: 600;
+        font-family: 'Times New Roman', Times, serif;
+        display: flex;
+        font-stretch: 150%;
+        margin-top: 26px;
+        color: #444444;
+        z-index: 11;
+      }
       .dir.tt {
-        top: -30px;
+        top: -5px;
         left: 50%;
-        background-image: url("../../assets/images/N_UP.png");
+        background-image: url("../../assets/images/arrow.png");
+        width: 20px;
+        height: 30px;
+        transform: rotate(-180deg);
         translate: -50%;
       }
 
       .dir.lc {
-        top: 50%;
-        left: -10px;
-        background-image: url("../../assets/images/W_LEFT.png");
-        transform: translateY(-50%);
+        top: calc(50% - 12px);
+        left: 0px;
+        background-image: url("../../assets/images/arrow.png");
+        width: 20px;
+        height: 30px;
+        transform: rotate(90deg);
+        span{
+          transform: rotate(-90deg);
+        }
       }
 
       .dir.rc {
-        top: 50%;
-        right: -20px;
-        background-image: url("../../assets/images/E_RIGHT.png");
-        transform: translateY(-50%);
+        top: calc(50% - 12px);
+        right: 0px;
+        background-image: url("../../assets/images/arrow.png");
+        width: 20px;
+        height: 30px;
+        transform: rotate(-90deg);
+        // transform: translateY(-50%);
+        span{
+          transform: rotate(90deg);
+        }
       }
 
       .dir.bb {
-        left: 51%;
-        bottom: 0px;
-        background-image: url("../../assets/images/S_DOWN.png");
+        left: 50%;
+        bottom: -5px;
+        background-image: url("../../assets/images/arrow.png");
+        width: 20px;
+        height: 30px;
         translate: -50%;
       }
 
