@@ -15,7 +15,7 @@
   width: 100%;
   // height: 80px;
   z-index: 10;
-  background: rgb(00,0,0, 0.52);
+  background: rgb(00, 0, 0, 0.52);
 
   @include breakpoint(md) {
     padding: 0 3rem;
@@ -59,31 +59,54 @@
         height: auto;
       }
     }
-    &__mainmenu{
-      .dropdown{
-        height: 30px;
-        align-items: center;
-        display: flex;
-        margin-right: 15px;
-        a{
-          text-decoration: none;
-          color:white;
+
+    &__mainmenu {
+      position: relative;
+      margin-right: 120px;
+      align-items: center;
+      top: -10px;
+
+      .fa_icon {
+        color: white;
+      }
+
+      .dd-wrapper {
+        position: fixed;
+
+        .dd-header {
+          color: white;
+
+          &:hover {
+            color: $main-btn-color;
+
+            .fa_icon {
+              color: $main-btn-color;
+            }
+          }
+        }
+
+        .dd-list {
+          margin: 0;
+          margin-top: 15px;
+          padding: 0;
+          color: black;
+          text-align: center;
+          background: white;
+          border-radius: 4px;
+          transition: all 2s ease-in;
+
+          li {
+            padding: 4px 5px;
+            list-style-type: none;
+
+            &:hover {
+              color: $main-btn-color
+            }
+          }
+
+
         }
       }
-      .dropdown-list{
-        visibility: none;
-        opacity: 0;
-        position: absolute;
-        z-index: 10;
-      }
-      .dropdown:hover.dropdown-list{
-        
-          visibility: visible;
-          opacity: 1;
-          position: relative;
-          z-index: 10;
-      } 
-      
     }
 
     &__signin_btn {
