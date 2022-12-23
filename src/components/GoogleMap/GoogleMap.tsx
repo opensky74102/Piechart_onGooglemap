@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef, createElement } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import { GoogleMap, Overlay, Marker, SvgMarker } from "googlemaps-react-primitives";
+// import {OverlayView} from "react-google-maps";
 import PopUp from "../Popup";
 import Map from "./Map";
-import Marker from "./Marker";
+import OMarker from "./Marker";
 import './googlemap.scss';
 import Panel from "./Panel";
 import { IPieDetail } from "../../type";
 import { KILOESPERPIXEL } from "../../consts/Page_Const";
+import PieActionModal from "../Modal";
 
 const api_key = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -14,16 +17,30 @@ const render = (status: Status) => {
   return <h1>{status}</h1>;
 };
 
-const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCreateFlag, openPopup, setOpenPopup }: any) => {
+const GoogleMapComponent = ({ 
+  changecCenter, 
+  move, 
+  pieDetail, 
+  setPieDetail, 
+  createFlag, 
+  setCreateFlag, 
+  openPopup, 
+  setOpenPopup,
+  setEditFlag,
+ }: any) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
   const [pies, setPies] = useState<IPieDetail[]>([]);
-  const [zoom, setZoom] = useState(12); // initial zoom
+  const [zoom, setZoom] = useState(9); // initial zoom
   const [center, setCenter] = useState<google.maps.LatLngLiteral>({
     lat: 40.730610,
     lng: -73.935242,
   });
   const [kiloesPerPx, setKiloesPerPx] = useState(144447.644200);
+  const [openModal, setOpenModal] = useState(false);
+  const [modalPos, setModalPos] = useState({ w: 0, h: 0 });
+  const [pieID, setPieID] = useState(0);
+  const [marker, setMarker] = useState(null);
   const onIdle = (m: google.maps.Map) => {
     setZoom(m.getZoom()!);
     setCenter(m.getCenter()!.toJSON());
@@ -37,12 +54,51 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
     let temp = Math.max(zoom + zoomInOut, 1);
     setZoom(temp);
   }
+  const handleClickPie = (id: number, e: any) => {
+    setPieID(id);
+    console.log(e)
+    console.log(e.clientX, e.clientY)
+    setModalPos({
+      ...setModalPos,
+      w: Number(e.clientX),
+      h: Number(e.clientY)
+    })
+    setOpenModal(true);
+  }
+  const handleClickRemove = () => {
+    setOpenModal(false);
+    let tempPies = pies;
+    tempPies.splice(pieID, 1);
+    setPies(tempPies)
+  }
+  const handleClickEdit = () => {
+    setOpenModal(false);
+    setOpenPopup("display");
+    let temp = pies[pieID];
+    setPieDetail({
+      ...pieDetail,
+      towerName: temp.towerName,
+      latitude: temp.latitude,
+      longitude: temp.longitude,
+      rotate: temp.rotate,
+      radius: temp.radius,
+      items: temp.items
+    })
+    setEditFlag(true);
+    let tempPies = pies;
+    tempPies.splice(pieID, 1);
+    setPies(tempPies)
+  }
+  const handleClickCancel =()=>{
+    setOpenModal(false);
+  }
   useEffect(() => {
     let temp = zoom <= 19 ? KILOESPERPIXEL[zoom] : (156.54303392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom))
     setKiloesPerPx(temp);
   }, [zoom])
   useEffect(() => {
     setCenter({
+      ...center,
       lat: Number(changecCenter.lat),
       lng: Number(changecCenter.lng),
     })
@@ -53,7 +109,7 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
     }
     navigator?.geolocation.getCurrentPosition(({ coords: { latitude: lat, longitude: lng } }) => {
       const pos = { lat, lng }
-      setCenter(pos);
+      setCenter(pos)
       move(pos);
     })
 
@@ -66,22 +122,23 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
       setCreateFlag(false);
     }
   }, [createFlag])
-  useEffect(()=>{
 
-  }, [])
   return (
     <div className="google-box">
       <div className="google-box-map">
-        <Wrapper apiKey={"AIzaSyDZ8jmGzNoCQp5NooOYaSZH3yT31Jt4czg"} render={render}>
-          <Map
+        <Wrapper
+          apiKey={"AIzaSyDZ8jmGzNoCQp5NooOYaSZH3yT31Jt4czg"}
+          render={render}
+          libraries={["geometry"]}
+        >
+          <GoogleMap
+            onClick={() => { }}
             center={center}
-            onIdle={onIdle}
-            onMouseMove={onMouseMove}
             zoom={zoom}
-            scrollwheel={false}
-            style={{ flexGrow: "1", height: "100%" }}
             mapTypeControl={true}
             disableDefaultUI={true}
+            style={{ flexGrow: "1", height: "100%" }}
+            scrollwheel={false}
           >
             {
               pies.map((pieDetail, i) => {
@@ -89,6 +146,7 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
                 const wi = (pieDetail.radius) / kiloesPerPx;
                 canvas.width = wi;
                 canvas.height = wi;
+
                 let ctx = canvas.getContext("2d");
                 const items = pieDetail.items;
                 let sum = 0;
@@ -99,9 +157,9 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
                   for (let item of items) {
                     let portionAngle = (Number(item.angle) / totalAngle) * 2 * Math.PI;
                     ctx.beginPath();
-                    ctx.arc(wi/2, wi/2, wi/2, currentAngle + pieDetail.rotate / 10, currentAngle + portionAngle + pieDetail.rotate / 10);
+                    ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + pieDetail.rotate / 10, currentAngle + portionAngle + pieDetail.rotate / 10);
                     currentAngle += portionAngle;
-                    ctx.lineTo(wi/2, wi/2);
+                    ctx.lineTo(wi / 2, wi / 2);
                     ctx.fillStyle = item.color;
                     ctx.globalAlpha = 0.7;
                     ctx.fill();
@@ -127,24 +185,52 @@ const GoogleMapComponent = ({ changecCenter, move, pieDetail, createFlag, setCre
                   ctx.textBaseline = "middle";
                   ctx.fillText(pieDetail.towerName.toString(), wi / 2, wi / 2);
                 }
-                console.log(map);
-                return <Marker clickable={true} key={i} position={{
-                  lat: pieDetail.latitude,
-                  lng: pieDetail.longitude
-                }} icon={canvas.toDataURL()} title={pieDetail.towerName} />
+                return (
+                  <Overlay position={{
+                    lat: pieDetail.latitude,
+                    lng: pieDetail.longitude
+                  }}
+                    key={i}
+                  >
+                    <img style={{ position: "absolute", top: "-" + wi / 2 + "px", left: "-" + wi / 2 + "px" }} className="canvas-on-map" src={canvas.toDataURL()} alt={pieDetail.towerName + " pie chart"} onClick={(e) => handleClickPie(i, e)} />
+                  </Overlay>
+                );
               }
               )}
-              <Marker clickable={true} position={{
-                  lat: center.lat,
-                  lng: center.lng
-                }}/>
-          </Map>
+            <Overlay position={{ lat: 33, lng: 44 }}>
+              <SvgMarker
+                position={center}
+                svg={`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#e74c3c" d="M12 0a8 8 0 0 0-7 12l7 12 7-12a8 8 0 0 0-7-12zm0 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
+              <path fill="#c0392b" d="M12 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
+            </svg>`}
+              />
+            </Overlay>
+          </GoogleMap>
+          {/* <Map 
+           onClick={() => {}}
+           center={center}
+           zoom={zoom}
+           onIdle={onIdle}
+           mapTypeControl={true}
+           disableDefaultUI={true}
+           style={{ flexGrow: "1", height: "100%" }}
+           scrollwheel={false}
+          >
+            <OMarker position={center}/>
+          </Map> */}
         </Wrapper>
       </div>
       <Panel clear={onClear} zoomInOut={zoomInOut} openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      {
+        openModal === true ? (
+          <PieActionModal modalPos={modalPos} handleClickRemove={handleClickRemove} handleClickEdit={handleClickEdit}
+          handleClickCancel={handleClickCancel}
+           />
+        ) : null
+      }
     </div>
   )
 }
-
 
 export default GoogleMapComponent;
