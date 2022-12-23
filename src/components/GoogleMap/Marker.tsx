@@ -15,17 +15,19 @@ interface IMarker {
   }
 }
 // {options, data}:IMarker
-const CustomMarker = ({ options, data }: IMarker) => {
+// const CustomMarker = ({ options, data }: IMarker) => {
 
-  return (
-      <Marker position={options.position} />
-  )
-};
-const Marker = (options: google.maps.MarkerOptions) => {
+//   return (
+//       // <Marker position={options.position} />
+//   )
+// };
+const OMarker = (options: google.maps.MarkerOptions) => {
   const [marker, setMarker] = React.useState<google.maps.Marker>();
   React.useEffect(() => {
     if (!marker) {
-      setMarker(new google.maps.Marker());
+      setMarker(new google.maps.Marker({
+        animation:google.maps.Animation.BOUNCE
+      }));
     }
 
     // remove marker from map on unmount
@@ -45,4 +47,4 @@ const Marker = (options: google.maps.MarkerOptions) => {
   return null;
 }
 
-export default Marker;
+export default OMarker;

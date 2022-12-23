@@ -21,14 +21,12 @@ function Navbar() {
         <div className="header__content__right">
           <div className="header__content__mainmenu">
             <div className="dropdown">
-              <button className="dropbtn">main menu
-              <FontAwesomeIcon icon={faCaretDown} className="fa_icon" color="white" size="lg" />
-              </button>
-              <div className="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-              </div>
+              <a href="#">Main Menu</a>
+            </div>
+            <div className="dropdown-list">
+              <li>Main</li>
+              <li>Main</li>
+              <li>Main</li>
             </div>
           </div>
           <div className="header__content__signin_btn">

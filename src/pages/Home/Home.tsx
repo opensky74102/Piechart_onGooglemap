@@ -19,6 +19,7 @@ export default function Home() {
     items: []
   });
   const [createFlag, setCreateFlag] = useState(false);
+  const [editFlag, setEditFlag] = useState(false);
   const handleCreatePie = (data: IPieDetail) => {
     setPieDetail(data);
     setCreateFlag(true);
@@ -36,8 +37,31 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <GoogleMapComponent changecCenter={center} move={setCenter} pieDetail={pieDetail} createFlag={createFlag} setCreateFlag={setCreateFlag} openPopup={openPopup} setOpenPopup={setOpenPopup} />
-      <CFooter center={center} pieCreate={handleCreatePie} setCenter={handleChangeCenter} openPopup={openPopup} setOpenPopup={setOpenPopup} />
+
+      <GoogleMapComponent 
+      changecCenter={center} 
+      move={setCenter} 
+      pieDetail={pieDetail} 
+      createFlag={createFlag} 
+      setCreateFlag={setCreateFlag}
+      setEditFlag={setEditFlag}
+      openPopup={openPopup} 
+      setOpenPopup={setOpenPopup} 
+      setPieDetail={setPieDetail} 
+
+      />
+
+      <CFooter 
+      pieEDetail={pieDetail}
+      editFlag={editFlag}
+      setEditFlag={setEditFlag}
+      center={center} 
+      pieCreate={handleCreatePie} 
+      setCenter={handleChangeCenter} 
+      openPopup={openPopup} 
+      setOpenPopup={setOpenPopup}
+
+       />
     </>
   )
 }

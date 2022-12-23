@@ -8,7 +8,16 @@ import { IItem, IPieDetail } from '../../type';
 import 'rc-slider/assets/index.css';
 import back from '../../assets/images/preview.png';
 
-export default function CFooter({ pieCreate, center, setCenter, openPopup, setOpenPopup }: any) {
+export default function CFooter({ 
+  pieCreate, 
+  center, 
+  setCenter, 
+  openPopup, 
+  setOpenPopup, 
+  pieEDetail,
+  editFlag,
+  setEditFlag,
+ }: any) {
   const [latVal, setLatValue] = useState(40.7);
   const [lngVal, setLngValue] = useState(-74);
   const [coordinate, setCoordinate] = useState('40.730610, -73.935242');
@@ -26,7 +35,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
     latitude: 0,
     longitude: 0,
     rotate: 0,
-    radius: 60,
+    radius: 36,
     items: []
   })
   const [colorID, setColorID] = useState([0, 0]);
@@ -85,7 +94,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
       return;
     } else {
 
-      var wi = pieDetail.radius===0?0:pieDetail.radius * 1.5 + 100;
+      var wi = pieDetail.radius === 0 ? 0 : pieDetail.radius * 1.5 + 100;
       canvas.width = wi;
       canvas.height = wi;
       let ctx = canvas.getContext("2d");
@@ -215,6 +224,24 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
       longitude: center.lng,
     });
   }, [center])
+
+  useEffect(() => {
+   
+    if (editFlag) {
+      let temp = pieEDetail;
+      setPieDetail({
+        ...pieDetail,
+        towerName: temp?.towerName,
+        latitude: temp?.latitude,
+        longitude: temp?.longitude,
+        rotate: temp?.rotate,
+        radius: temp?.radius,
+        items: temp?.items
+      })
+      setCoordinate(temp.latitude+", "+ temp.longitude);
+      setEditFlag(false);
+    }
+  }, [pieEDetail, editFlag])
   return (
     <footer className={"footer " + openPopup}>
       <div className='footer_top_toggle' onClick={() => onChangeOpenStatus()} >
@@ -236,6 +263,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
               name="towername"
               id='towername'
               placeholder='Tower 1'
+              value={pieDetail.towerName}
               onInput={handleChangeValue}
             />
           </div>
@@ -258,14 +286,15 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
             <div className='info_title'>
               <label htmlFor="rotate">Rotate</label>
             </div>
-            <span style={{paddingLeft:180*pieDetail.rotate/360 + "px", marginBottom:"5px" }}>{pieDetail.rotate}</span>
+            <span style={{ paddingLeft: 180 * pieDetail.rotate / 360 + "px", marginBottom: "5px" }}>{pieDetail.rotate}</span>
             <Slider
               min={0}
               max={360}
               defaultValue={pieDetail.rotate}
+              value={pieDetail.rotate}
               onChange={handleRotateSliderChange}
               startPoint={0}
-              style={{marginTop:"5px"}}
+              style={{ marginTop: "5px" }}
               className=""
             />
           </div>
@@ -273,11 +302,12 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
             <div className='info_title'>
               <label htmlFor="radius">Radius</label>
             </div>
-            <span style={{paddingLeft:140*pieDetail.radius/100 + "px", marginBottom:"5px" }}>{pieDetail.radius + " km"}</span>
+            <span style={{ paddingLeft: 140 * pieDetail.radius / 100 + "px", marginBottom: "5px" }}>{pieDetail.radius + " km"}</span>
             <Slider
               min={0}
               max={100}
               defaultValue={pieDetail.radius}
+              value={pieDetail.radius}
               onChange={handleRadiusSliderChange}
               className=""
             />
