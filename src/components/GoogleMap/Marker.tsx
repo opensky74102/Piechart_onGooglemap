@@ -18,7 +18,7 @@ interface IMarker {
 const CustomMarker = ({ options, data }: IMarker) => {
 
   return (
-    <Marker position={options.position} />
+      <Marker position={options.position} />
   )
 };
 const Marker = (options: google.maps.MarkerOptions) => {

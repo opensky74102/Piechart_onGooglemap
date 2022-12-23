@@ -85,7 +85,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
       return;
     } else {
 
-      const wi = pieDetail.radius * 1.5 + 100;
+      var wi = pieDetail.radius===0?0:pieDetail.radius * 1.5 + 100;
       canvas.width = wi;
       canvas.height = wi;
       let ctx = canvas.getContext("2d");
@@ -258,12 +258,14 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
             <div className='info_title'>
               <label htmlFor="rotate">Rotate</label>
             </div>
+            <span style={{paddingLeft:180*pieDetail.rotate/360 + "px", marginBottom:"5px" }}>{pieDetail.rotate}</span>
             <Slider
               min={0}
               max={360}
-              defaultValue={30}
+              defaultValue={pieDetail.rotate}
               onChange={handleRotateSliderChange}
               startPoint={0}
+              style={{marginTop:"5px"}}
               className=""
             />
           </div>
@@ -271,6 +273,7 @@ export default function CFooter({ pieCreate, center, setCenter, openPopup, setOp
             <div className='info_title'>
               <label htmlFor="radius">Radius</label>
             </div>
+            <span style={{paddingLeft:140*pieDetail.radius/100 + "px", marginBottom:"5px" }}>{pieDetail.radius + " km"}</span>
             <Slider
               min={0}
               max={100}
