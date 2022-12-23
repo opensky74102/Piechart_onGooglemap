@@ -23,7 +23,7 @@ function Navbar() {
           <Link to="/" className="header__content__logo">
             <img src={logo} className="header__content__logo__img" alt="" />
           </Link>
-          <SearchBtn />
+          {/* <SearchBtn /> */}
         </div>
         <div className="header__content__right">
           <div className="header__content__mainmenu">
@@ -34,9 +34,11 @@ function Navbar() {
               </div>
               {
                 listOpen === true ? (<ul className="dd-list">
-                  <li className="dd-list-item">New</li>
+                  <li className="dd-list-item">New Project</li>
                   <li className="dd-list-item">Open</li>
                   <li className="dd-list-item">Save</li>
+                  <li className="dd-list-item">Rename Project</li>
+                  <li className="dd-list-item">Save As</li>
                 </ul>) : null
               }
             </div>
@@ -45,7 +47,7 @@ function Navbar() {
             <FontAwesomeIcon icon={faSignIn} className="fa_icon" color="white" size="sm" />
             Sign In
           </div>
-          <a href="#" className="header__content__right__btn">Add Spectrum</a>
+          {/* <a href="#" className="header__content__right__btn">Add Spectrum</a> */}
         </div>
       </div>
     </header>
