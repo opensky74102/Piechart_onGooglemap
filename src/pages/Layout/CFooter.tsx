@@ -262,7 +262,7 @@ export default function CFooter({
               className='info_input'
               name="towername"
               id='towername'
-              placeholder='Tower 1'
+              placeholder='Tower Name Here'
               value={pieDetail.towerName}
               onInput={handleChangeValue}
             />
