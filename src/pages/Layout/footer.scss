@@ -15,11 +15,11 @@
   border: 2px solid $main-btn-color;
 
   &.hide {
-    bottom: calc(15px - 35%);
+    bottom: -330px;
   }
 
   &.display {
-    bottom: 2%;
+    bottom: 20px;
   }
 
   &_top_toggle {
