@@ -221,7 +221,7 @@
     }
 
     & .itemlist_form {
-      width: 300px;
+      width: 260px;
       padding: 10px;
       padding: auto;
       position: relative;
@@ -290,15 +290,20 @@
     }
 
     & .preview_form {
-      width: 280px;
-      height: 280px;
+      // width: 280px;
+      // height: 280px;
+      min-width: 240px;
+      min-height: 240px;
       display: grid;
       grid-template-rows: auto;
       justify-items: center;
       align-items: center;
       text-align: center;
-      position: relative;
-
+      position: relative; 
+      margin-top: auto;   
+      margin-bottom: auto;
+      margin-left: 40px;
+      margin-right: 40px; 
       .image_preview {
         position: absolute;
         width: 250px;
@@ -393,6 +398,20 @@
       }
 
     }
+    // @media (min-width: 13880px)       {
+    // .preview_form{
+    //   width: 280px;
+    //   height: 280px;
+    // }
+    // }
+    // @media (min-width: 1020px)
+    // and (max-width:1440)
+    //  {
+    //   .preview_form{
+    //     width: 240px;
+    //     height: 240px;
+    //   }
+    // }
   }
 
   & .border-div {
