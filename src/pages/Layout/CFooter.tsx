@@ -38,7 +38,7 @@ export default function CFooter({
     items: []
   })
   const [colorID, setColorID] = useState([0, 0]);
-  const [previewSize, setPreviewSize] = useState(250);
+  const [currentWidth, setCurrentWidth] = useState(1920);
   const canvasPreview = useRef<HTMLCanvasElement>(null);
 
   const handleChangeValue = (e: any) => {
@@ -92,7 +92,7 @@ export default function CFooter({
       return;
     } else {
 
-      var wi = pieDetail.radius === 0 ? 0 : pieDetail.radius * 1.5 * previewSize / 1920 + 100;
+      var wi = pieDetail.radius === 0 ? 0 : pieDetail.radius * 1.1 * currentWidth / 1920 + 100;
       canvas.width = wi;
       canvas.height = wi;
       let ctx = canvas.getContext("2d");
@@ -236,13 +236,10 @@ export default function CFooter({
       setEditFlag(false);
     }
   }, [pieEDetail, editFlag])
-  const handleSetRes = () => {
-    let win_width = window.innerWidth;
-    setPreviewSize(win_width);
-  }
   useEffect(() => {
-    handleSetRes();
-    window.addEventListener("resize", handleSetRes);
+    window.addEventListener('resize', function () {
+      setCurrentWidth(window.innerWidth);
+    })
   }, [])
   return (
     <footer className={"footer " + openPopup}>
@@ -435,7 +432,8 @@ export default function CFooter({
           </div>
         </div>
         <div className='border-div'></div>
-        <div className='preview_form' style={{ width: previewSize / 7 + "px", height: previewSize / 7 + "px" }}>
+        <div className='space-div'></div>
+        <div className='preview_form'>
           <h5 className='preview_title'>Preview</h5>
           <canvas ref={canvasPreview} id='preview_canvas'></canvas>
           <div className='preivew_tower_name'>
