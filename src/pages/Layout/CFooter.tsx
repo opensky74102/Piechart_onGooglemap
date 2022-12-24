@@ -38,6 +38,7 @@ export default function CFooter({
     items: []
   })
   const [colorID, setColorID] = useState([0, 0]);
+  const [currentWidth, setCurrentWidth] = useState(1920);
   const canvasPreview = useRef<HTMLCanvasElement>(null);
 
   const handleChangeValue = (e: any) => {
@@ -91,7 +92,7 @@ export default function CFooter({
       return;
     } else {
 
-      var wi = pieDetail.radius === 0 ? 0 : pieDetail.radius * 1.5 + 100;
+      var wi = pieDetail.radius === 0 ? 0 : pieDetail.radius * 1.1 * currentWidth / 1920 + 100;
       canvas.width = wi;
       canvas.height = wi;
       let ctx = canvas.getContext("2d");
@@ -235,6 +236,11 @@ export default function CFooter({
       setEditFlag(false);
     }
   }, [pieEDetail, editFlag])
+  useEffect(() => {
+    window.addEventListener('resize', function () {
+      setCurrentWidth(window.innerWidth);
+    })
+  }, [])
   return (
     <footer className={"footer " + openPopup}>
       <div className='footer_top_toggle' onClick={() => onChangeOpenStatus()} >
@@ -279,7 +285,7 @@ export default function CFooter({
             <div className='info_title'>
               <label htmlFor="rotate">Rotate</label>
             </div>
-            <span style={{ paddingLeft: 180 * pieDetail.rotate / 360 -10 + "px", marginBottom: "5px" }}>{pieDetail.rotate + ""}&deg;</span>
+            <span style={{ paddingLeft: 180 * pieDetail.rotate / 360 - 10 + "px", marginBottom: "5px" }}>{pieDetail.rotate + ""}&deg;</span>
             <Slider
               min={0}
               max={360}
@@ -295,7 +301,7 @@ export default function CFooter({
             <div className='info_title'>
               <label htmlFor="radius">Radius</label>
             </div>
-            <span style={{ paddingLeft: 140 * pieDetail.radius / 100-60 + "px", marginBottom: "5px" }}>{pieDetail.radius + " km "+ (pieDetail.radius/1.61).toFixed(2)+ " miles"}</span>
+            <span style={{ paddingLeft: 140 * pieDetail.radius / 100 - 60 + "px", marginBottom: "5px" }}>{pieDetail.radius + " km " + (pieDetail.radius / 1.61).toFixed(2) + " miles"}</span>
             <Slider
               min={0}
               max={100}
@@ -426,12 +432,13 @@ export default function CFooter({
           </div>
         </div>
         <div className='border-div'></div>
+        <div className='space-div'></div>
         <div className='preview_form'>
           <h5 className='preview_title'>Preview</h5>
           <canvas ref={canvasPreview} id='preview_canvas'></canvas>
           <div className='preivew_tower_name'>
             <span>{pieDetail.towerName}</span>
-            </div>
+          </div>
           <div className='dir tt'><span>N</span></div>
           <div className='dir lc'><span>W</span></div>
           <div className='dir bb'><span>S</span></div>

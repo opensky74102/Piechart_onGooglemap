@@ -297,8 +297,7 @@
       justify-items: center;
       align-items: center;
       text-align: center;
-      position: relative;
-
+      position: relative; 
       .image_preview {
         position: absolute;
         width: 250px;
@@ -399,6 +398,9 @@
     width: 0px;
     border-right: 1px solid $main-btn-color;
     opacity: 0.7;
+  }
+  & .space-div{
+    min-width: 40px;
   }
 
   .canvas.marker {
