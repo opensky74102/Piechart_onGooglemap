@@ -166,11 +166,11 @@ const GoogleMapComponent = ({
                     ctx.textAlign = "center";
                     ctx.fillText(item.frequency.toString(), wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) + wi / 20);
                   }
-                  ctx.font = wi / 10 + "px Arial";
-                  ctx.fillStyle = "white";
-                  ctx.textAlign = "center";
-                  ctx.textBaseline = "middle";
-                  ctx.fillText(pieDetail.towerName.toString(), wi / 2, wi / 2);
+                  // ctx.font = wi / 10 + "px Arial";
+                  // ctx.fillStyle = "white";
+                  // ctx.textAlign = "center";
+                  // ctx.textBaseline = "middle";
+                  // ctx.fillText(pieDetail.towerName.toString(), wi / 2, wi / 2);
                 }
                 return (
                   <Overlay position={{
