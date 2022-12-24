@@ -1,12 +1,10 @@
 import React from 'react';
-import { useEffect } from 'react';
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import './popup.scss';
 
 export default function PopUp({ setZoom, setCenter, zoom, center, pos }: any) {
- return  (
-    <div className="modal_form" style={{"left":pos.x-100, "top":pos.y-30}}>
+  return (
+    <div className="modal_form" style={{ "left": pos.x - 100, "top": pos.y - 30 }}>
       <label htmlFor="zoom">Zoom</label>
       <input
         type="number"
@@ -37,10 +35,6 @@ export default function PopUp({ setZoom, setCenter, zoom, center, pos }: any) {
           setCenter({ ...center, lng: Number(event.target.value) })
         }
       />
-      {/* {clicks.map((latLng, i) => (
-        <pre key={i}>{JSON.stringify(latLng.toJSON(), null, 2)}</pre>
-      ))} */}
-      {/* <button onClick={() => setClicks([])}>Clear</button> */}
     </div>
   );
 }

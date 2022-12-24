@@ -1,1 +1,1 @@
-export {default} from "./CFooter";
+export { default } from "./CFooter";

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Navbar from "../../components/Navbar";
 import GoogleMapComponent from '../../components/GoogleMap/GoogleMap';
 import CFooter from "../Layout";
@@ -26,8 +26,8 @@ export default function Home() {
   }
   const [openPopup, setOpenPopup] = useState('hide');
   const handleChangeCenter = (lat: number, lng: number) => {
-    if (isNaN(lat)||isNaN(lng)) {
-      return;      
+    if (isNaN(lat) || isNaN(lng)) {
+      return;
     }
     setCenter({
       lat: lat,
@@ -38,30 +38,30 @@ export default function Home() {
     <>
       <Navbar />
 
-      <GoogleMapComponent 
-      changecCenter={center} 
-      move={setCenter} 
-      pieDetail={pieDetail} 
-      createFlag={createFlag} 
-      setCreateFlag={setCreateFlag}
-      setEditFlag={setEditFlag}
-      openPopup={openPopup} 
-      setOpenPopup={setOpenPopup} 
-      setPieDetail={setPieDetail} 
+      <GoogleMapComponent
+        changecCenter={center}
+        move={setCenter}
+        pieDetail={pieDetail}
+        createFlag={createFlag}
+        setCreateFlag={setCreateFlag}
+        setEditFlag={setEditFlag}
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+        setPieDetail={setPieDetail}
 
       />
 
-      <CFooter 
-      pieEDetail={pieDetail}
-      editFlag={editFlag}
-      setEditFlag={setEditFlag}
-      center={center} 
-      pieCreate={handleCreatePie} 
-      setCenter={handleChangeCenter} 
-      openPopup={openPopup} 
-      setOpenPopup={setOpenPopup}
+      <CFooter
+        pieEDetail={pieDetail}
+        editFlag={editFlag}
+        setEditFlag={setEditFlag}
+        center={center}
+        pieCreate={handleCreatePie}
+        setCenter={handleChangeCenter}
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
 
-       />
+      />
     </>
   )
 }

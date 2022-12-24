@@ -1,32 +1,11 @@
 import * as React from "react";
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import PopUp from "../Popup";
-import Map from "./Map";
-interface IInfo {
-  mood: string,
-  total: number,
-  shade: string,
-}
-interface IMarker {
-  options: google.maps.MarkerOptions,
-  data: {
-    infoes: IInfo[],
-    size: number,
-  }
-}
-// {options, data}:IMarker
-// const CustomMarker = ({ options, data }: IMarker) => {
 
-//   return (
-//       // <Marker position={options.position} />
-//   )
-// };
 const OMarker = (options: google.maps.MarkerOptions) => {
   const [marker, setMarker] = React.useState<google.maps.Marker>();
   React.useEffect(() => {
     if (!marker) {
       setMarker(new google.maps.Marker({
-        animation:google.maps.Animation.BOUNCE
+        animation: google.maps.Animation.BOUNCE
       }));
     }
 

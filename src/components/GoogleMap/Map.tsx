@@ -1,6 +1,5 @@
 
 import * as React from "react";
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { createCustomEqual, deepEqual } from "fast-equals";
 import { isLatLngLiteral } from "@googlemaps/typescript-guards";
 

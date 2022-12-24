@@ -8,7 +8,6 @@ export default function PieActionModal({ modalPos, handleClickRemove, handleClic
   return (
     <div className="modal" onClick={handleClickCancel}>
       <div className="modal-content" style={{ left: modalPos.w + 100 + "px", top: modalPos.h - 100 + "px" }}>
-        {/* <div className="pie-action-modal" style={{display: open?"display":"none"}}> */}
         <button onClick={handleClickEdit}>Edit</button>
         <button onClick={handleClickRemove}>Remove</button>
       </div>
