@@ -279,7 +279,7 @@ export default function CFooter({
             <div className='info_title'>
               <label htmlFor="rotate">Rotate</label>
             </div>
-            <span style={{ paddingLeft: 180 * pieDetail.rotate / 360 + "px", marginBottom: "5px" }}>{pieDetail.rotate}</span>
+            <span style={{ paddingLeft: 180 * pieDetail.rotate / 360 -10 + "px", marginBottom: "5px" }}>{pieDetail.rotate + ""}&deg;</span>
             <Slider
               min={0}
               max={360}
@@ -295,7 +295,7 @@ export default function CFooter({
             <div className='info_title'>
               <label htmlFor="radius">Radius</label>
             </div>
-            <span style={{ paddingLeft: 140 * pieDetail.radius / 100 + "px", marginBottom: "5px" }}>{pieDetail.radius + " km"}</span>
+            <span style={{ paddingLeft: 140 * pieDetail.radius / 100-60 + "px", marginBottom: "5px" }}>{pieDetail.radius + " km "+ (pieDetail.radius/1.61).toFixed(2)+ " miles"}</span>
             <Slider
               min={0}
               max={100}
