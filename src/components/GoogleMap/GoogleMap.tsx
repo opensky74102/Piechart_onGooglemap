@@ -179,7 +179,11 @@ const GoogleMapComponent = ({
                   }}
                     key={i}
                   >
-                    <img style={{ position: "absolute", top: "-" + wi / 2 + "px", left: "-" + wi / 2 + "px" }} className="canvas-on-map" src={canvas.toDataURL()} alt={pieDetail.towerName + " pie chart"} onClick={(e) => handleClickPie(i, e)} />
+                    <div className="pie_chart">
+                      <span className="span" style={{ position: "absolute", top: "-" + (wi / 2 + wi / 9 + 20) + "px", translate: "-50%", fontSize: "" + (wi / 9 + 10) + "px" }}>{pieDetail.towerName}</span>
+                      <img style={{ position: "absolute", top: "-" + wi / 2 + "px", left: "-" + wi / 2 + "px" }} className="canvas-on-map" src={canvas.toDataURL()} alt={pieDetail.towerName + " pie chart"} onClick={(e) => handleClickPie(i, e)} />
+                    </div>
+
                   </Overlay>
                 );
               }
