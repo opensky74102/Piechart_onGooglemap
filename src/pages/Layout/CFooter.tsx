@@ -427,7 +427,7 @@ export default function CFooter({
         </div>
         <div className='border-div'></div>
         <div className='preview_form'>
-          <h5 className='preview_title'>Layout Preview</h5>
+          <h5 className='preview_title'>Preview</h5>
           <canvas ref={canvasPreview} id='preview_canvas'></canvas>
           <div className='dir tt'><span>N</span></div>
           <div className='dir lc'><span>W</span></div>
