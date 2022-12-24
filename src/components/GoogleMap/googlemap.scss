@@ -1,14 +1,16 @@
 @import '../../assets/styles/variables';
 
-.google-box{
+.google-box {
   width: 100%;
   padding-top: 60px;
   background: #444444;
-  .google-box-map{
+
+  .google-box-map {
     height: 100vh;
   }
 }
-.popup-btn{
+
+.popup-btn {
   position: fixed;
   top: 40%;
   right: 20px;
@@ -19,24 +21,27 @@
   border-radius: 50%;
   background: $main-btn-color;
   color: white;
-  & .fa_icon{
+
+  & .fa_icon {
     margin: auto;
   }
-  &:hover{
+
+  &:hover {
     background: transparent;
-    svg{
+
+    svg {
       color: $main-btn-color;
     }
   }
 }
 
-.map_control_panel{
+.map_control_panel {
   position: absolute;
   right: 30px;
   top: 30%;
 
-  .google_map_panel_btn{
-    
+  .google_map_panel_btn {
+
     border-radius: 50%;
     padding: 10px;
     border: 3px solid white;
@@ -44,9 +49,10 @@
     background: $main-btn-color;
     margin-top: 20px;
     text-align: center;
-    .fa_icon{
-    }
-    &:hover{
+
+    .fa_icon {}
+
+    &:hover {
       color: $main-btn-color;
       opacity: 0.4;
       cursor: pointer;

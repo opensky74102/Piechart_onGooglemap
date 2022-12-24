@@ -1,33 +1,28 @@
-import React, { useState, useEffect, useRef, createElement } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { GoogleMap, Overlay, Marker, SvgMarker } from "googlemaps-react-primitives";
-// import {OverlayView} from "react-google-maps";
-import PopUp from "../Popup";
-import Map from "./Map";
-import OMarker from "./Marker";
+import { GoogleMap, Overlay, SvgMarker } from "googlemaps-react-primitives";
+
 import './googlemap.scss';
 import Panel from "./Panel";
 import { IPieDetail } from "../../type";
 import { KILOESPERPIXEL } from "../../consts/Page_Const";
 import PieActionModal from "../Modal";
 
-const api_key = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
 const render = (status: Status) => {
   return <h1>{status}</h1>;
 };
 
-const GoogleMapComponent = ({ 
-  changecCenter, 
-  move, 
-  pieDetail, 
-  setPieDetail, 
-  createFlag, 
-  setCreateFlag, 
-  openPopup, 
+const GoogleMapComponent = ({
+  changecCenter,
+  move,
+  pieDetail,
+  setPieDetail,
+  createFlag,
+  setCreateFlag,
+  openPopup,
   setOpenPopup,
   setEditFlag,
- }: any) => {
+}: any) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
   const [pies, setPies] = useState<IPieDetail[]>([]);
@@ -40,13 +35,6 @@ const GoogleMapComponent = ({
   const [openModal, setOpenModal] = useState(false);
   const [modalPos, setModalPos] = useState({ w: 0, h: 0 });
   const [pieID, setPieID] = useState(0);
-  const [marker, setMarker] = useState(null);
-  const onIdle = (m: google.maps.Map) => {
-    setZoom(m.getZoom()!);
-    setCenter(m.getCenter()!.toJSON());
-  };
-  const onMouseMove = (e: any) => {
-  }
   const onClear = () => {
     setPies([]);
   }
@@ -89,7 +77,7 @@ const GoogleMapComponent = ({
     tempPies.splice(pieID, 1);
     setPies(tempPies)
   }
-  const handleClickCancel =()=>{
+  const handleClickCancel = () => {
     setOpenModal(false);
   }
   useEffect(() => {
@@ -167,7 +155,6 @@ const GoogleMapComponent = ({
                     ctx.fillStyle = "white";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
-                    // ctx.fillText(pieDetail.towerName, wi / 2 - 20, wi / 2 + wi / 10,)
                     ctx.font = wi / 10 + "px Arial";
                     ctx.fillStyle = "black";
                     ctx.textAlign = "center";
@@ -209,26 +196,14 @@ const GoogleMapComponent = ({
               />
             </Overlay>
           </GoogleMap>
-          {/* <Map 
-           onClick={() => {}}
-           center={center}
-           zoom={zoom}
-           onIdle={onIdle}
-           mapTypeControl={true}
-           disableDefaultUI={true}
-           style={{ flexGrow: "1", height: "100%" }}
-           scrollwheel={false}
-          >
-            <OMarker position={center}/>
-          </Map> */}
         </Wrapper>
       </div>
       <Panel clear={onClear} zoomInOut={zoomInOut} openPopup={openPopup} setOpenPopup={setOpenPopup} />
       {
         openModal === true ? (
           <PieActionModal modalPos={modalPos} handleClickRemove={handleClickRemove} handleClickEdit={handleClickEdit}
-          handleClickCancel={handleClickCancel}
-           />
+            handleClickCancel={handleClickCancel}
+          />
         ) : null
       }
     </div>

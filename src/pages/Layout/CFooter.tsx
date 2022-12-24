@@ -6,18 +6,17 @@ import { faArrowUp, faArrowDown, faCheck } from "@fortawesome/free-solid-svg-ico
 import Slider from 'rc-slider';
 import { IItem, IPieDetail } from '../../type';
 import 'rc-slider/assets/index.css';
-import back from '../../assets/images/preview.png';
 
-export default function CFooter({ 
-  pieCreate, 
-  center, 
-  setCenter, 
-  openPopup, 
-  setOpenPopup, 
+export default function CFooter({
+  pieCreate,
+  center,
+  setCenter,
+  openPopup,
+  setOpenPopup,
   pieEDetail,
   editFlag,
   setEditFlag,
- }: any) {
+}: any) {
   const [latVal, setLatValue] = useState(40.7);
   const [lngVal, setLngValue] = useState(-74);
   const [coordinate, setCoordinate] = useState('40.730610, -73.935242');
@@ -41,13 +40,11 @@ export default function CFooter({
   const [colorID, setColorID] = useState([0, 0]);
   const canvasPreview = useRef<HTMLCanvasElement>(null);
 
-  var canvas = null;
   const handleChangeValue = (e: any) => {
     let { value, min, max, name } = e.target;
 
     if (name === "coordinate") {
       let temp = (value.replace(" ", "")).split(",");
-      let pat = /^-?\d*\.{0,1}\d+$/;
       setCoordinate(value);
       if (temp.length > 2) {
         return;
@@ -101,8 +98,6 @@ export default function CFooter({
 
       const items = pieDetail.items;
 
-      let sum = 0;
-      // let totalAngle = items.reduce((sum, { angle }) => sum + Number(angle), 0);
       let totalAngle = 360;
       let currentAngle = 0;
 
@@ -116,7 +111,6 @@ export default function CFooter({
           ctx.fillStyle = item.color;
           ctx.strokeStyle = 'white';
           ctx.globalAlpha = 0.8;
-          // ctx.fillText(pieDetail.towerName, wi / 2 - 20, wi / 2 + wi / 20)
           ctx.fill();
           ctx.stroke();
           ctx.font = wi / 10 + "px Arial";
@@ -217,7 +211,6 @@ export default function CFooter({
   useEffect(() => {
     setLatValue(center.lat);
     setLngValue(center.lng);
-    // setCoordinate('' + center.lat.toFixed(5) + ", " + center.lng.toFixed(5));
     setPieDetail({
       ...pieDetail,
       latitude: center.lat,
@@ -226,7 +219,7 @@ export default function CFooter({
   }, [center])
 
   useEffect(() => {
-   
+
     if (editFlag) {
       let temp = pieEDetail;
       setPieDetail({
@@ -238,7 +231,7 @@ export default function CFooter({
         radius: temp?.radius,
         items: temp?.items
       })
-      setCoordinate(temp.latitude+", "+ temp.longitude);
+      setCoordinate(temp.latitude + ", " + temp.longitude);
       setEditFlag(false);
     }
   }, [pieEDetail, editFlag])
@@ -361,12 +354,6 @@ export default function CFooter({
               </select>
 
             </div>
-            {/* <div className='info'>
-              <div className='label'>
-                <label>Color:</label>
-              </div>
-              <input type="color" className='info_input' name='color' value={itemInfo.color} onInput={handleChangeInfo} />
-            </div> */}
           </div>
           <div className='colors_div'>
             <div className='label'>
@@ -417,10 +404,10 @@ export default function CFooter({
               pieDetail.items.map((item, ind) => {
                 return (
                   <div key={ind} className='item' style={{ background: '' + item.color }} onClick={() => handleClickItem(ind)}>
-                    <div className='item_com' style={{width:"25%"}}><span>{item.compass}</span></div>
-                    <div className='item_freq'  style={{width:"30%"}}><span>{item.frequency}</span></div>
-                    <div className='item_ante'  style={{width:"25%"}}><span>{item.antenatype}</span></div>
-                    <div className='item_ang'  style={{width:"20%"}}><span>{item.angle}</span></div>
+                    <div className='item_com' style={{ width: "25%" }}><span>{item.compass}</span></div>
+                    <div className='item_freq' style={{ width: "30%" }}><span>{item.frequency}</span></div>
+                    <div className='item_ante' style={{ width: "25%" }}><span>{item.antenatype}</span></div>
+                    <div className='item_ang' style={{ width: "20%" }}><span>{item.angle}</span></div>
                   </div>
                 )
               })
@@ -441,7 +428,6 @@ export default function CFooter({
         <div className='border-div'></div>
         <div className='preview_form'>
           <h5 className='preview_title'>Layout Preview</h5>
-          {/* <img src={back} alt="" className='image_preview' /> */}
           <canvas ref={canvasPreview} id='preview_canvas'></canvas>
           <div className='dir tt'><span>N</span></div>
           <div className='dir lc'><span>W</span></div>

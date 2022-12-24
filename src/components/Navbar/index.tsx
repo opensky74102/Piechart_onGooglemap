@@ -9,13 +9,7 @@ import logo from "../../assets/images/logo.png";
 
 function Navbar() {
   const [listOpen, setListOpen] = useState(false);
-  const [headerTitle, setHeaderTitle] = useState("");
-  const handleClickOutside = () => {
-    setListOpen(false);
-  }
-  const toggleList = () => {
-    setListOpen(!listOpen)
-  }
+
   return (
     <header className="header">
       <div className="header__content">
@@ -47,7 +41,6 @@ function Navbar() {
             <FontAwesomeIcon icon={faSignIn} className="fa_icon" color="white" size="sm" />
             Sign In
           </div>
-          {/* <a href="#" className="header__content__right__btn">Add Spectrum</a> */}
         </div>
       </div>
     </header>

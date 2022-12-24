@@ -2,7 +2,6 @@
 
 .footer {
   position: fixed;
-  // color: white;
   width: calc(100% - 56px);
   height: 350px;
   left: 50%;
@@ -14,11 +13,9 @@
   transition: all 0.5s ease-in-out;
   border-radius: 20px;
   border: 1px solid $main-btn-color;
-  // background: rgb(0,0,0, 0.3);
 
   &.hide {
     bottom: calc(15px - 35%);
-    // bottom: 2%;
   }
 
   &.display {
@@ -81,8 +78,6 @@
           border: none;
           border-bottom: 1px solid #96dbfa;
           background: transparent;
-          // border-bottom: 2px solid transparent;
-          // background-color: hsla(0, 0%, 100%, .8);
           transition: all 0.5s ease-in-out;
 
           &:hover,
@@ -118,14 +113,12 @@
       width: 350px;
       display: flex;
       position: relative;
-      // border: 1px solid blue;
 
       & .item_infoes {
         width: 40%;
         margin: 10px;
 
         & .info {
-          // margin-top: 10px;
           margin-bottom: 10px;
 
           .label {
@@ -143,8 +136,6 @@
             border: none;
             border-bottom: 1px solid #96dbfa;
             background: transparent;
-            // border-bottom: 2px solid transparent;
-            // background-color: hsla(0, 0%, 100%, .8);
             transition: all 0.5s ease-in-out;
 
             &:hover,
@@ -158,7 +149,6 @@
               position: relative;
               color: #fff;
               font-weight: 700;
-              // text-transform: uppercase;
               margin: auto;
               font-size: 14px;
               text-decoration: none;
@@ -176,6 +166,7 @@
         width: 60%;
         height: 270px;
         margin: 10px;
+
         .label {
           font-style: italic;
           opacity: 0.7;
@@ -218,7 +209,6 @@
           position: relative;
           color: #fff;
           font-weight: 700;
-          // text-transform: uppercase;
           margin: auto;
           font-size: 14px;
           text-decoration: none;
@@ -239,7 +229,6 @@
       flex-direction: column;
       overflow: hidden;
 
-      // border: 1px solid green;
       .item_header {
         display: flex;
         padding-bottom: 5px;
@@ -250,9 +239,6 @@
         font-size: 14px;
         border-bottom: 1px solid $main-btn-color;
 
-        div {
-          // border-bottom: 2px solid $main-btn-color;
-        }
       }
 
       .itemlist {
@@ -330,8 +316,8 @@
 
       canvas {
         display: block;
-        // margin-left: 10px;
       }
+
       .dir {
         position: absolute;
         width: 65px;
@@ -340,7 +326,8 @@
         background-size: cover;
         z-index: -10;
       }
-      span{
+
+      span {
         font-size: 28px;
         font-weight: 600;
         font-family: 'Times New Roman', Times, serif;
@@ -350,6 +337,7 @@
         color: #444444;
         z-index: 11;
       }
+
       .dir.tt {
         top: -5px;
         left: 50%;
@@ -367,7 +355,8 @@
         width: 20px;
         height: 30px;
         transform: rotate(90deg);
-        span{
+
+        span {
           transform: rotate(-90deg);
           margin-top: 34px;
         }
@@ -380,8 +369,8 @@
         width: 20px;
         height: 30px;
         transform: rotate(-90deg);
-        // transform: translateY(-50%);
-        span{
+
+        span {
           transform: rotate(90deg);
         }
       }
@@ -404,10 +393,11 @@
     opacity: 0.7;
   }
 
-  .canvas.marker{
+  .canvas.marker {
     background-color: #96dbfa;
   }
-  .canvas-on-map{
+
+  .canvas-on-map {
     position: absolute;
     color: #96dbfa;
     top: -50px;
