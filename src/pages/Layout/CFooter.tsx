@@ -24,7 +24,7 @@ export default function CFooter({
   const [itemInfo, setItemInfo] = useState<IItem>({
     compass: "N",
     frequency: 100,
-    antenatype: 'PTP',
+    antenatype: 'PTMP',
     angle: 90,
     color: '#d44539',
   });
@@ -33,7 +33,7 @@ export default function CFooter({
     towerName: '',
     latitude: 0,
     longitude: 0,
-    rotate: 68,
+    rotate: 39,
     radius: 48,
     items: []
   })
@@ -124,11 +124,11 @@ export default function CFooter({
           ctx.textAlign = "center";
           ctx.fillText(item.frequency.toString(), wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) + wi / 20);
         }
-        ctx.font = wi / 10 + "px Arial";
-        ctx.fillStyle = "white";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(pieDetail.towerName.toString(), wi / 2, wi / 2);
+        // ctx.font = wi / 10 + "px Arial";
+        // ctx.fillStyle = "white";
+        // ctx.textAlign = "center";
+        // ctx.textBaseline = "middle";
+        // ctx.fillText(pieDetail.towerName.toString(), wi / 2, wi / 2);
 
       }
     }
@@ -195,7 +195,7 @@ export default function CFooter({
     setItemInfo({
       compass: "N",
       frequency: 100,
-      antenatype: 'PTP',
+      antenatype: 'PTMP',
       angle: 90,
       color: COLORS[colorID[0]][colorID[1]],
     })
@@ -429,6 +429,9 @@ export default function CFooter({
         <div className='preview_form'>
           <h5 className='preview_title'>Preview</h5>
           <canvas ref={canvasPreview} id='preview_canvas'></canvas>
+          <div className='preivew_tower_name'>
+            <span>{pieDetail.towerName}</span>
+            </div>
           <div className='dir tt'><span>N</span></div>
           <div className='dir lc'><span>W</span></div>
           <div className='dir bb'><span>S</span></div>
