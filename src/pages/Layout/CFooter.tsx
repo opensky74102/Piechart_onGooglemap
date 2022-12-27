@@ -33,8 +33,8 @@ export default function CFooter({
     towerName: '',
     latitude: 0,
     longitude: 0,
-    rotate: 39,
-    radius: 48,
+    rotate: 0,
+    radius: 6.44,
     items: []
   })
   const [colorID, setColorID] = useState([0, 0]);
@@ -92,7 +92,7 @@ export default function CFooter({
       return;
     } else {
 
-      var wi = pieDetail.radius === 0 ? 0 : pieDetail.radius * 1.1 * currentWidth / 1920 + 100;
+      var wi = pieDetail.radius === 0 ? 0 : pieDetail.radius * 1.1 * currentWidth / 1920 + 125;
       canvas.width = wi;
       canvas.height = wi;
       let ctx = canvas.getContext("2d");
@@ -106,7 +106,7 @@ export default function CFooter({
         for (let item of items) {
           let portionAngle = (Number(item.angle) / totalAngle) * 2 * Math.PI;
           ctx.beginPath();
-          ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + pieDetail.rotate / 10, currentAngle + portionAngle + pieDetail.rotate / 10);
+          ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + (pieDetail.rotate-135)*2*Math.PI/360, currentAngle + portionAngle + (pieDetail.rotate-135)*2*Math.PI/360);
           currentAngle += portionAngle;
           ctx.lineTo(wi / 2, wi / 2);
           ctx.fillStyle = item.color;
@@ -118,7 +118,7 @@ export default function CFooter({
           ctx.fillStyle = "black";
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
-          var mid = currentAngle + pieDetail.rotate / 10 - portionAngle / 2;
+          var mid = currentAngle + (pieDetail.rotate-135)*2*Math.PI/360 - portionAngle / 2;
           ctx.fillText(item.compass, wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) - wi / 20);
           ctx.font = wi / 10 + "px Arial";
           ctx.fillStyle = "white";
@@ -305,6 +305,7 @@ export default function CFooter({
             <Slider
               min={0}
               max={100}
+              step={0.01}
               defaultValue={pieDetail.radius}
               value={pieDetail.radius}
               onChange={handleRadiusSliderChange}

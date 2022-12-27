@@ -14,7 +14,7 @@ export default function Home() {
     towerName: '',
     latitude: 0,
     longitude: 0,
-    rotate: 39,
+    rotate: 0,
     radius: 48,
     items: []
   });
