@@ -15,7 +15,7 @@ export default function Home() {
     latitude: 0,
     longitude: 0,
     rotate: 0,
-    radius: 48,
+    radius: 6.44,
     items: []
   });
   const [createFlag, setCreateFlag] = useState(false);
