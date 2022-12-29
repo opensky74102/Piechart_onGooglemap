@@ -35,6 +35,7 @@ const GoogleMapComponent = ({
   const [openModal, setOpenModal] = useState(false);
   const [modalPos, setModalPos] = useState({ w: 0, h: 0 });
   const [pieID, setPieID] = useState(0);
+  const [selectedPieTitle, setSelectedPieTitle] = useState('');
   const onClear = () => {
     setPies([]);
   }
@@ -49,6 +50,7 @@ const GoogleMapComponent = ({
       w: Number(e.clientX),
       h: Number(e.clientY)
     })
+    setSelectedPieTitle(pies[id].towerName);
     setOpenModal(true);
   }
   const handleClickRemove = () => {
@@ -143,7 +145,7 @@ const GoogleMapComponent = ({
                   for (let item of items) {
                     let portionAngle = (Number(item.angle) / totalAngle) * 2 * Math.PI;
                     ctx.beginPath();
-                    ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + (pieDetail.rotate-135)*2*Math.PI/360, currentAngle + portionAngle + (pieDetail.rotate-135)*2*Math.PI/360);
+                    ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + (pieDetail.rotate - 135) * 2 * Math.PI / 360, currentAngle + portionAngle + (pieDetail.rotate - 135) * 2 * Math.PI / 360);
                     currentAngle += portionAngle;
                     ctx.lineTo(wi / 2, wi / 2);
                     ctx.fillStyle = item.color;
@@ -157,7 +159,7 @@ const GoogleMapComponent = ({
                     ctx.fillStyle = "black";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
-                    var mid = currentAngle + (pieDetail.rotate-135)*2*Math.PI/360 - portionAngle / 2;
+                    var mid = currentAngle + (pieDetail.rotate - 135) * 2 * Math.PI / 360 - portionAngle / 2;
                     ctx.fillText(item.compass, wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) - wi / 20);
                     ctx.font = wi / 10 + "px Arial";
                     ctx.fillStyle = "white";
@@ -204,8 +206,12 @@ const GoogleMapComponent = ({
       <Panel clear={onClear} zoomInOut={zoomInOut} openPopup={openPopup} setOpenPopup={setOpenPopup} />
       {
         openModal === true ? (
-          <PieActionModal modalPos={modalPos} handleClickRemove={handleClickRemove} handleClickEdit={handleClickEdit}
+          <PieActionModal
+            modalPos={modalPos}
+            handleClickRemove={handleClickRemove}
+            handleClickEdit={handleClickEdit}
             handleClickCancel={handleClickCancel}
+            title={selectedPieTitle}
           />
         ) : null
       }
