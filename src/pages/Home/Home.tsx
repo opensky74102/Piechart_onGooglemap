@@ -36,8 +36,6 @@ export default function Home() {
   }
   return (
     <>
-      <Navbar />
-
       <GoogleMapComponent
         changecCenter={center}
         move={setCenter}
@@ -48,7 +46,6 @@ export default function Home() {
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         setPieDetail={setPieDetail}
-
       />
 
       <CFooter
@@ -60,7 +57,6 @@ export default function Home() {
         setCenter={handleChangeCenter}
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-
       />
     </>
   )

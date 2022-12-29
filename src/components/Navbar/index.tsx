@@ -7,9 +7,12 @@ import SearchBtn from "../SearchBtn";
 import "./navbar.scss";
 import logo from "../../assets/images/logo.png";
 
+import { useSelector, useDispatch } from 'react-redux';
+import {openLoginForm, openSignUpForm} from "../../redux/auth/authSlice";
+
 function Navbar() {
   const [listOpen, setListOpen] = useState(false);
-
+  const dispatch = useDispatch();
   return (
     <header className="header">
       <div className="header__content">
@@ -37,9 +40,13 @@ function Navbar() {
               }
             </div>
           </div>
-          <div className="header__content__signin_btn">
+          <div className="header__content__signin_btn" onClick={() => dispatch(openLoginForm())}>
             <FontAwesomeIcon icon={faSignIn} className="fa_icon" color="white" size="sm" />
             Sign In
+          </div>
+          <div className="header__content__signin_btn" onClick={() => dispatch(openSignUpForm())}>
+            <FontAwesomeIcon icon={faSignIn} className="fa_icon" color="white" size="sm" />
+            Sign Up
           </div>
         </div>
       </div>

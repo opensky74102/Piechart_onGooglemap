@@ -1,0 +1,82 @@
+@import '../../assets/styles/variables';
+
+.popup_form {
+  position: fixed;
+  width: 350px;
+  // height: auto;
+  // min-height: 400px;
+  top: 30%;
+  left: 50%;
+  translate: -50%;
+  border-radius: 20px;
+  border: 2px solid $main-btn-color;
+  padding: 20px;
+  background: white;
+
+  &_title {
+    text-align: start;
+    color: $main-btn-color;
+  }
+
+  &_content {
+    .form_input {
+      display: flex;
+      width: 100%;
+      padding-bottom: 15px;
+      justify-content: end;
+
+      .label_part {
+        width: 40%;
+        color: $main-btn-color;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        position: relative;
+        ;
+      }
+
+      .input_part {
+        width: 60%;
+        text-align: end;
+        position: relative;
+
+        input {
+          color: $main-btn-color;
+          outline: none;
+          padding: 8px;
+          text-indent: 5px;
+          border: 1px solid $main-btn-color;
+          border-radius: 6px;
+          background: transparent;
+        }
+      }
+
+      button {
+        width: 50%;
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid $main-btn-color;
+        background: $main-btn-color;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        outline: none;
+        float: right;
+      }
+    }
+  }
+
+  input.required::before {
+    content: '*';
+    margin-right: 4px;
+    color: red;
+  }
+
+  .required::after {
+    content: '*';
+    left: 2px;
+    color: red;
+    position: absolute;
+  }
+}
