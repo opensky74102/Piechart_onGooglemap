@@ -12,10 +12,17 @@
   border: 2px solid $main-btn-color;
   padding: 20px;
   background: white;
-
   &_title {
     text-align: start;
     color: $main-btn-color;
+  }
+  & .close_part{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    color: $main-btn-color;
+    padding: 10px;
   }
 
   &_content {

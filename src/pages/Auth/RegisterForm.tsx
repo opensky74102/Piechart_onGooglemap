@@ -4,19 +4,24 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import "./PopupForm.scss";
 import { ToastError, ToastInfo, ToastSuccess } from '../../helpers/toast.helper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { closeForm } from '../../redux/auth/authSlice';
+import { useDispatch } from 'react-redux';
+
 
 
 
 export default function RegisterForm() {
-
+const dispatch = useDispatch();
   const validationSchema = yup.object().shape({
     firstname: yup.string().required("Firstname is required"),
     lastname: yup.string().required("Lastname is required"),
     email: yup.string()
       .required('Email is required')
       .email('Email is invalid'),
-      passwd1: yup.string().required("Password is required"),
-      passwd2: yup.string().required('Password is mendatory').oneOf([yup.ref('password')], 'Passwords does not match'),
+    passwd1: yup.string().required("Password is required"),
+    passwd2: yup.string().required('Password is mendatory').oneOf([yup.ref('password')], 'Passwords does not match'),
   });
 
   const {
@@ -43,10 +48,13 @@ export default function RegisterForm() {
   };
   return (
     <form
-      className="popup_form"
+      className="popup_form active"
       onSubmit={handleSubmit(onSubmit, onError)}>
       <div className="popup_form_title">
         <h2>Register</h2>
+      </div>
+      <div className='close_part' onClick={()=>dispatch(closeForm())}>
+        <FontAwesomeIcon icon={faTimes} className="fa_icon" size="sm" />
       </div>
       <div className="popup_form_content">
         <div className='form_input'>
@@ -81,7 +89,7 @@ export default function RegisterForm() {
         <div className='form_input'>
           <div className='label_part'>
             <label htmlFor="company">
-            Company
+              Company
             </label>
           </div>
           <div className='input_part'>
@@ -95,7 +103,7 @@ export default function RegisterForm() {
         <div className='form_input'>
           <div className='label_part'>
             <label htmlFor="url">
-            Web site
+              Web site
             </label>
           </div>
           <div className='input_part'>
@@ -109,7 +117,7 @@ export default function RegisterForm() {
         <div className='form_input'>
           <div className='label_part'>
             <label htmlFor="tax_number">
-            Tax number
+              Tax number
             </label>
           </div>
           <div className='input_part'>
