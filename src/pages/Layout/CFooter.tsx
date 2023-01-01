@@ -103,10 +103,14 @@ export default function CFooter({
       let currentAngle = 0;
 
       if (ctx) {
+        
         for (let item of items) {
           let portionAngle = (Number(item.angle) / totalAngle) * 2 * Math.PI;
           ctx.beginPath();
-          ctx.arc(wi / 2, wi / 2, wi / 2, currentAngle + (pieDetail.rotate-135)*2*Math.PI/360, currentAngle + portionAngle + (pieDetail.rotate-135)*2*Math.PI/360);
+          let initAng = (-90-items[0].angle/2);
+          let startAng = currentAngle+ (pieDetail.rotate+initAng)*Math.PI/180;
+          let endAng = startAng+ portionAngle;
+          ctx.arc(wi / 2, wi / 2, wi / 2, startAng, endAng);
           currentAngle += portionAngle;
           ctx.lineTo(wi / 2, wi / 2);
           ctx.fillStyle = item.color;
@@ -118,19 +122,13 @@ export default function CFooter({
           ctx.fillStyle = "black";
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
-          var mid = currentAngle + (pieDetail.rotate-135)*2*Math.PI/360 - portionAngle / 2;
+          var mid = (startAng+endAng)/2;
           ctx.fillText(item.compass, wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) - wi / 20);
           ctx.font = wi / 10 + "px Arial";
           ctx.fillStyle = "white";
           ctx.textAlign = "center";
           ctx.fillText(item.frequency.toString(), wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) + wi / 20);
         }
-        // ctx.font = wi / 10 + "px Arial";
-        // ctx.fillStyle = "white";
-        // ctx.textAlign = "center";
-        // ctx.textBaseline = "middle";
-        // ctx.fillText(pieDetail.towerName.toString(), wi / 2, wi / 2);
-
       }
     }
 
@@ -301,7 +299,7 @@ export default function CFooter({
             <div className='info_title'>
               <label htmlFor="radius">Radius</label>
             </div>
-            <span style={{ paddingLeft: 140 * pieDetail.radius / 100 - 60 + "px", marginBottom: "5px" }}>{pieDetail.radius + " km " + (pieDetail.radius / 1.61).toFixed(2) + " miles"}</span>
+            <span style={{ paddingLeft: 120 * pieDetail.radius / 100 - 60 + "px", marginBottom: "5px" }}>{pieDetail.radius + " km " + (pieDetail.radius / 1.61).toFixed(2) + " miles"}</span>
             <Slider
               min={0}
               max={100}

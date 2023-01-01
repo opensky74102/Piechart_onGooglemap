@@ -44,7 +44,7 @@
 
     border-radius: 50%;
     padding: 10px;
-    border: 3px solid white;
+    border: 1px solid white;
     // box-shadow: 0px 0px 0px 7px rgb(255,255,255,0.2);
     background: $main-btn-color;
     margin-top: 20px;
@@ -53,7 +53,7 @@
     .fa_icon {}
 
     &:hover {
-      color: $main-btn-color;
+      color: $main-color;
       opacity: 0.4;
       cursor: pointer;
     }

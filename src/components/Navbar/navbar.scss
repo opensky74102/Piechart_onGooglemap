@@ -79,11 +79,11 @@
           color: white;
 
           &:hover {
-            color: $main-btn-color;
+            color: $main-color;
             cursor: pointer;
 
             .fa_icon {
-              color: $main-btn-color;
+              color: $main-color;
             }
           }
         }
@@ -103,7 +103,7 @@
             list-style-type: none;
 
             &:hover {
-              color: $main-btn-color
+              color: $main-color
             }
           }
 
@@ -123,10 +123,10 @@
 
       &:hover {
         & svg {
-          color: $main-btn-hover-color;
+          color: $main-color;
         }
 
-        color:$main-btn-hover-color ;
+        color:$main-color ;
       }
     }
 
@@ -139,7 +139,7 @@
       color: #fff;
       font-size: 12px;
       text-decoration: none;
-      background: $main-btn-color;
+      background: $main-color;
 
       &:hover {
         box-shadow: 0px 0px 0px 7px rgb(255 255 255 / 10%);

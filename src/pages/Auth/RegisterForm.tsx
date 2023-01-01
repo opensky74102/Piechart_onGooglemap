@@ -10,8 +10,6 @@ import { closeForm } from '../../redux/auth/authSlice';
 import { useDispatch } from 'react-redux';
 
 
-
-
 export default function RegisterForm() {
 const dispatch = useDispatch();
   const validationSchema = yup.object().shape({
