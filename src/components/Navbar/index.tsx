@@ -8,11 +8,12 @@ import "./navbar.scss";
 import logo from "../../assets/images/logo.png";
 
 import { useSelector, useDispatch } from 'react-redux';
-import {openLoginForm, openSignUpForm} from "../../redux/auth/authSlice";
+import { openLoginForm, openSignUpForm } from "../../redux/auth/authSlice";
+import { addPieData } from "../../redux/pie/pieSlice";
 
 function Navbar() {
   const [listOpen, setListOpen] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
   return (
     <header className="header">
       <div className="header__content">
