@@ -126,7 +126,7 @@ const GoogleMapComponent = ({
 
   return (
     <div className="google-box">
-      <div className="google-box-map">
+      <div className="google-box-map" style={{height: window.innerHeight>=1000?"100vh":"1000px"}}>
         <Wrapper
           apiKey={"AIzaSyDZ8jmGzNoCQp5NooOYaSZH3yT31Jt4czg"}
           render={render}
