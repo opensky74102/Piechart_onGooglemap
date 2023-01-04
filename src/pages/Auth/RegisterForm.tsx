@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { closeForm } from '../../redux/auth/authSlice';
 import { useDispatch } from 'react-redux';
+import { registerRequest } from '../../apis/auth.apies';
 
 
 export default function RegisterForm() {
@@ -19,7 +20,7 @@ const dispatch = useDispatch();
       .required('Email is required')
       .email('Email is invalid'),
     passwd1: yup.string().required("Password is required"),
-    passwd2: yup.string().required('Password is mendatory').oneOf([yup.ref('password')], 'Passwords does not match'),
+    passwd2: yup.string().required('Password is mendatory').oneOf([yup.ref('passwd1')], 'Passwords does not match'),
   });
 
   const {
@@ -34,8 +35,18 @@ const dispatch = useDispatch();
     }
   );
 
-  const onSubmit = () => {
-
+  const onSubmit = (data:any) => {
+    const {firstname, lastname,company, url, tax_number, email, passwd1, passwd2} = data;
+    let params = {
+      firstname,
+      lastname,
+      company,
+      url,
+      tax_number,
+      email,
+      password:passwd1
+    }
+    registerRequest(params)
   }
 
   const onError = (errors: any, e: any) => {
@@ -173,6 +184,5 @@ const dispatch = useDispatch();
         </div>
       </div>
     </form>
-
   )
 }

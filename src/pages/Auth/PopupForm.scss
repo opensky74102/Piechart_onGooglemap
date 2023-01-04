@@ -1,7 +1,7 @@
 @import '../../assets/styles/variables';
 
 .popup_form {
-  position: fixed;
+  position: absolute;
   width: 350px;
   // height: auto;
   // min-height: 400px;
@@ -9,19 +9,20 @@
   left: 50%;
   translate: -50%;
   border-radius: 20px;
+  margin-bottom: 20px;
   border: 1px solid $main-color;
   padding: 20px;
   background: white;
   &_title {
     text-align: start;
-    color: $main-color;
+    color: $main-text-color;
   }
   & .close_part{
     position: absolute;
     top: 20px;
     right: 20px;
     font-size: 20px;
-    color: $main-color;
+    color: $main-text-color;
     padding: 10px;
   }
 
@@ -34,7 +35,7 @@
 
       .label_part {
         width: 40%;
-        color: $main-color;
+        color: $main-text-color;
         font-size: 16px;
         font-weight: 600;
         display: flex;
@@ -49,7 +50,7 @@
         position: relative;
 
         input {
-          color: $main-color;
+          color: $main-text-color;
           outline: none;
           padding: 8px;
           text-indent: 5px;

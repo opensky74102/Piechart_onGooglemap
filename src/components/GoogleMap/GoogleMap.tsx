@@ -7,6 +7,7 @@ import Panel from "./Panel";
 import { IPieDetail } from "../../type";
 import { KILOESPERPIXEL } from "../../consts/Page_Const";
 import PieActionModal from "../Modal";
+import { ToastInfo } from "../../helpers/toast.helper";
 
 const render = (status: Status) => {
   return <h1>{status}</h1>;
@@ -80,10 +81,21 @@ const GoogleMapComponent = ({
   const handleClickCancel = () => {
     setOpenModal(false);
   }
+  const gotoMyLocation = () => {
+    if (navigator.permissions) {
+      navigator.permissions.query({name:'geolocation'}).then(res=>{
+        if (res.state == "denied") {
+          ToastInfo('Enable location permissions for this website in your browser settings.')
+        }
+      })
+    }
+  }
+
   useEffect(() => {
     let temp = zoom <= 19 ? KILOESPERPIXEL[zoom] : (156.54303392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom))
     setKiloesPerPx(temp);
   }, [zoom])
+
   useEffect(() => {
     setCenter({
       ...center,
@@ -91,6 +103,7 @@ const GoogleMapComponent = ({
       lng: Number(changecCenter.lng),
     })
   }, [changecCenter])
+
   useEffect(() => {
     if (ref.current && !map) {
       setMap(new window.google.maps.Map(ref.current, {}));
@@ -162,7 +175,7 @@ const GoogleMapComponent = ({
                     ctx.fillStyle = "black";
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
-                    var mid = (startAng+endAng)/2;
+                    var mid = (startAng + endAng) / 2;
                     ctx.fillText(item.compass, wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) - wi / 20);
                     ctx.font = wi / 10 + "px Arial";
                     ctx.fillStyle = "white";
@@ -201,18 +214,23 @@ const GoogleMapComponent = ({
           </GoogleMap>
         </Wrapper>
       </div>
-      <Panel clear={onClear} zoomInOut={zoomInOut} openPopup={openPopup} setOpenPopup={setOpenPopup} />
-      {
-        openModal === true ? (
-          <PieActionModal
-            modalPos={modalPos}
-            handleClickRemove={handleClickRemove}
-            handleClickEdit={handleClickEdit}
-            handleClickCancel={handleClickCancel}
-            title={selectedPieTitle}
-          />
-        ) : null
-      }
+      <Panel
+        clear={onClear}
+        zoomInOut={zoomInOut}
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+        gotoMyLocation={gotoMyLocation}
+      />
+
+      {openModal === true ? (
+        <PieActionModal
+          modalPos={modalPos}
+          handleClickRemove={handleClickRemove}
+          handleClickEdit={handleClickEdit}
+          handleClickCancel={handleClickCancel}
+          title={selectedPieTitle}
+        />
+      ) : null}
     </div>
   )
 }

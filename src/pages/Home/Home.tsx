@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from "../../components/Navbar";
 import GoogleMapComponent from '../../components/GoogleMap/GoogleMap';
 import CFooter from "../Layout";

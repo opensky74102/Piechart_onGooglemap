@@ -55,12 +55,7 @@ export default function CFooter({
         }
         setCenter(parseFloat(temp[0]), parseFloat(temp[1]))
       } else {
-
-        if (isNaN(temp[0])) {
-          return;
-        }
-
-        setCenter(parseFloat(temp[0]), 74)
+        return;
       }
       return;
     } else if (name === "towername") {
@@ -103,13 +98,13 @@ export default function CFooter({
       let currentAngle = 0;
 
       if (ctx) {
-        
+
         for (let item of items) {
           let portionAngle = (Number(item.angle) / totalAngle) * 2 * Math.PI;
           ctx.beginPath();
-          let initAng = (-90-items[0].angle/2);
-          let startAng = currentAngle+ (pieDetail.rotate+initAng)*Math.PI/180;
-          let endAng = startAng+ portionAngle;
+          let initAng = (-90 - items[0].angle / 2);
+          let startAng = currentAngle + (pieDetail.rotate + initAng) * Math.PI / 180;
+          let endAng = startAng + portionAngle;
           ctx.arc(wi / 2, wi / 2, wi / 2, startAng, endAng);
           currentAngle += portionAngle;
           ctx.lineTo(wi / 2, wi / 2);
@@ -122,7 +117,7 @@ export default function CFooter({
           ctx.fillStyle = "black";
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
-          var mid = (startAng+endAng)/2;
+          var mid = (startAng + endAng) / 2;
           ctx.fillText(item.compass, wi / 2 + Math.cos(mid) * (wi / 4), wi / 2 + Math.sin(mid) * (wi / 4) - wi / 20);
           ctx.font = wi / 10 + "px Arial";
           ctx.fillStyle = "white";
@@ -139,6 +134,9 @@ export default function CFooter({
       towerName: towername
     })
   }, [towername])
+  useEffect(() => {
+    setCoordinate('' + center.lat + ',' + center.lng);
+  }, [center])
   const handleClickColor = (color: string, ind: number, indC: number) => {
     setItemInfo({ ...itemInfo, color: color, })
     setColorID([ind, indC]);

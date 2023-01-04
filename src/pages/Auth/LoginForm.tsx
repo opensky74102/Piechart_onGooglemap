@@ -9,6 +9,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { closeForm } from '../../redux/auth/authSlice';
 import { useDispatch } from 'react-redux';
+import { loginRequest } from '../../apis/auth.apies';
 
 
 
@@ -33,8 +34,8 @@ export default function LoginForm() {
     }
   );
 
-  const onSubmit = () => {
-
+  const onSubmit = (data: any) => {
+    loginRequest(data);
   }
 
   const onError = (errors: any, e: any) => {
@@ -50,7 +51,7 @@ export default function LoginForm() {
       <div className="popup_form_title">
         <h2>Login</h2>
       </div>
-      <div className='close_part' onClick={()=>dispatch(closeForm())}>
+      <div className='close_part' onClick={() => dispatch(closeForm())}>
         <FontAwesomeIcon icon={faTimes} className="fa_icon" size="sm" />
       </div>
       <div className="popup_form_content">

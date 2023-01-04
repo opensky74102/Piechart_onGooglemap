@@ -6,7 +6,7 @@
   background: #444444;
 
   .google-box-map {
-    height: 100vh;
+    height: 1000px;
   }
 }
 
@@ -48,10 +48,11 @@
     // box-shadow: 0px 0px 0px 7px rgb(255,255,255,0.2);
     background: $main-btn-color;
     margin-top: 20px;
-    text-align: center;
-
-    .fa_icon {}
-
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:hover {
       color: $main-color;
       opacity: 0.4;

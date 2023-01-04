@@ -79,11 +79,11 @@
           color: white;
 
           &:hover {
-            color: $main-color;
+            color: $main-text-color;
             cursor: pointer;
 
             .fa_icon {
-              color: $main-color;
+              color: $main-text-color;
             }
           }
         }

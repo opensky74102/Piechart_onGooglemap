@@ -6,6 +6,7 @@ export const authSlice = createSlice({
     isLoggedin: false,
     isOpenLogin: false,
     isOpenSignUp: false,
+    isAuthenticated: false,
   },
   reducers: {
     openLoginForm: (state) => {
@@ -16,7 +17,7 @@ export const authSlice = createSlice({
       state.isOpenLogin = false;
       state.isOpenSignUp = true;
     },
-    closeForm:(state)=>{
+    closeForm: (state) => {
       state.isOpenLogin = false;
       state.isOpenSignUp = false;
     }
@@ -24,7 +25,7 @@ export const authSlice = createSlice({
 })
 
 export const { openLoginForm, openSignUpForm, closeForm } = authSlice.actions;
-export const isLoggedin = (state:any)=>state.auth.isLoggedin;
-export const isOpenLogin = (state:any) => state.auth.isOpenLogin;
-export const isOpenSignUp = (state:any)=>state.auth.isOpenSignUp;
+export const isLoggedin = (state: any) => state.auth.isLoggedin;
+export const isOpenLogin = (state: any) => state.auth.isOpenLogin;
+export const isOpenSignUp = (state: any) => state.auth.isOpenSignUp;
 export default authSlice.reducer;
