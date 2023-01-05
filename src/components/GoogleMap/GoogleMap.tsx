@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { GoogleMap, Overlay, SvgMarker } from "googlemaps-react-primitives";
+import { useDispatch, useSelector } from "react-redux";
 
 import './googlemap.scss';
 import Panel from "./Panel";
@@ -8,6 +9,8 @@ import { IPieDetail } from "../../type";
 import { KILOESPERPIXEL } from "../../consts/Page_Const";
 import PieActionModal from "../Modal";
 import { ToastInfo } from "../../helpers/toast.helper";
+import { setPiesData, getPies, removePieData } from "../../redux/pie/pieSlice";
+
 
 const render = (status: Status) => {
   return <h1>{status}</h1>;
@@ -26,7 +29,8 @@ const GoogleMapComponent = ({
 }: any) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
-  const [pies, setPies] = useState<IPieDetail[]>([]);
+  const pies = useSelector(getPies)
+  // const [pies, setPies] = useState<IPieDetail[]>([]);
   const [zoom, setZoom] = useState(9); // initial zoom
   const [center, setCenter] = useState<google.maps.LatLngLiteral>({
     lat: 40.730610,
@@ -37,8 +41,10 @@ const GoogleMapComponent = ({
   const [modalPos, setModalPos] = useState({ w: 0, h: 0 });
   const [pieID, setPieID] = useState(0);
   const [selectedPieTitle, setSelectedPieTitle] = useState('');
+  const dispatch = useDispatch();
   const onClear = () => {
-    setPies([]);
+    // setPies([]);
+    dispatch(setPiesData([]));
   }
   const zoomInOut = (zoomInOut: number) => {
     let temp = Math.max(zoom + zoomInOut, 1);
@@ -56,9 +62,10 @@ const GoogleMapComponent = ({
   }
   const handleClickRemove = () => {
     setOpenModal(false);
-    let tempPies = pies;
+    let tempPies = [...pies];
     tempPies.splice(pieID, 1);
-    setPies(tempPies)
+    // setPies(tempPies)
+    dispatch(setPiesData(tempPies))
   }
   const handleClickEdit = () => {
     setOpenModal(false);
@@ -74,16 +81,17 @@ const GoogleMapComponent = ({
       items: temp.items
     })
     setEditFlag(true);
-    let tempPies = pies;
+    let tempPies = [...pies];
     tempPies.splice(pieID, 1);
-    setPies(tempPies)
+    // setPies(tempPies)
+    dispatch(setPiesData(tempPies));
   }
   const handleClickCancel = () => {
     setOpenModal(false);
   }
   const gotoMyLocation = () => {
     if (navigator.permissions) {
-      navigator.permissions.query({name:'geolocation'}).then(res=>{
+      navigator.permissions.query({ name: 'geolocation' }).then(res => {
         if (res.state == "denied") {
           ToastInfo('Enable location permissions for this website in your browser settings.')
         }
@@ -117,16 +125,21 @@ const GoogleMapComponent = ({
   }, [ref, map]);
   useEffect(() => {
     if (createFlag === true) {
-      let temp = structuredClone(pies);
+      let temp = [...pies];
       temp.push(pieDetail);
-      setPies(temp)
+      // setPies(temp)
+      dispatch(setPiesData(temp))
       setCreateFlag(false);
     }
   }, [createFlag])
 
+  useEffect(() => {
+    dispatch(setPiesData(pies))
+  }, [pies])
+
   return (
     <div className="google-box">
-      <div className="google-box-map" style={{height: window.innerHeight>=1000?"100vh":"1000px"}}>
+      <div className="google-box-map" style={{ height: window.innerHeight >= 1000 ? "100vh" : "1000px" }}>
         <Wrapper
           apiKey={"AIzaSyDZ8jmGzNoCQp5NooOYaSZH3yT31Jt4czg"}
           render={render}
@@ -142,7 +155,7 @@ const GoogleMapComponent = ({
             scrollwheel={false}
           >
             {
-              pies.map((pieDetail, i) => {
+              pies.map((pieDetail:any, i:number) => {
                 let canvas = document.createElement("canvas");
                 const wi = 2 * (pieDetail.radius) / kiloesPerPx;
                 canvas.width = wi;

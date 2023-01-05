@@ -198,7 +198,7 @@ export default function CFooter({
     })
   }
   const handleClickItem = (ind: number) => {
-    let temp = pieDetail.items;
+    let temp = [...pieDetail.items];
     temp.splice(ind, 1);
     setPieDetail({
       ...pieDetail,

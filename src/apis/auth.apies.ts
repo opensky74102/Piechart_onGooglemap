@@ -13,6 +13,7 @@ export const loginRequest = async (data: any) => {
       ToastSuccess("You have successfully logged in");
       setLocalStorage('token', data.token);
       setLocalStorage("user", data);
+      setLocalStorage("user_id", data.id);
       history.push('/');
       store.dispatch(closeForm())
     }

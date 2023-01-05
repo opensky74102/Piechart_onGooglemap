@@ -1,0 +1,40 @@
+@import '../../assets/styles/variables';
+
+.side_popup{
+  position: absolute;
+  width: 200px;
+  top: 150px;
+  border: 1px solid $main-color;
+  border-radius: 12px;
+  background-color: white;
+  transition: all 0.5s ease-in-out;
+  &.hide {
+    left: -170px;
+  }
+  
+  &.display {
+    left: 10px;
+  }
+  &_title{
+    display: flex;
+    justify-content: center;
+    height: 80px;
+  }
+  &_content{
+    padding: 20px;
+    height: 400px;
+    overflow: scroll;
+    .list{
+      .item{
+        display: block;
+        padding: 6px;
+        border-bottom: 1px solid $main-color;
+        cursor: pointer;
+      }
+    }
+  }
+  &_footer{
+    height: 80px;
+  }
+}
+

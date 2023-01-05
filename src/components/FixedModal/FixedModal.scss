@@ -1,0 +1,72 @@
+@import '../../assets/styles/variables';
+
+
+.fixed-modal {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+
+  .modal-title {}
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid $main-color;
+    border-radius: 10px;
+    width: 400px;
+    background: white;
+    overflow: auto;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    translate: -50%;
+
+    .content-title {
+      width: 100%;
+      height: 35px;
+      color: black;
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .content {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .content-input {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      input{
+        outline: none;
+        width: 300px;
+        height: 32px;
+        text-indent: 20px;
+        border: 1px solid $main-color;
+        font-size: 16px;
+      }
+    }
+
+    button {
+      padding: 8px 20px;
+      color: #fff;
+      font-weight: 700;
+      // margin: auto;
+      font-size: 14px;
+      text-decoration: none;
+      background: $main-btn-color;
+      outline: none;
+      border: 1px solid white;
+      border-radius: 4px;
+    }
+  }
+}
