@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./FixedModal.scss";
 import { useDispatch, useSelector } from "react-redux";
-import {setLoading, closeFixedModal, setProjectName, getProjectName, getPieDetail } from "../../redux/pie/pieSlice";
+import { setLoading, closeFixedModal, setProjectName, getProjectName, getPieDetail } from "../../redux/pie/pieSlice";
 import { pieSaveRequest } from "../../apis/pie.apies";
 
 export default function FixedModal() {
@@ -9,7 +9,6 @@ export default function FixedModal() {
   const pieDetail = useSelector(getPieDetail);
   const [projectName, setProject] = useState('');
   const handleSureClick = () => {
-    console.log(projectName)
     if (projectName === undefined || projectName === '') {
       return;
     }

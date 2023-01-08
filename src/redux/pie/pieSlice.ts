@@ -6,14 +6,8 @@ export const pieSlice = createSlice({
   name: "pie",
   initialState: {
     project_name: '',
-    pieDetail: [] ,
-    projectList:[
-      {
-        id:5,
-        project_name:'Hello',
-        active:true,
-      }
-    ],
+    pieDetail: [],
+    projectList: [],
     isLoading: false,
     isOpenFixedModal: false,
   },
@@ -56,8 +50,7 @@ export const pieSlice = createSlice({
       state.isLoading = false;
       state.isOpenFixedModal = false;
     },
-    setProjectList:(state:any, action:PayloadAction<any[]>)=>{
-      console.log(action)
+    setProjectList: (state: any, action: PayloadAction<any[]>) => {
       state.projectList = action.payload;
     }
 
@@ -66,8 +59,8 @@ export const pieSlice = createSlice({
 export const isOpenFixedModal = (state: any) => state.pie.isOpenFixedModal;
 export const isLoading = (state: any) => state.pie.isLoading;
 export const getProjectName = (state: any) => state.pie.project_name;
-export const getProjectList = (state:any) => state.pie.projectList;
-export const getPies = (state:any) => state.pie.pieDetail;
+export const getProjectList = (state: any) => state.pie.projectList;
+export const getPies = (state: any) => state.pie.pieDetail;
 export const getPieDetail = (state: any) => {
   let user_id = getLocalStorage('user_id');
   return {

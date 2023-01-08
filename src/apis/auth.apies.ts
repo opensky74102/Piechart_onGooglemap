@@ -17,13 +17,23 @@ export const loginRequest = async (data: any) => {
       history.push('/');
       store.dispatch(closeForm())
     }
-  }).catch(e => {
-    let { status, message } = e.response.data;
-    if (status == "error") {
-      ToastError(message)
+  }).catch(err => {
+    if (err.response === undefined) {
+      ToastError('Unknown error');
+      return;
     }
+    let { status, data } = err.response;
+    if (err.response === undefined) {
+      ToastError('Unknown error');
+      return;
+    }
+    if (status === 500) {
+      ToastError("Server Interval Error")
+      return;
+    }
+    ToastError(data.message)
   })
-}
+} 
 export const registerRequest = async (data: any) => {
   axios.post(`${API_URL}/auth/register`, data).then(res => {
     let { status, data } = res.data;
@@ -31,15 +41,25 @@ export const registerRequest = async (data: any) => {
       ToastSuccess("You have been registered successfully")
       setLocalStorage('token', data.token);
       setLocalStorage("user", data);
+      setLocalStorage("user_id", data.id);
       store.dispatch(closeForm())
       history.push('/');
     }
-  }).catch(e => {
-    let { status, message } = e.response.data;
-    if (status == "error") {
-      ToastError(message)
-      // ToastError('Register failed')
+  }).catch(err => {
+    if (err.response === undefined) {
+      ToastError('Unknown error');
+      return;
     }
+    let { status, data } = err.response;
+    if (err.response === undefined) {
+      ToastError('Unknown error');
+      return;
+    }
+    if (status === 500) {
+      ToastError("Server Interval Error")
+      return;
+    }
+    ToastError(data.message)
   })
 }
 export const logoutRequest = ()=>{
