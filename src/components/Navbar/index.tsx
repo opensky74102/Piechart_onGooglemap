@@ -9,7 +9,7 @@ import logo from "../../assets/images/logo.png";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { openLoginForm, openSignUpForm } from "../../redux/auth/authSlice";
-import { addPieData, openFixedModal,closeFixedModal } from "../../redux/pie/pieSlice";
+import { addPieData, openFixedModal,closeFixedModal, setPiesData, setIsOpenSidePopup } from "../../redux/pie/pieSlice";
 import { isAuthenticated } from "../../utils/jwtUtil";
 import { logoutRequest } from "../../apis/auth.apies";
 
@@ -37,14 +37,20 @@ function Navbar() {
                     </div>
                     {
                       listOpen === true ? (<ul className="dd-list">
-                        <li className="dd-list-item">New Project</li>
-                        <li className="dd-list-item">Open</li>
+                        <li className="dd-list-item" onClick={()=>{
+                          setListOpen(false);
+                          dispatch(setPiesData([]));                          
+                        }}>New Project</li>
+                        <li className="dd-list-item" onClick={()=>{
+                          setListOpen(false);
+                          dispatch(setIsOpenSidePopup(true));
+                        }}>Open</li>
                         <li className="dd-list-item" onClick={()=>{
                           setListOpen(false);
                           dispatch(openFixedModal());
                         }}>Save</li>
-                        <li className="dd-list-item">Rename Project</li>
-                        <li className="dd-list-item">Save As</li>
+                        {/* <li className="dd-list-item">Rename Project</li> */}
+                        {/* <li className="dd-list-item">Save As</li> */}
                       </ul>) : null
                     }
                   </div>

@@ -10,6 +10,7 @@ export const pieSlice = createSlice({
     projectList: [],
     isLoading: false,
     isOpenFixedModal: false,
+    isOpenSidePopup: false,
   },
   reducers: {
     addPieData: (state: any, pieData: any) => {
@@ -52,8 +53,10 @@ export const pieSlice = createSlice({
     },
     setProjectList: (state: any, action: PayloadAction<any[]>) => {
       state.projectList = action.payload;
+    },
+    setIsOpenSidePopup: (state: any, action: PayloadAction<boolean>) => {
+      state.isOpenSidePopup = action.payload;
     }
-
   }
 })
 export const isOpenFixedModal = (state: any) => state.pie.isOpenFixedModal;
@@ -61,6 +64,7 @@ export const isLoading = (state: any) => state.pie.isLoading;
 export const getProjectName = (state: any) => state.pie.project_name;
 export const getProjectList = (state: any) => state.pie.projectList;
 export const getPies = (state: any) => state.pie.pieDetail;
+export const isOpenSidePopup = (state:any) => state.pie.isOpenSidePopup;
 export const getPieDetail = (state: any) => {
   let user_id = getLocalStorage('user_id');
   return {
@@ -81,6 +85,7 @@ export const {
   closeFixedModal,
   clearState,
   setProjectList,
+  setIsOpenSidePopup
 } = pieSlice.actions;
 
 export default pieSlice.reducer;

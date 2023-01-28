@@ -44,7 +44,7 @@ const dispatch = useDispatch();
       url,
       tax_number,
       email,
-      password:passwd1
+      password:passwd1,
     }
     registerRequest(params)
   }
